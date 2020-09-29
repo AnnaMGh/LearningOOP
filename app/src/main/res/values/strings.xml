@@ -1,0 +1,1774 @@
+<resources>
+    <string name="app_name">Learning java</string>
+    <string name="facebook_app_id">251889832229968</string>
+    <string name="fb_login_protocol_scheme">fb251889832229968</string>
+
+    <string name="welcome">Login</string>
+    <string name="sing_up"><Data><![CDATA[ Don\'t have an account? Sign up <u>here</u>! ]]></Data></string>
+    <string name="test">Test</string>
+    <string name="learn">Learn</string>
+    <string name="profile">Profile</string>
+    <string name="hello_user">Hello user</string>
+    <string name="learn_progress">Learn progress: </string>
+    <string name="test_progress">Test progress: </string>
+    <string name="test_1">Test 1</string>
+    <string name="test_2">Test 2</string>
+    <string name="test_3">Test 3</string>
+    <string name="test_4">Test 4</string>
+    <string name="test_5">Test 5</string>
+    <string name="test_random">Random test</string>
+    <string name="save_changes">Save changes</string>
+    <string name="logout">Logout</string>
+    <string name="delete_account">Delete account</string>
+    <string name="deleteall_accounts">Delete accounts</string>
+
+    <string name="baselvl_text"><u>BASE LEVEL</u></string>
+    <string name="lvl1_text"><u>LEVEL 1</u></string>
+    <string name="lvl2_txt"><u>LEVEL 2</u></string>
+    <string name="lvl3_txt"><u>LEVEL 3</u></string>
+    <string name="lvl4_txt"><u>LEVEL 4</u></string>
+
+    <string name="next_lvl1">Go to level 1!</string>
+    <string name="next_lvl2">Go to level 2!</string>
+    <string name="next_lvl3">Go to level 3!</string>
+    <string name="next_lvl4">Go to level 4!</string>
+    <string name="next_menu">Go to learn menu.</string>
+
+    <string name="learn11">Introduction to Java</string>
+    <string name="learn12">Java compilers</string>
+    <string name="learn13">First program</string>
+    <string name="learn14">Comments</string>
+    <string name="learn15">Variables</string>
+    <string name="learn16">Basic operators</string>
+    <string name="learn21">User input</string>
+    <string name="learn22">If statement</string>
+    <string name="learn23">Else statement</string>
+    <string name="learn24">Else if statement</string>
+    <string name="learn25">Other operators</string>
+    <string name="learn26">Switch statement</string>
+    <string name="learn31">While loop</string>
+    <string name="learn32">Do while loop</string>
+    <string name="learn33">Arrays</string>
+    <string name="learn34">For loop</string>
+    <string name="learn35">For and arrays</string>
+    <string name="learn36">For each loop</string>
+    <string name="learn41">OOP</string>
+    <string name="learn42">Attributes</string>
+    <string name="learn43">Methods</string>
+    <string name="learn44">Constructor</string>
+    <string name="learn45">Objects</string>
+    <string name="learn46">More on Objects</string>
+    <string name="learn51">Static</string>
+    <string name="learn52">Access modifiers and Encapsulation</string>
+    <string name="learn53">Final and Inheritance</string>
+    <string name="learn54">Polymorphism</string>
+    <string name="learn55">Abstract class</string>
+    <string name="learn56">Interface</string>
+
+    <!--<string name="learn034"><Data><![CDATA[ ]]></Data></string>-->
+
+    <!--Introduction-->
+    <string name="learn011"><Data><![CDATA[
+        <h2>Introduction</h2>
+        <b> &emsp Java</b> is a high-level object oriented programing language, created by a team led by James Gosling for Sun Microsystems in the early 90\' but now is owned by Oracle.
+        <br/><br/> &emsp <b>High-level</b> means that it use natural language elements which are easier to be understood by humans.
+        <br/><br/> &emsp <b>Object oriented</b> means that is based on the concept of \"objects\".
+        ]]></Data></string>
+    <string name="learn014"><![CDATA[ What is <b>Java</b>? ]]></string>
+    <string name="learn0140">a high-level programing language</string>
+    <string name="learn0141">a high-level programing language</string>
+    <string name="learn0142">a low-level programing language</string>
+    <string name="learn0143">a markup language</string>
+
+    <!--Compilers-->
+    <string name="learn021"><Data><![CDATA[
+        <h2>Compilers</h2>
+        &emsp In order to run a Java program you need to download the <b>JDK</b> (Java Development Kit) from <u>\'www.oracle.com\'</u> and a <b>compiler</b>.
+         <br/><br/>
+        &emsp After downloading and installing the JDK, go in the installation folder and copy the path, it should look something like \'C:\\Program Files\\Java\\jdk-9.0.4\\bin\'.
+         <br/><br/>
+        &emsp Then add the path to the \'System variables\' in \'Environment variables\' from the \'Advanced\' section of \'System Properties\'.
+       ]]></Data></string>
+    <string name="learn022"><![CDATA[
+        &emsp If the path of the JDK is set, the next step is to download and install a compiler.
+        <br/><br/>
+        &emsp A Java compiler is a program that takes the text file work of a developer and compiles it into a platform-independent Java file.
+         <br/><br/>
+        &emsp Java compilers include the Java Programming Language Compiler (javac), the GNU Compiler for Java (GCJ), the Eclipse Compiler for Java (ECJ) and Jikes.
+         ]]></string>
+    <string name="learn024"><![CDATA[  What do <b>JDK</b> stands for?  ]]></string>
+    <string name="learn0240">Java Development Kit</string>
+    <string name="learn0241">Java Developer Kit</string>
+    <string name="learn0242">Java Development Key</string>
+    <string name="learn0243">Java Development Kit</string>
+
+    <!--First program-->
+    <string name="learn031"><Data><![CDATA[
+     <h2>First program</h2>
+     &emsp After installing the <b>JDK</b> and a <b>compiler</b> we are ready to write the first program.
+    <br/><br/> &emsp First we need to open the compiler and create a new project and a new class or just open the Notepad/Notepad++ and write the code below. The name file must be saved with the class method and with the extension java like \'FirstClass.java\'.
+    ]]></Data></string>
+    <string name="learn032"><Data><![CDATA[ &emsp Every java program must have:
+     <br/> 1. a <b><u>class</u></b>:
+     <br/>      &emsp -is the first thing you will write when you create a java program
+     <br/>       &emsp -the name of that class is usually capitalized
+     <br/> 2. a <b><u>main</u></b> method:
+     <br/>      &emsp -a method is like a list of things that the compiler need to do
+     <br/>      &emsp -whenever a java program is running, the computer look for the main method
+    ]]></Data></string>
+    <string name="learn033"><Data><![CDATA[ &emsp After you wrote the code, run the program in your compiler.
+    <br/><br/> &emsp If you wrote it in Notepad, open the \'Command Prompt\' in the folder you saved the file and write the command \'javac FirstClass.java\'.
+    <br/><br/> &emsp This will compile your program and create a file named FirstClass.class.
+    <br/><br/> &emsp In order to run it we need to add another line with the command \'java FirstClass\'.
+    <br/><br/> &emsp This should be the result:
+     ]]></Data></string>
+    <string name="learn034">Which is the command you need to compile a java file?</string>
+    <string name="learn0340">javac</string>
+    <string name="learn0341">javac</string>
+    <string name="learn0342">javacomp</string>
+    <string name="learn0343">java</string>
+
+    <!--Comments-->
+    <string name="learn041"><Data><![CDATA[
+    <h2>Comments</h2>
+    &emsp Comments are lines of code that are not being compiled.
+    <br/> &emsp They are included in the code by the programmers to explain what the code is doing.
+    <br/><br/>Java has 3 types of comments:
+    <br/>1. single-line
+    <br/>2. multi-line
+    <br/>3. documentation comments
+    ]]></Data></string>
+    <string name="learn044">What comment is this: \'//\'?</string>
+    <string name="learn0440">single-line comment</string>
+    <string name="learn0441">documentation comment</string>
+    <string name="learn0442">multi-line comment</string>
+    <string name="learn0443">single-line comment</string>
+    <string name="codelearn041"><Data><![CDATA[
+        <font color=#00aa00>
+        // single_line comments:
+        <br> // are use for commenting a single line
+
+        <br/><br/>/* multi_line comments:
+        <br> are use for commenting multiple lines*/
+        </font>
+
+        <font color=#0000dd>
+        <br/><br/> /** documentation comment:
+        <br/> are looking similar to multi-line comments,
+        <br/> but they generate external documentation
+        <br/> of the source code
+        </font>
+
+     ]]></Data></string>
+
+    <!--Variables-->
+    <string name="learn051"><Data><![CDATA[
+    <h2>Variables</h2>
+    A variable is a container that holds values.
+    <br/><br/>A java variable has:
+    <br/> &emsp 1. a data type
+    <br/> &emsp 2. a name
+    <br/> &emsp 3. a value
+    <br/> <br/> <b> &emsp Syntax: </b>
+    <br/> dataType variableName = value;
+]]></Data></string>
+    <string name="learn052"><Data><![CDATA[
+    <h4><u>Data type:</u></h4>
+    &emsp -if it is a whole number such -110 or 80 it will be an <b>int</b> (integer)
+    <br/> &emsp -if it is a floating-point or real number such as -5.67 or 32.5623 it will be a <b>float</b> or a <b>double</b>
+    <br/> &emsp -if it is a text such as \"Hello World\" it will be a String
+    <br/> &emsp -and if it is a variable that signifies true or false than it will be a <b>boolean</b>
+    <h4><u>Name:</u></h4>
+    &emsp -the name should start with a letter and may contain a number or an underline
+    <h4><u>Value:</u></h4>
+    &emsp -the value must match the data type
+    ]]></Data></string>
+    <string name="learn054">What is a variable made of?</string>
+    <string name="learn0540">data type, name and value</string>
+    <string name="learn0541">data type, name and number</string>
+    <string name="learn0542">data type, name and value</string>
+    <string name="learn0543">name, number, value </string>
+    <string name="codelearn052"><Data><![CDATA[
+        <font color=#990099>int</font> integerVariable <font color=#000099>=</font> <font color=#ff8000>10</font> <font color=#000099>;</font>
+        <br/> <font color=#990099>float</font> floatVariable <font color=#000099>=</font> <font color=#ff8000>10f</font> <font color=#000099>;</font>
+        <br/> <font color=#990099>double</font> doubleVariable <font color=#000099>=</font> <font color=#ff8000>10.0</font> <font color=#000099>;</font>
+        <br/> <font color=#990099>char</font> charVariable <font color=#000099>=</font> <font color=#ff8000>\'1\'</font> <font color=#000099>;</font>
+        <br/> <font color=#990099>String</font> stringVariable <font color=#000099>=</font> <font color=#ff8000>\"10\"</font> <font color=#000099>;</font>
+        <br/> <font color=#990099>boolean</font> booleanVariable <font color=#000099>=</font> <font color=#ff8000>true</font> <font color=#000099>;</font>
+    ]]></Data>
+    </string>
+
+    <!--Basic operators-->
+    <string name="learn061"><Data><![CDATA[
+    <h2>Operators</h2>
+    &emsp Java provides a rich set of operators to manipulate variables.
+    <br/><br/> &emsp The most used operators are:
+    <br/> -arithmetic operators
+    <br/> -relational operators
+    <br/> -logical operators
+    <br/> -assignment operators
+    <br/> -bitwise operators
+    <br/> -misc operators
+    <br/> &emsp For now we will only talk about arithmetic and assignment operators.
+]]></Data></string>
+    <string name="learn062"><Data><![CDATA[
+    &emsp <h4><u>Arithmetic  operators:</u></h4>
+    <br/> &emsp - <b>arithmetic operators</b> are used in mathematical expressions in the same way that they are used in algebra.
+    <br/><br/> &emsp Example: +(Addition), -(Subtraction), *(Multiplication), /(Division), %(Modulus), ++(Increment), --(Decrement)
+]]></Data></string>
+    <string name="learn063"><Data><![CDATA[
+    <h4><u>Assignment operators:</u></h4>
+    <br/> &emsp - <b>assignment operators</b> are similar with arithmetic operators but besides the calculations (where is the case) the result is already assigned to the variable.
+    <br/> <br/> &emsp Example: =(Assignment), +(Addition and assignment), -(Subtraction and assignment), *(Multiplication and assignment), /(Division and assignment), %(Modulus and assignment)
+    <br/> &emsp We will talk about the others operators in the next lessons.
+]]></Data></string>
+    <string name="learn064">When should be used an assignment operator?</string>
+    <string name="learn0640">when we calculate and assign</string>
+    <string name="learn0641">when we calculate and assign</string>
+    <string name="learn0642">when we just calculate</string>
+    <string name="learn0643">when we just assign</string>
+    <string name="codelearn062"><Data><![CDATA[
+        <font color=#00aa00>// Arithmetic operators:</font>
+        <br/><br/> <font color=#990099>int</font> result<font color=#000099>,</font> a<font color=#000099>=</font><font color=#ff8000>10</font><font color=#000099>,</font> b<font color=#000099>=</font><font color=#ff8000>2</font><font color=#000099>;</font>
+        <br/><br/> result<font color=#000099>=</font>a<font color=#000099>+</font>b<font color=#000099>;</font>  <font color=#00aa00>// = 12 (addition)</font>
+        <br/> result<font color=#000099>=</font>a<font color=#000099>-</font>b<font color=#000099>;</font>  <font color=#00aa00>// = 8 (subtraction)</font>
+        <br/> result<font color=#000099>=</font>a<font color=#000099>*</font>b<font color=#000099>;</font>  <font color=#00aa00>// = 20 (multiplication)</font>
+        <br/> result<font color=#000099>=</font>a<font color=#000099>/</font>b<font color=#000099>;</font>  <font color=#00aa00>// = 5 (division)</font>
+        <br/> result<font color=#000099>=</font>a<font color=#000099>%</font>b<font color=#000099>;</font>  <font color=#00aa00>// = 0 (modulus)</font>
+        <br/><br/> result<font color=#000099>=++</font>a<font color=#000099>;</font>  <font color=#00aa00>// = 11 (increment prefix)</font>
+        <br/> <font color=#00aa00> &emsp &emsp &emsp &emsp &emsp &emsp //  prefix => ++a = a+1 = 10+1 = 11</font>
+        <br/> <font color=#00aa00> &emsp &emsp &emsp &emsp &emsp &emsp //  => result = ++a = 11</font>
+        <br/> a<font color=#000099>=</font><font color=#ff8000>10</font><font color=#000099>;</font>
+        <br/> result<font color=#000099>=</font>a<font color=#000099>++;</font>  <font color=#00aa00>// = 10 (increment subfix)</font>
+        <br/> <font color=#00aa00> &emsp &emsp &emsp &emsp &emsp &emsp //  subfix => result = a++ = 10 </font>
+        <br/> <font color=#00aa00> &emsp &emsp &emsp &emsp &emsp &emsp //  (+1 after the assignment of result)</font>
+        <br/> <font color=#00aa00> &emsp &emsp &emsp &emsp &emsp &emsp //  => (and than) a++ = a+1 => 11</font>
+        <br/> a<font color=#000099>=</font><font color=#ff8000>10</font>
+        <br/> result<font color=#000099>=--</font>a<font color=#000099>;</font>  <font color=#00aa00>// = 9 (decrement prefix)</font>
+        <br/> <font color=#00aa00> &emsp &emsp &emsp &emsp &emsp &emsp //  prefix => --a = a-1 = 10-1 = 9</font>
+        <br/> <font color=#00aa00> &emsp &emsp &emsp &emsp &emsp &emsp //  => result = --a = 9</font>
+        <br/> a<font color=#000099>=</font><font color=#ff8000>10</font>
+        <br/> result<font color=#000099>=</font>a<font color=#000099>--;</font>  <font color=#00aa00>// = 10 (decrement subfix)</font>
+        <br/> <font color=#00aa00> &emsp &emsp &emsp &emsp &emsp &emsp //  subfix => result = a-- = 10 </font>
+        <br/> <font color=#00aa00> &emsp &emsp &emsp &emsp &emsp &emsp //  (-1 after the assignment of result)</font>
+        <br/> <font color=#00aa00> &emsp &emsp &emsp &emsp &emsp &emsp //  => (and than) a-- = a-1 => 11</font>
+        ]]></Data></string>
+    <string name="codelearn063"><Data><![CDATA[
+        <font color=#00aa00>// Assignment operators:</font>
+        <br/><br/> <font color=#990099>int</font> result<font color=#000099>=</font><font color=#ff8000>10</font>,</font> a<font color=#000099>=</font><font color=#ff8000>10</font><font color=#000099>;</font>
+        <br/><br/> result<font color=#000099>+=</font>a<font color=#000099>;</font>  <font color=#00aa00>// addition and assignment</font>
+        <br/> <font color=#00aa00>&emsp &emsp &emsp &emsp &emsp &emsp // => result =  result+10 = 10+10 = 20; </font>
+        <br/> result<font color=#000099>=</font><font color=#ff8000>10</font><font color=#000099>;</font>
+        <br/> result<font color=#000099>-=</font>a<font color=#000099>;</font>  <font color=#00aa00>// subtraction and assignment</font>
+        <br/> <font color=#00aa00>&emsp &emsp &emsp &emsp &emsp &emsp // => result =  result-10 = 10-10 = 0; </font>
+        <br/> result<font color=#000099>=</font><font color=#ff8000>10</font><font color=#000099>;</font>
+        <br/> result<font color=#000099>*=</font>a<font color=#000099>;</font>  <font color=#00aa00>// multiplication and assignment</font>
+        <br/> <font color=#00aa00>&emsp &emsp &emsp &emsp &emsp &emsp // => result =  result*10 = 10*10 = 100; </font>
+        <br/> result<font color=#000099>=</font><font color=#ff8000>10</font><font color=#000099>;</font>
+        <br/> result<font color=#000099>/=</font>a<font color=#000099>;</font>  <font color=#00aa00>// division and assignment</font>
+        <br/> <font color=#00aa00>&emsp &emsp &emsp &emsp &emsp &emsp // => result =  result/10 = 10/10 = 1; </font>
+        <br/> result<font color=#000099>=</font><font color=#ff8000>10</font><font color=#000099>;</font>
+        <br/> result<font color=#000099>%=</font>a<font color=#000099>;</font>  <font color=#00aa00>// modulus and assignment</font>
+        <br/> <font color=#00aa00>&emsp &emsp &emsp &emsp &emsp &emsp // => result =  result%10 = 10%10 = 0; </font>
+        ]]></Data></string>
+
+    <!--User input-->
+    <string name="learn111"><Data><![CDATA[
+    <h2>User input</h2>
+    &emsp In order to get the user input you need to import the <b>Scanner</b> class and use the <b>Scanner</> object.
+    <br/> &emsp For that you have to create an instance of the class.
+]]></Data></string>
+    <string name="learn114">What method do we use to display a text?</string>
+    <string name="learn1140">System.out.println();</string>
+    <string name="learn1141">System.out.display();</string>
+    <string name="learn1142">System.out.show();</string>
+    <string name="learn1143">System.out.println();</string>
+    <string name="codelearn111"><Data><![CDATA[
+        <font color=#000099>import</font> java<font color=#000099>.</font>util<font color=#000099>.</font>Scanner<font color=#000099>;</font>
+        <br/><font color=#00aa00>// import the Scanner class </font>
+        <br/><br/><font color=#990099>class</font> Program
+        <br/> <font color=#000099>{</font>
+        <br/> &emsp &emsp <font color=#990099>public static void</font> main<font color=#000099>(</font>String<font color=#000099>[]</font> args<font color=#000099>)</font>
+        <br/> &emsp &emsp <font color=#000099>{</font>
+        <br/> &emsp &emsp &emsp &emsp Scanner input <font color=#000099>= new</font> Scanner<font color=#000099>(</font>System<font color=#000099>.</font>in<font color=#000099>);</font>
+        <br/> &emsp &emsp &emsp &emsp <font color=#00aa00>// create the instance of the class </font>
+        <br/> &emsp &emsp &emsp &emsp System.out.println<font color=#000099>(</font>input<font color=#000099>.</font>nextLine<font color=#000099>());</font>
+        <br/> &emsp &emsp &emsp &emsp <font color=#00aa00>// display the input user </font>
+        <br/> &emsp &emsp <font color=#000099>}</font>
+        <br/> <font color=#000099>{</font>
+    ]]></Data></string>
+
+    <!--If statement-->
+    <string name="learn121"><Data><![CDATA[
+    <h2>If statement</h2>
+    &emsp The <b>if</b> statements are used for <b>conditional</b> statements.
+    <br/> &emsp A <b>conditional</b> statement is used to perform different action based on different conditions.
+    <br/> &emsp <b>If</b> statements are used when you have a condition and if that condition is accomplished the instruction is executed.
+    <br/> &emsp There can be as many <b>if</b> conditions as you need.
+    <br/><br/> <b> &emsp Syntax: </b>
+    <br/> if(condition){
+    <br/> &emsp &emsp//then instruction
+    <br/>}
+]]></Data></string>
+    <string name="learn122"><Data><![CDATA[
+    <b> &emsp Example: </b> If a is grater than 10, then write \'a\' is grater then 10\'.
+    <br/> -\'if\' is the keyword
+    <br/> -\'a is grater than 10\' is the condition
+    <br/> -\'then write \"a is grater than 10\" \' is the instruction
+    <br/><br/> &emsp There are two possibilities:
+    <br/> 1. a will be grater than 10
+    <br/> 2. a will be less than 10
+]]></Data></string>
+    <string name="learn124">What will happen if the \'if\' condition is true?</string>
+    <string name="learn1240">the instruction will be executed</string>
+    <string name="learn1241">the instruction will be executed</string>
+    <string name="learn1242">the program will not enter the if statement</string>
+    <string name="learn1243">the instruction will be partially executed</string>
+    <string name="codelearn122"><Data><![CDATA[
+        <br/><font color=#000099>if(</font>a<font color=#000099>></font><font color=#ff8000>10</font><font color=#000099>){</font> <font color=#00aa00>// condition </font>
+        <br/><font color=#00aa00> &emsp &emsp // instructions </font>
+        <br/> &emsp &emsp System<font color=#000099>.</font>out<font color=#000099>.</font>println<font color=#000099>(</font> <font color=#ff8000>\"a is grater than 10\"</font><font color=#000099>);</font>
+        <br/><font color=#000099>}</font>
+        <br/><br/><font color=#00aa00>// &emsp Possibility 1 (int a=11):
+        <br/> // a=11 => a greater than  10 => condition is true
+        <br/> // => the program will enter into the if statement
+        <br/> // => the instruction will be executed
+        <br/> // => the output will be "a is grater than 10"
+        <br/><br/>// &emsp Possibility 2 (int a=9):
+        <br/> // a=9 => a not greater than 10 => condition is false
+        <br/> // => the program will not enter into the if statement
+        <br/> // => the instruction will not be executed </font>
+    ]]></Data></string>
+
+    <!--Else statement-->
+    <string name="learn131"><Data><![CDATA[
+    <h2>Else statement</h2>
+    &emsp <b>Else</b> statements are used when you have a condition and if that condition is not accomplished the <b>else</b> instruction is executed.
+    <br/> &emsp There can be just one else statement attached to the same if statement.
+    <br/><br/> <b> &emsp Syntax: </b>
+    <br/> if(condition){
+    <br/> &emsp &emsp//if instruction
+    <br/>}
+    <br/> else{
+    <br/> &emsp &emsp//else instructions
+    <br/>}
+]]></Data></string>
+    <string name="learn132"><Data><![CDATA[
+    <b> &emsp Example: </b> If a is greater than 10, write \'a is greater then 10\', else write \'a is less then 10\'.
+    <br/> -\'if\' and \'else\' are the keywords
+    <br/> -\'a is greater than 10\' is the condition
+    <br/> -\'then write \"a is greater  than 10\" \' is the instruction from if
+    <br/> -\'write \"a is not greater then 10\"\' is the instruction from else
+    <br/><br/> &emsp There are two possibilities:
+    <br/> 1. a will be grater than 10
+    <br/> 2. a will be less than 10
+]]></Data></string>
+    <string name="learn134">In an \'if/else\' condition. What will happen if the \'if\' condition is false?</string>
+    <string name="learn1340">the else instruction will be executed</string>
+    <string name="learn1341">the if instruction will be executed</string>
+    <string name="learn1342">no instruction will be executed</string>
+    <string name="learn1343">the else instruction will be executed</string>
+    <string name="codelearn132"><Data><![CDATA[
+        <br/><font color=#000099>if(</font>a<font color=#000099>></font><font color=#ff8000>1</font><font color=#000099>){</font> <font color=#00aa00>// condition </font>
+        <br/><font color=#00aa00> &emsp &emsp // if instructions </font>
+        <br/> &emsp &emsp System<font color=#000099>.</font>out<font color=#000099>.</font>println<font color=#000099>(</font> <font color=#ff8000>\"a is grater than 10\"</font><font color=#000099>);</font>
+        <br/><font color=#000099>}</font>
+        <br/><font color=#000099>else{</font>
+        <br/><font color=#00aa00> &emsp &emsp // else instructions </font>
+        <br/> &emsp &emsp System<font color=#000099>.</font>out<font color=#000099>.</font>println<font color=#000099>(</font> <font color=#ff8000>\"a is less than 10\"</font><font color=#000099>); <br/>}</font>
+        <br/><br/><font color=#00aa00>// &emsp Possibility 1 (int a=11):
+        <br/> // a=11 => a greater than 10 => condition is true
+        <br/> // => the program will enter into the if statement
+        <br/> // => the \'if\' instruction will be executed
+        <br/> // => the output will be "a is grater than 10"
+        <br/><br/><font color=#00aa00>// &emsp Possibility 2 (int a=9):
+        <br/> // a=9 => a not greater than 9 => condition is false
+        <br/> // => the program will enter into the else statement
+        <br/> // => the \'else\' instruction will  be executed
+        <br/> // => the output will be "a is less than 10" </font>
+    ]]></Data></string>
+
+    <!--Else if statement-->
+    <string name="learn141"><Data><![CDATA[
+    <h2>Else if statement</h2>
+    &emsp <b>Else if</b> statements are used when you have a condition and if the first condition is not accomplished, the <b>else if</b> condition is verified, and if true the \'elseif\' instruction is executed.
+    <br/> &emsp After else if statements can be also an <b>else</b> statement.
+    <br/> &emsp There can be as many else if condition attach to the if statement as you need.
+    <br/><br/> <b> &emsp Syntax: </b>
+    <br/> if(condition){
+    <br/> &emsp &emsp //if instruction
+    <br/> }
+    <br/> else if(other condition){
+    <br/> &emsp &emsp //else if instruction
+    <br/> }
+    <br/> else{
+    <br/> &emsp &emsp //else instructions
+    <br/> }
+]]></Data></string>
+    <string name="learn142"><Data><![CDATA[
+    <b> &emsp Example: </b> If a is grater than 10, write \'a is grater then 10\', else if a is equal to 10 write \'a is equal then 10\', else write \'a is less to 10\'.
+    <br/> -\'if\', \'else if\' and \'else\' are the keywords
+    <br/> -\'a is grater than 10\' is the condition from if
+    <br/> -\'a is equal to 10\' is the condition from else if
+    <br/> -\'then write \"a is grater then 10\" \' is the instruction from if
+    <br/> -\'then write \"a is equal then 10\" \' is the instruction from else if
+    <br/> -\'write \"a is less than 10\"\' is the instruction from else
+    <br/><br/> &emsp There are three possibilities:
+    <br/> 1. a will be grater than 10
+    <br/> 2. a will be equal to 10
+    <br/> 3. a will be less than 10
+]]></Data></string>
+    <string name="learn144">How many times you can use an \'else if\' statement after an if?</string>
+    <string name="learn1440">as many time as it needed</string>
+    <string name="learn1441">twice</string>
+    <string name="learn1442">as many time as it needed</string>
+    <string name="learn1443">once</string>
+    <string name="codelearn142"><Data><![CDATA[
+        <font color=#000099>if(</font>a<font color=#000099>></font><font color=#ff8000>1</font><font color=#000099>){</font> <font color=#00aa00>// condition </font>
+        <br/><font color=#00aa00> &emsp &emsp // if instructions </font>
+        <br/> &emsp &emsp System<font color=#000099>.</font>out<font color=#000099>.</font>println<font color=#000099>(</font> <font color=#ff8000>\"a is grater than 10\"</font><font color=#000099>);</font>
+        <br/><font color=#000099>}</font>
+        <br/><font color=#000099>else if(</font>a<font color=#000099>==</font><font color=#ff8000>10</font><font color=#000099>){</font> <font color=#00aa00>// condition </font>
+        <br/><font color=#00aa00> &emsp &emsp // else if instructions </font>
+        <br/> &emsp &emsp System<font color=#000099>.</font>out<font color=#000099>.</font>println<font color=#000099>(</font> <font color=#ff8000>\"a is equal to 10\"</font><font color=#000099>);</font>
+        <br/><font color=#000099>}</font>
+        <br/><font color=#000099>else{</font>
+        <br/><font color=#00aa00> &emsp &emsp // else instructions </font>
+        <br/> &emsp &emsp System<font color=#000099>.</font>out<font color=#000099>.</font>println<font color=#000099>(</font> <font color=#ff8000>\"a is less than 10\"</font><font color=#000099>);<br/>}</font>
+        <br/><br/><font color=#00aa00>// &emsp Possibility 1 (int a=11):
+        <br/> // a=11 => a greater than 10 => if condition is true
+        <br/> // => the program will enter into the if statement
+        <br/> // => the \'if\' instruction will be executed
+        <br/> // => the output will be \"a is grater than 10\"
+        <br/><br/>// &emsp Possibility 2 (int a=10):
+        <br/> // a=10 => a not greater than 10
+        <br/> // => if condition is false
+        <br/> // => a equal to 10 => else if condition is true
+        <br/> // => the program will enter into the else if statement
+        <br/> // => the \'else if\' instruction will be executed
+        <br/> // => the output will be \"a is equal to 10\"
+        <br/><br/>// &emsp Possibility 3 (int a=9):
+        <br/> // a=9 => a not greater or equal to 10
+        <br/> // => if and else if conditions are false
+        <br/> // => the program will enter into the else statement
+        <br/> // => the \'else\' instruction will  be executed
+        <br/> // => the output will be \"a is less than 10\" </font>
+    ]]></Data></string>
+
+    <!--Other operators-->
+    <string name="learn151"><Data><![CDATA[
+    <h2>Other java operators</h2>
+    <h4><u>Relational operators:</u></h4>
+    <br/> &emsp - <b>relational operators</b> are used in conditions to compare some values.
+    <br/><br/> &emsp Example: ==(Equal to), !=(Not equal to), >(Greater than), <(Less than), >=(Greater than or equal to), <=(Less than or equal to)
+]]></Data></string>
+    <string name="learn152"><Data><![CDATA[
+    <h4><u>Logical  operators</u></h4>
+    <br/> - <b>logical operators</b> are used when making multiple comparisons in a condition.
+    <br/> Example: &&(Logical and), ||(Logical or), !(Logical not)
+]]></Data></string>
+    <string name="learn154">For what are relational operators used?</string>
+    <string name="learn1540">when compare values in a condition</string>
+    <string name="learn1541">when calculate</string>
+    <string name="learn1542">when calculate and assign</string>
+    <string name="learn1543">when compare values in a condition</string>
+    <string name="codelearn151"><Data><![CDATA[
+        <font color=#990099>int</font> a<font color=#000099>=</font><font color=#ff8000>0</font><font color=#000099;</font>
+        <br/><font color=#000099>if(</font>a<font color=#000099>==</font><font color=#ff8000>10</font><font color=#000099>){</font>
+        <br/> &emsp System<font color=#000099>.</font>out<font color=#000099>.</font>println<font color=#000099>(</font><font color=#ff8000>\"a is equal to 10\"</font><font color=#000099>);}</font>
+        <br/><font color=#000099>if(</font>a<font color=#000099>></font><font color=#ff8000>10</font><font color=#000099>){</font>
+        <br/> &emsp System<font color=#000099>.</font>out<font color=#000099>.</font>println<font color=#000099>(</font><font color=#ff8000>\"a is greater than 10\"</font><font color=#000099>);}</font>
+        <br/><font color=#000099>if(</font>a<font color=#000099>&lt=</font><font color=#ff8000>10</font><font color=#000099>){</font>
+        <br/> &emsp System<font color=#000099>.</font>out<font color=#000099>.</font>println<font color=#000099>(</font><font color=#ff8000>\"a is less than 10\"</font><font color=#000099>);}</font>
+        <br/><font color=#000099>if(</font>a<font color=#000099>>=</font><font color=#ff8000>10</font><font color=#000099>){</font>
+        <br/> &emsp System<font color=#000099>.</font>out<font color=#000099>.</font>println<font color=#000099>(</font><font color=#ff8000>\"a is greater or equal to 10\"</font><font color=#000099>);}</font>
+        <br/><font color=#000099>if(</font>a<font color=#000099>&lt=</font><font color=#ff8000>10</font><font color=#000099>){</font>
+        <br/> &emsp System<font color=#000099>.</font>out<font color=#000099>.</font>println<font color=#000099>(</font><font color=#ff8000>\"a is less or equal to 10\"</font><font color=#000099>);}</font>
+        <br/><font color=#000099>if(</font>a<font color=#000099>!=</font><font color=#ff8000>10</font><font color=#000099>){</font>
+        <br/> &emsp System<font color=#000099>.</font>out<font color=#000099>.</font>println<font color=#000099>(</font><font color=#ff8000>\"a is not equal to 10\"</font><font color=#000099>);}</font>
+    ]]></Data></string>
+    <string name="codelearn152"><Data><![CDATA[
+        <font color=#990099>int</font>a <font color=#000099>=</font> <font color=#ff8000>0</font><font color=#000099;</font>
+        <br/><font color=#000099>if(</font>a<font color=#000099>==</font><font color=#ff8000>10</font> <font color=#000099>||</font> a<font color=#000099>></font><font color=#ff8000>15</font><font color=#000099>){</font>
+        <br/> &emsp System<font color=#000099>.</font>out<font color=#000099>.</font>println<font color=#000099>(</font> <font color=#ff8000>\"a is equal to 10 OR greater than 15\"</font><font color=#000099>);}</font>
+        <br/><font color=#000099>if(</font>a<font color=#000099>==</font><font color=#ff8000>10</font> <font color=#000099>||</font> a<font color=#000099>></font><font color=#ff8000>0</font><font color=#000099>){</font>
+        <br/> &emsp System<font color=#000099>.</font>out<font color=#000099>.</font>println<font color=#000099>(</font> <font color=#ff8000>\"a is equal to 10 AND greater than 0\"</font><font color=#000099>);}</font>
+        <br/><font color=#000099>if(!(</font>a<font color=#000099>==</font><font color=#ff8000>10</font> <font color=#000099>||</font> a<font color=#000099>></font><font color=#ff8000>15</font><font color=#000099>)){</font>
+        <br/> &emsp System<font color=#000099>.</font>out<font color=#000099>.</font>println<font color=#000099>(</font> <font color=#ff8000>\"a is NOT equal to 10 OR greater than 15\"</font><font color=#000099>);}</font>
+    ]]></Data></string>
+
+    <!--Switch statement-->
+    <string name="learn161"><Data><![CDATA[
+    <h2>Switch statement</h2>
+    &emsp Besides <b>if</b>, <b>switch</b> statement is also used in conditional statements.
+    <br/> &emsp Unlike the condition from if statement, switch is coordinated by a variable, expression.
+    <br/> &emsp Depending on the variable value, it will enter on a case.
+    <br/><br/> <b>Syntax:</b>
+    <br/> switch(expression){
+    <br/> &emsp case value:
+    <br/> &emsp &emsp &emsp // instruction
+    <br/> &emsp &emsp &emsp break; // optional
+    <br/> &emsp case otherValue:
+    <br/> &emsp &emsp &emsp // other instruction
+    <br/> &emsp &emsp &emsp break; // optional
+    <br/> &emsp default: // optional
+    <br/> &emsp &emsp &emsp // default instruction
+    <br/> }
+
+]]></Data></string>
+    <string name="learn162"><Data><![CDATA[
+    <b> &emsp Example:</b> If a=1, then write \'a=1\', if a=2, then write \'a=2\', if a=3, then write \'a=3\'.
+    <br/> - \'switch\' and \'case\' are keywords
+    <br/> - \'a\' is the variable
+    <br/> - \'1\', \'2\' and \'3\' are possible values
+    <br/> - if the variable is equal to one of the values, it will execute the instruction.
+    <br/><br/> &emsp After it enters in one of the cases, the instruction will run until the switch is over or it meets the <b>\'break\'</b> keyword.
+    <br/> &emsp If the value of the variable is not in one of the cases than he will go on default case.
+    <br/> - \'switch\', \'case\', \'break\' and \'default\' are keywords
+    <br/> - \'a\' is the variable
+    <br/> - \'1\', \'2\' and \'3\' are possible values
+    <br/> - if the variable is equal to one of the values, it will execute the instruction of that case until meets break or the switch is over
+    <br/><br/> &emsp There are four possibilities:
+    <br/> 1. a is equal to 1
+    <br/> 2. a is equal to 2
+    <br/> 3. a is equal to 3
+    <br/> 4. a is none of the above
+
+]]></Data></string>
+    <string name="learn164">What \'break\' keyword does?</string>
+    <string name="learn1640">get out the switch</string>
+    <string name="learn1641">get out the switch</string>
+    <string name="learn1642">continue the switch</string>
+    <string name="learn1643">go to the next case</string>
+    <string name="codelearn162"><Data><![CDATA[
+        <br/><font color=#000099>switch(</font>a<font color=#000099>){</font>  <br/> &emsp <font color=#00aa00>// expression </font>
+        <br/><font color=#000099> &emsp case</font><font color=#ff8000> 1</font><font color=#000099>:</font><font color=#00aa00>// value of case 1</font>
+        <br/> &emsp <font color=#00aa00>// instructions </font>
+        <br/> &emsp System<font color=#000099>.</font>out<font color=#000099>.</font>println<font color=#000099>(</font> <font color=#ff8000>\"case 1\"</font><font color=#000099>);</font> break</font><font color=#000099>;</font>
+        <br/><font color=#000099> &emsp case</font><font color=#ff8000> 2</font><font color=#000099>:</font><font color=#00aa00>// value of case 2 </font>
+        <br/> &emsp <font color=#00aa00>// instructions </font>
+        <br/> &emsp System<font color=#000099>.</font>out<font color=#000099>.</font>println<font color=#000099>(</font> <font color=#ff8000>\"case 2\"</font><font color=#000099>);</font> break</font><font color=#000099>;</font>
+        <br/><font color=#000099> &emsp case</font><font color=#ff8000> 2</font><font color=#000099>:</font><font color=#00aa00>// value of case 3 </font>
+        <br/> &emsp <font color=#00aa00>// instructions </font>
+        <br/> &emsp System<font color=#000099>.</font>out<font color=#000099>.</font>println<font color=#000099>(</font> <font color=#ff8000>\"case 3\"</font><font color=#000099>);</font> break</font><font color=#000099>;</font>
+        <br/><font color=#000099> &emsp default:</font><font color=#00aa00>// default value </font>
+        <br/> &emsp <font color=#00aa00>// instructions </font>
+        <br/> &emsp System<font color=#000099>.</font>out<font color=#000099>.</font>println<font color=#000099>(</font> <font color=#ff8000>\"default\"</font><font color=#000099>);
+        <br/>}</font>
+        <br/><br/> <font color=#00aa00> // &emsp Possibility 1 (int a=1):
+        <br/> // the value of a is 1
+        <br/> // => the correct case will be case 1
+        <br/> // => the output will be \"case 1\"
+        <br/><br/> // &emsp Possibility 2 (int a=2):
+        <br/> // the value of a is 2
+        <br/> // => the correct case will be case 2
+        <br/> // => the output will be \"case 2\"
+        <br/><br/> // &emsp Possibility 3 (int a=3):
+        <br/> // the value of a is 3
+        <br/> // => the correct case will be case 3
+        <br/> // => the output will be \"case 3\"
+        <br/><br/> // &emsp Possibility 4 (int a=4):
+        <br/> // the value of a is 4
+        <br/> // => there is no case with value 4
+        <br/> // => the correct case will be default
+        <br/> // => the output will be \"default\" </font>
+]]></Data></string>
+
+    <!--While loop-->
+    <string name="learn211"><Data><![CDATA[
+    <h2>While loop</h2>
+    <b>&emsp While</b> is a loop that execute the block of instruction code as long as the condition is true.
+    <br/> &emsp While loop can run infinitely if the condition is always true.
+    <br/><br/> <b> &emsp Syntax: </b>
+    <br/> while(condition){
+    <br/> &emsp //instructions
+    <br/> }
+
+]]></Data></string>
+    <string name="learn212"><Data><![CDATA[
+    <b> &emsp Example: </b> While a is greater than 0, write \'a\' and make a=a+1.
+    <br/> - \'while\' is a keyword
+    <br/> - \'a is greater than 0\' is the condition
+    <br/> - \' write \"a\" and make a=a+1\' are the instructions
+
+    <br/><br/> &emsp There are two possibilities:
+    <br/> 1. a is grater than 0
+    <br/> 2. a is less or equal to 0
+]]></Data></string>
+    <string name="learn214">How many times will run a while loop, if the condition is always \'true\'?</string>
+    <string name="learn2140">infinite number of time</string>
+    <string name="learn2141">infinite number of time</string>
+    <string name="learn2142">one time</string>
+    <string name="learn2143">two times</string>
+    <string name="codelearn212"><Data><![CDATA[
+    <font color=#000099>while(</font>a<font color=#000099>></font><font color=#ff8000>0</font><font color=#000099>){</font> <font color=#00aa00>// condition </font>
+    <br/> &emsp <font color=#00aa00>// instructions </font>
+    <br/> &emsp System<font color=#000099>.</font>out<font color=#000099>.</font>println<font color=#000099>(</font><font color=#ff8000>a</font><font color=#000099>);</font>
+    <br/> &emsp a<font color=#000099>--;<br/>}</font>
+    <br/><br/><font color=#00aa00>// &emsp Possibility 1 (int a=2):
+    <br/> // a is equal to 2 => a greater than 0
+    <br/> // => the program will enter into the while
+    <br/> // => execute instruction => the output will be \"2\"
+    <br/> // => a-- => a=2-1 => a=1
+    <br/> // a is equal to 1 => a greater than 0
+    <br/> // => the program will continue the while
+    <br/> // => execute instruction => the output will be \"1\"
+    <br/> // => a-- => a=1-1 => a=0
+    <br/> // a is equal to 0 => a is not greater than 0
+    <br/> // => the program will exit from the while
+    <br/><br/>// &emsp Possibility 2 (int a=-1):
+    <br/> // a is equal to -1 => a is not greater than 0
+    <br/> // => the program will exit from the while  </font>
+    ]]></Data></string>
+
+    <!--Do while loop-->
+    <string name="learn221"><Data><![CDATA[
+    <h2>Do while loops</h2>
+    The difference between <b>while</b> and <b>do while</b> is that in the second one, the block of code will run at least once.
+    <br/><br/> <b> &emsp Syntax: </b>
+    <br/> do{
+    <br/> &emsp //instructions
+    <br/> }while(condition);
+]]></Data></string>
+    <string name="learn222"><Data><![CDATA[
+    <b> &emsp Example: </b> Write \'a\' and make a=a+1, while a is greater than 0.
+    <br/> - \'do\' \'while\' is a keyword
+    <br/> - \'a is greater than 0\' is the condition
+    <br/> - \' write \"a\" and make a=a+1\' are the instructions
+    <br/><br/> &emsp There is just one possibility:
+    <br/> 1. a is greater, equal or less
+]]></Data></string>
+    <string name="learn224">What is the difference between \'while\' and \'do while\' ?</string>
+    <string name="learn2240">do while runs at least once</string>
+    <string name="learn2241">is no difference</string>
+    <string name="learn2242">do while runs at least once</string>
+    <string name="learn2243">while runs at least once</string>
+    <string name="codelearn222"><Data><![CDATA[
+    <br/> <font color=#000099>do{</font>
+    <br/> &emsp <font color=#00aa00>// instructions </font>
+    <br/> &emsp System<font color=#000099>.</font>out<font color=#000099>.</font>println<font color=#000099>(</font><font color=#ff8000>a</font><font color=#000099>);</font>
+    <br/> &emsp a<font color=#000099>--;</font>
+    <br/> <font color=#000099>}</font>
+    <br/> <font color=#000099>while(</font>a<font color=#000099>></font><font color=#ff8000>0</font><font color=#000099>);</font> <font color=#00aa00>// condition </font>
+    <br/><br/><font color=#00aa00>// &emsp Possibility 1 (int a=0):
+    <br/> // any value would have \'a\'
+    <br/> // => the program will enter into the do while
+    <br/> // => execute instruction => the output will be \"0\"
+    <br/> // => a-- => a=0-1 => a=-1
+    <br/> // a is equal to -1 => a is not greater than 0
+    <br/> // => the program will exit from the while  </font>
+    ]]></Data></string>
+
+
+    <!--Arrays-->
+    <string name="learn231"><Data><![CDATA[
+    <h2>Arrays</h2>
+    &emsp An <b>array</b> is a collection of variables of the same type.
+    <br/> It is useful when you have many variables as numbers and you want to store them in order to be easy to use.
+    <br/><br/> <b> &emsp Syntax:</b>
+    <br/> -there are two types of declaring an array:
+    <br/> &emsp -> dataType[] arrayName = new dataType[size];
+    <br/> &emsp -> dataType[] arrayName = {values with commas};
+    ]]></Data></string>
+    <string name="learn232"><Data><![CDATA[
+    <b> &emsp Example:</b>
+    <br/>Suppose you need three numbers 1,2,3.
+    <br/>Instead of declaring three variables \'int a=1, b=2, c=3;\' you can use an array with size 3 \'int[] numbers = {1, 2, 3};\'.
+    ]]></Data></string>
+    <string name="learn233"><Data><![CDATA[
+    <b> &emsp Example:</b>
+    <br/>1. We have an array of two integers \'int[] numbers = {5,10}\' and we want to display their values \' System.out.println("numbers[0]= " + numbers[0] + ", numbers[1]="+ numbers[1])\'.
+    <br/>2. We have an array of two integers \'int[] numbers = new int[2]\' and we want to give them some values \' numbers[0]=5, numbers[1]=10\'.
+    <br/>In this example \'0\' and \'1\' are the index of the array, an array count starts from <b>0</b> NOT from 1.
+    ]]></Data></string>
+    <string name="learn234">What is the correct declaration of an array of 2 integers?</string>
+    <string name="learn2340">int[] numbers = new int[2];</string>
+    <string name="learn2341">int[2] numbers = new int[];</string>
+    <string name="learn2342">int[] numbers = new int[2];</string>
+    <string name="learn2343">int[] numbers = new numbers[2];</string>
+    <string name="codelearn232"><Data><![CDATA[
+    <font color=#00aa00>// Variables:</font>
+    <br/><font color=#990099>int</font> a<font color=#000099>=</font><font color=#ff8000>1</font><font color=#990099>,</font> b<font color=#000099>=</font><font color=#ff8000>2</font><font color=#990099>,</font> c<font color=#000099>=</font><font color=#ff8000>3</font><font color=#990099>;</font>
+    <br/><br/><font color=#00aa00>// Array:</font>
+    <br/><font color=#990099>int</font><font color=#000099>[]</font> numbers<font color=#000099>=</font><font color=#000099>{</font><font color=#ff8000>1</font><font color=#000099>,</font><font color=#ff8000>2</font><font color=#000099>,</font><font color=#ff8000>3</font><font color=#000099>};</font>
+    ]]></Data></string>
+    <string name="codelearn233"><Data><![CDATA[
+    <font color=#00aa00>// Example 1: </font>
+    <br/><font color=#990099>int</font> numbers<font color=#000099>={</font><font color=#ff8000>1</font><font color=#990099>,</font><font color=#ff8000>2</font><font color=#000099>};</font>
+    <br/> System<font color=#000099>.</font>out<font color=#000099>.</font>println<font color=#000099>(</font><font color=#ff8000>\"numbers[0]\= "</font><font color=#000099> + </font>numbers<font color=#000099>[</font><font color=#ff8000>0</font><font color=#000099>] + </font><font color=#ff8000>\"numbers[1]\= "</font><font color=#000099> + </font>numbers<font color=#000099>[</font><font color=#ff8000>1</font><font color=#000099>]);</font>
+    <br/><br/><font color=#00aa00>// Example 2: </font>
+    <br/><font color=#990099>int</font><font color=#000099>[]</font> numbers<font color=#000099>=</font><font color=#000099>new</font><font color=#990099> int</font><font color=#000099>[</font><font color=#ff8000>2</font><font color=#000099>];</font>
+    <br/>numbers<font color=#000099>[</font><font color=#ff8000>0</font><font color=#000099>]=</font><font color=#ff8000>5</font><font color=#000099>;</font>
+    <br/>numbers<font color=#000099>[</font><font color=#ff8000>1</font><font color=#000099>]=</font><font color=#ff8000>10</font><font color=#000099>;</font>
+]]></Data></string>
+
+
+    <!--For loop-->
+    <string name="learn241"><Data><![CDATA[
+    <h2>For loop</h2>
+    <b>&emsp For</b> is a loop that execute the block of instructions code as long as the condition is true.
+    <br/><br/> <b> &emsp Syntax: </b>
+    <br/> for(initialization; termination/condition; increment;){
+    <br/> &emsp //instructions
+    <br/> }
+]]></Data></string>
+    <string name="learn242"><Data><![CDATA[
+    <b> &emsp Example: </b> For i equals 0, to 2, from 1 to 1, write \'i\'.
+    <br/> - \'for\' is a keyword
+    <br/> - \'i equals 0\' is the initialization
+    <br/> - \'to 2\' is the termination
+    <br/> - \'from 1 to 1\' is the increment
+    <br/> - \'write \'i\' is the instruction
+]]></Data></string>
+    <string name="learn243"><Data><![CDATA[
+    <br/> Initialization, termination and increment are optional if they are done somewhere in the code.
+    <br/> If the termination is not written and is no code which make possible exit from the \'for\' the for will run infinite.
+]]></Data></string>
+    <string name="learn244">What will happen, if \'for\' loop has no termination and no alternative for it?</string>
+    <string name="learn2440">for runs for an infinite time</string>
+    <string name="learn2441">for will not run</string>
+    <string name="learn2442">for runs one time</string>
+    <string name="learn2443">for runs for an infinite time</string>
+    <string name="codelearn242"><Data><![CDATA[
+    <font color=#000099>for(</font><font color=#990099>int </font>i<font color=#000099>=</font><font color=#ff8000>0</font><font color=#990099>;</font>i<font color=#000099>&lt</font>2<font color=#000099>;</font> i<font color=#000099>++){</font>
+    <br/> &emsp System<font color=#000099>.</font>out<font color=#000099>.</font>println<font color=#000099>(</font>i<font color=#000099>);
+    <br/>}</font>
+    <br/><br/><font color=#00aa00>// Explanation:
+    <br/> // 1. initialization: int i=0;
+    <br/> // 2. termination(condition):  i<2; => true
+    <br/> // 3. instruction: System.out.println(a);
+    <br/> // => output:0
+    <br/> // 4. increment: i++; => i=1
+    <br/> // 5. = 2. termination(condition):  i<2; => true
+    <br/> // 6. = 3. instruction: System.out.println(a);
+    <br/> // => output:1
+    <br/> // 7. = 4. increment: i++; => i=2
+    <br/> // 8. = 2. termination(condition):  i<2; => false
+    <br/> // 9. exit \'for\' </font>
+]]></Data></string>
+    <string name="codelearn243"><Data><![CDATA[
+    <font color=#00aa00>// alternative for initialization: </font>
+    <br/><font color=#990099>int </font>i<font color=#000099>=</font><font color=#ff8000>0</font><font color=#000099>;</font>
+    <br/><br/><font color=#000099>for(;;){</font>
+    <br/><br/> &emsp <font color=#00aa00>// alternative for termination: </font>
+    <br/> &emsp <font color=#000099>if(</font>i<font color=#000099>&lt</font><font color=#ff8000>2</font><font color=#000099>){</font>
+    <br/> &emsp &emsp <font color=#000099>break; <br/> &emsp }</font>
+    <br/><br/> &emsp System<font color=#000099>.</font>out<font color=#000099>.</font>println<font color=#000099>(</font>i<font color=#000099>);</font>
+    <br/><br/> &emsp <font color=#00aa00>// alternative for increment: </font>
+    <br/> &emsp i<font color=#000099>++;<br/>}</font>
+]]></Data></string>
+
+    <!--For and arrays-->
+    <string name="learn251"><Data><![CDATA[
+    <h2>For and arrays</h2>
+    &emsp Most of the time <b>for</b> loop is used when working with arrays.
+    <br/><br/> <b> &emsp Example 1: </b>
+    <br/> When we want to initialize all the elements of an array the easiest way to do this is with a <b>for</b>.
+]]></Data></string>
+    <string name="learn252"><Data><![CDATA[
+    <b> &emsp Example 2: </b>
+    <br/> When we want to display all the elements of an array.
+]]></Data></string>
+    <string name="learn254">What will happen, if \'for\' loop has no incrementation and no alternative for it?</string>
+    <string name="learn2540">runs for an infinite time</string>
+    <string name="learn2541">will not run</string>
+    <string name="learn2542">runs one time</string>
+    <string name="learn2543">runs for an infinite time</string>
+    <string name="codelearn251"><Data><![CDATA[
+    <font color=#990099>int </font>array<font color=#000099>= new </font><font color=#990099>int </font><font color=#000099>[</font><font color=#ff8000>5</font><font color=#000099>];</font>
+    <br/> <font color=#000099>for(</font><font color=#990099>int </font>i<font color=#000099>=</font><font color=#ff8000>0</font><font color=#990099>;</font>i<font color=#000099>&lt</font><font color=#ff8000>5</font><font color=#000099>;</font> i<font color=#000099>++){</font>
+    <br/> &emsp array<font color=#000099>[</font><font color=#ff8000>i</font><font color=#000099>]=</font><font color=#ff8000>i</font><font color=#000099>;<br/>}</font>
+    <br/><br/><font color=#00aa00>// array[0]=0;
+    <br/> // array[1]=1;
+    <br/> // array[2]=2;
+    <br/> // array[3]=3;
+    <br/> // array[4]=4;</font>
+]]></Data></string>
+    <string name="codelearn252"><Data><![CDATA[
+    <font color=#990099>int </font>array<font color=#000099>={</font><font color=#ff8000>0</font><font color=#000099>,</font><font color=#ff8000>1</font><font color=#000099>,</font><font color=#ff8000>2</font><font color=#000099>};</font>
+    <br/> <font color=#000099>for(</font><font color=#990099>int </font>i<font color=#000099>=</font><font color=#ff8000>0</font><font color=#990099>;</font>i<font color=#000099>&lt</font><font color=#ff8000>3</font><font color=#000099>;</font> i<font color=#000099>++){</font>
+    <br/> System<font color=#000099>.</font>out<font color=#000099>.</font>println<font color=#000099>(</font>array<font color=#000099>[</font><font color=#ff8000>i</font><font color=#000099>]<font color=#000099>);<br/>}</font>
+    <br/><br/><font color=#00aa00>// output:
+    <br/> // 0
+    <br/> // 1
+    <br/> // 2 </font>
+]]></Data></string>
+
+    <!--For each loop-->
+    <string name="learn261"><Data><![CDATA[
+    <h2>For each loop</h2>
+    <b>&emsp For each </b> it is similar to \'for\' loop, but it  has no termination or iteration, only the initialization and the array or collection which he will go through.
+    <br/><br/> <b> &emsp Syntax: </b>
+    <br/> for(initialization : array/collection){
+    <br/> &emsp //instructions
+    <br/> }
+]]></Data></string>
+    <string name="learn262"><Data><![CDATA[
+    <b> &emsp Example: </b> For each element from array write the value of the element.
+]]></Data></string>
+    <string name="learn264">What is the correct syntax for going through and display an integer array with \'for each\' loop?</string>
+    <string name="learn2640">for(int i : array) { System.out.println(i);}</string>
+    <string name="learn2641">for(int i : array) { System.out.println(i);}</string>
+    <string name="learn2642">for(i : int array) { System.out.println(array[i]);}</string>
+    <string name="learn2643">for(int i : array) { System.out.println(array);}</string>
+    <string name="codelearn262"><Data><![CDATA[
+    <font color=#990099>int </font>array<font color=#000099>={</font><font color=#ff8000>0</font><font color=#000099>,</font><font color=#ff8000>1</font><font color=#000099>,</font><font color=#ff8000>2</font><font color=#000099>};</font>
+    <br/> <font color=#000099>for(</font><font color=#990099>int </font>i<font color=#000099>:</font>array<font color=#000099>){</font>
+    <br/> &emsp System<font color=#000099>.</font>out<font color=#000099>.</font>println<font color=#000099>(</font>i<font color=#000099>);<br/>}</font>
+    <br/><br/><font color=#00aa00> // output:
+    <br/> // 0
+    <br/> // 1
+    <br/> // 2 </font>
+]]></Data></string>
+
+    <!--<font color=#990099>int</font>
+    <font color=#000099>{</font>
+    <font color=#00aa00>//</font>-->
+
+
+    <!--OOP-->
+    <string name="learn311"><Data><![CDATA[
+    <h2>Object-Orientation Programing</h2>
+    <b>&emsp Java </b> is an object-orientated programing language, which means it is based on <b>objects</b>.
+    <br/> &emsp An <b>object</b> is an instance of a <b>class</b> and a <b>class</b> is a set of attributes and methods.
+    <br/><br/> <b> &emsp Syntax: </b>
+    <br/> class ClassName{
+    <br/> &emsp //attributes
+    <br/> &emsp //methods
+    <br/> }
+]]></Data></string>
+    <string name="learn314">What is a \'class\'?</string>
+    <string name="learn3140">a set of attributes and methods</string>
+    <string name="learn3141">a set of classes</string>
+    <string name="learn3142">an instance of the class</string>
+    <string name="learn3143">a set of attributes and methods</string>
+    <string name="codelearn311"><Data><![CDATA[
+    <font color=#990099>class</font> ClassName<font color=#000099>{</font>
+    <br/> &emsp <font color=#00aa00> // attributes
+    <br/> &emsp // methods</font>
+    <br/> <font color=#000099>}</font>
+]]></Data></string>
+
+    <!--Attributes-->
+    <string name="learn321"><Data><![CDATA[
+    <h2>Attributes</h2>
+    &emsp An <b> attribute </b> is a class variable, in real-word attributes are similar to state of a class.
+    <br/><br/> &emsp <b>Syntax:</b>
+    <br/> dataType attributeName = value;
+]]></Data></string>
+    <string name="learn322"><Data><![CDATA[
+    <b> &emsp Example: </b>
+    <br/>Suppose we have a class named Apples, what states can it have? Let say that he has a color, a dimension and a type.
+]]></Data></string>
+    <string name="learn323"><Data><![CDATA[
+    &emsp An <b> attribute</b>, like a variable, has a value.
+    <br/><br/> <b> &emsp Example: </b>
+    <br/>We have the Apple class.
+    <br/>And the attributes: color with value \'green\', dimension with value \'6cm\'  and type with the value \'Granny Smith\'.
+]]></Data></string>
+    <string name="learn324">What is an attribute?</string>
+    <string name="learn3240">a state of the class</string>
+    <string name="learn3241">a state of the class</string>
+    <string name="learn3242">a state of a variable</string>
+    <string name="learn3243">a behavior of the class</string>
+    <string name="codelearn322"><Data><![CDATA[
+    <font color=#990099>class</font> Apple<font color=#000099>{</font>
+    <br/> &emsp <font color=#00aa00> // Attributes: </font>
+    <br/> &emsp <font color=#990099>String</font> color<font color=#000099>;</font>
+    <br/> &emsp <font color=#990099>int</font> dimension<font color=#000099>;</font>
+    <br/> &emsp <font color=#990099>String</font> type<font color=#000099>;</font>
+    <br/> <font color=#000099>}</font>
+]]></Data></string>
+    <string name="codelearn323"><Data><![CDATA[
+    <font color=#990099>class</font> Apple<font color=#000099>{</font>
+    <br/> &emsp <font color=#00aa00> // Attributes: </font>
+    <br/> &emsp <font color=#990099>String</font> color<font color=#000099>=</font><font color=#ff8000>\"green\"</font><font color=#000099>;</font>
+    <br/> &emsp <font color=#990099>int</font> dimension<font color=#000099>=</font><font color=#ff8000>6</font><font color=#000099>;</font>
+    <br/> &emsp <font color=#990099>String</font> type<font color=#000099>=</font><font color=#ff8000>\"Granny Smith\"</font><font color=#000099>;</font>
+    <br/> <font color=#000099>}</font>
+]]></Data></string>
+
+    <!--Methods-->
+    <string name="learn331"><Data><![CDATA[
+    <h2>Methods</h2>
+    &emsp A <b> Method </b> is a class function, in real-word methods are similar to behavior of a class.
+    <br/><br/> &emsp <b>Syntax:</b>
+    <br/> dataType methodName(parameters){
+    <br/> &emsp // Instructions
+    <br/> }
+    <br/><br/> &emsp A method, unlike attributes, can have the data type \'void\' with means that it will not return some value.
+    <br/> In methods all the others data types return a value.
+    <br/> The \'parameters\' are optional and represent some variables, which were declared outside the method, and which will be used in that method.
+]]></Data></string>
+    <string name="learn332"><Data><![CDATA[
+    <b> &emsp Example: </b>
+    <br/>Suppose we have a class named Apples, what behavior can it perform? Let say that he can be bought.
+]]></Data></string>
+    <string name="learn333"><Data><![CDATA[
+    <b> &emsp Example: </b>
+    <br/>We have the Apples class.
+    <br/>The attributes: color with value \'green\', dimension with value \'6cm\', type with the value \'Granny Smith\', bought with the value \'true\'.
+    <br/>And a method named \'buy\' which will make the attribute \'bought\' be \'true\'.
+]]></Data></string>
+    <string name="learn334">What is a method?</string>
+    <string name="learn3340">a behavior of the class</string>
+    <string name="learn3341">a state of the class</string>
+    <string name="learn3342">a behavior of the class</string>
+    <string name="learn3343">a variable of the class</string>
+    <string name="codelearn331"><Data><![CDATA[
+    &emsp <font color=#00aa00> // void method: </font>
+    <br/> <font color=#990099>void</font> display<font color=#000099>(){</font>
+    <br/> &emsp System<font color=#000099>.</font>out<font color=#000099>.</font>println<font color=#000099>(</font></font><font color=#ff8000>\"Eat\"</font><font color=#000099>);</font>
+    <br/> &emsp <font color=#00aa00> // this function will not return any value</font>
+    <br/> <font color=#990099>}</font>
+
+    <br/><br/> &emsp <font color=#00aa00> // int method: </font>
+    <br/> <font color=#990099>int</font> sum<font color=#000099>(){</font>
+    <br/> &emsp <font color=#000099>return</font> <font color=#ff8000>10</font><font color=#000099>+</font><font color=#ff8000>20</font><font color=#000099>;</font>
+    <br/> &emsp <font color=#00aa00> // this function will return an integer
+    <br/> &emsp // the sum of 10 and 20</font>
+    <br/> <font color=#990099>}</font>
+
+    <br/><br/> &emsp <font color=#00aa00> // double method: </font>
+    <br/> <font color=#990099>double</font> multiplication<font color=#000099>(){</font>
+    <br/> &emsp <font color=#000099>return</font> <font color=#ff8000>10.0</font><font color=#000099>+</font><font color=#ff8000>2.5</font><font color=#000099>;</font>
+    <br/> &emsp <font color=#00aa00> // this function will return a double
+    <br/> &emsp // the multiplication of 10.0 and 2.5</font>
+    <br/> <font color=#990099>}</font>
+
+    <br/><br/> &emsp <font color=#00aa00> // boolean method: </font>
+    <br/> <font color=#990099>boolean</font> exist<font color=#000099>(){</font>
+    <br/> &emsp <font color=#000099>return true;</font>
+    <br/> &emsp <font color=#00aa00> // this function will return a boolean
+    <br/> &emsp // the value true</font>
+    <br/> <font color=#990099>}</font>
+]]></Data></string>
+    <string name="codelearn332"><Data><![CDATA[
+    <font color=#990099>class</font> Apple<font color=#000099>{</font>
+    <br/><br/> &emsp <font color=#00aa00> // Attributes: </font>
+    <br/> &emsp <font color=#990099>String</font> color<font color=#000099>;</font>
+    <br/> &emsp <font color=#990099>int</font> dimension<font color=#000099>;</font>
+    <br/> &emsp <font color=#990099>String</font> type<font color=#000099>;</font>
+    <br/> &emsp <font color=#990099>boolean</font> bought<font color=#000099>;</font>
+    <br/><br/> &emsp <font color=#00aa00> // Methods: </font>
+    <br/> &emsp <font color=#990099>void</font> buy<font color=#000099>(){</font>
+    <br/> &emsp &emsp <font color=#00aa00> // Instructions </font>
+    <br/> &emsp<font color=#990099>}</font>
+    <br/> <font color=#000099>}</font>
+]]></Data></string>
+    <string name="codelearn333"><Data><![CDATA[
+    <font color=#990099>class</font> Apple<font color=#000099>{</font>
+    <br/><br/> &emsp <font color=#00aa00> // Attributes: </font>
+    <br/> &emsp <font color=#990099>String</font> color<font color=#000099>=</font><font color=#ff8000>\"green\"</font><font color=#000099>;</font>
+    <br/> &emsp <font color=#990099>int</font> dimension<font color=#000099>=</font><font color=#ff8000>6</font><font color=#000099>;</font>
+    <br/> &emsp <font color=#990099>String</font> type<font color=#000099>=</font><font color=#ff8000>\"Granny Smith\"</font><font color=#000099>;</font>
+    <br/> &emsp <font color=#990099>boolean</font> bought<font color=#000099>=</font><font color=#ff8000>false</font><font color=#000099>;</font>
+    <br/><br/> &emsp <font color=#00aa00> // Methods: </font>
+    <br/> &emsp <font color=#990099>void</font> buy<font color=#000099>(){</font>
+    <br/> &emsp &emsp <font color=#000099>this.</font>bought<font color=#000099>=</font><font color=#ff8000>false</font><font color=#000099>;</font>
+    <br/> &emsp &emsp <font color=#00aa00> // \'this.bought\' it is the way that compiler
+    <br/> &emsp &emsp // understand that \'bought\' is
+    <br/> &emsp &emsp // an attribute of this class (Apple)</font>
+    <br/> &emsp<font color=#990099>}</font>
+    <br/> <font color=#000099>}</font>
+]]></Data></string>
+
+    <!--Constructor-->
+    <string name="learn341"><Data><![CDATA[
+    <h2>Constructor</h2>
+    &emsp A <b> Constructor </b> is a special type of method which is used to initialize an object.
+    <br/><br/> &emsp <b>Syntax:</b>
+    <br/> ClassName(parameters){
+    <br/> &emsp // Instructions
+    <br/> }
+    <br/><br/> &emsp The constructor is called when an instance of the class is created and memory is allocated for the object.
+]]></Data></string>
+    <string name="learn342"><Data><![CDATA[
+    <b> &emsp Example: </b>
+    <br/>We have the Apple class.
+    <br/>The attributes: color, dimension, type and bought.
+    <br/>A method named \'buy\' which will make the attribute \'bought\' be \'true\'.
+    <br/>And a constructor with no parameters which will give a default value to the attributes above.
+]]></Data></string>
+    <string name="learn343"><Data><![CDATA[
+    <b> &emsp Example: </b>
+    <br/>We have the Apple class.
+    <br/>The attributes: color, dimension, type and bought'.
+    <br/>A method named \'buy\' which will make the attribute \'bought\' be \'true\'.
+    <br/>A a constructor with no parameters with will give a default value to the attributes above.
+    <br/>And a constructor with three parameters with will give a value to the attributes above.
+    <br/><br/>A class can have multiple Constructors as long as they have other types of parameters and other numbers of parameters.
+    <br/>As in this example we have 2 constructors, this is allowed because the first constructor has no parameters and the second one has three parameters.
+]]></Data></string>
+    <string name="learn344">When is a constructor called?</string>
+    <string name="learn3440">when an instance of the class is created</string>
+    <string name="learn3441">when an instance of the class is deleted</string>
+    <string name="learn3442">when an instance of the class is updated</string>
+    <string name="learn3443">when an instance of the class is created</string>
+    <string name="codelearn342"><Data><![CDATA[
+    <font color=#990099>class</font> Apple<font color=#000099>{</font>
+    <br/><br/> &emsp <font color=#00aa00> // Attributes: </font>
+    <br/> &emsp <font color=#990099>String</font> color<font color=#000099>;</font>
+    <br/> &emsp <font color=#990099>int</font> dimension<font color=#000099>;</font>
+    <br/> &emsp <font color=#990099>String</font> type<font color=#000099>;</font>
+    <br/> &emsp <font color=#990099>boolean</font> bought<font color=#000099>;</font>
+    <br/><br/> &emsp <font color=#00aa00> // Method: </font>
+    <br/> &emsp <font color=#990099>void</font> buy<font color=#000099>(){</font>
+    <br/> &emsp &emsp <font color=#000099>this.</font>bought<font color=#000099>=</font><font color=#ff8000>false</font><font color=#000099>;
+    <br/> &emsp }</font>
+    <br/><br/> &emsp <font color=#00aa00> // Constructor: </font>
+    <br/> &emsp Apple<font color=#000099>(){</font>
+    <br/> &emsp &emsp <font color=#000099>this.</font>color<font color=#000099>=</font><font color=#ff8000>\"Green\"</font><font color=#000099>;
+    <br/> &emsp &emsp this.</font>color<font color=#000099>=</font><font color=#ff8000>6</font><font color=#000099>;
+    <br/> &emsp &emsp this.</font>color<font color=#000099>=</font><font color=#ff8000>\"Granny Smith\"</font><font color=#000099>;
+    <br/> &emsp }</font>
+    <br/> <font color=#000099>}</font>
+]]></Data></string>
+    <string name="codelearn343"><Data><![CDATA[
+    <font color=#990099>class</font> Apple<font color=#000099>{</font>
+    <br/><br/> &emsp <font color=#00aa00> // Attributes: </font>
+    <br/> &emsp <font color=#990099>String</font> color<font color=#000099>;</font>
+    <br/> &emsp <font color=#990099>int</font> dimension<font color=#000099>;</font>
+    <br/> &emsp <font color=#990099>String</font> type<font color=#000099>;</font>
+    <br/> &emsp <font color=#990099>boolean</font> bought<font color=#000099>;</font>
+    <br/><br/> &emsp <font color=#00aa00> // Method: </font>
+    <br/> &emsp <font color=#990099>void</font> buy<font color=#000099>(){</font>
+    <br/> &emsp &emsp <font color=#000099>this.</font>bought<font color=#000099>=</font><font color=#ff8000>false</font><font color=#000099>;
+    <br/> &emsp }</font>
+    <br/><br/> &emsp <font color=#00aa00> // Constructors: </font>
+    <br/><br/> &emsp Apple<font color=#000099>(){</font>
+    <br/> &emsp &emsp <font color=#000099>this.</font>color<font color=#000099>=</font><font color=#ff8000>\"Green\"</font><font color=#000099>;
+    <br/> &emsp &emsp this.</font>color<font color=#000099>=</font><font color=#ff8000>6</font><font color=#000099>;
+    <br/> &emsp &emsp this.</font>color<font color=#000099>=</font><font color=#ff8000>\"Granny Smith\"</font><font color=#000099>;
+    <br/> &emsp }</font>
+    <br/><br/> &emsp Apple<font color=#000099>(</font><font color=#990099>String</font> newColor, <font color=#990099>int</font> newDimensions, <font color=#990099>String</font> newType<font color=#000099>String</font>){</font>
+    <br/> &emsp &emsp <font color=#000099>this.</font>color<font color=#000099>=</font>newColor<font color=#000099>;
+    <br/> &emsp &emsp this.</font>color<font color=#000099>=</font>newDimensions<font color=#000099>;
+    <br/> &emsp &emsp this.</font>color<font color=#000099>=</font>newType</font><font color=#000099>;
+    <br/> &emsp }</font>
+    <br/> <font color=#000099>}</font>
+]]></Data></string>
+
+    <!--Object-->
+    <string name="learn351"><Data><![CDATA[
+    <h2>Object</h2>
+    &emsp An <b> object</b> is an instance of a <b>class</b>.
+    <br/><br/> &emsp <b>Syntax:</b>
+    <br/> ClassName objectName = new ClassName(parameters);
+]]></Data></string>
+    <string name="learn352"><Data><![CDATA[
+    <b> &emsp Example: </b>
+    <br/>We have the Apple class.
+    <br/>The attributes: color, dimension, type and bought.
+    <br/>A method named \'buy\' which will make the attribute \'bought\' be \'true\'.
+    <br/>A constructor with no parameters which will give a default value to the attributes above.
+    <br/>And a constructor with three parameters which will give a value to the attributes above.
+    <br/><br/>And another class named Program.
+    <br/>A method named \'main\' where we will create our object from Apple class. The program ALWAYS starts from the <b>main</b> method.
+    <br/><br/>Ww will create a class with the first constructor.
+]]></Data></string>
+    <string name="learn353"><Data><![CDATA[
+    <b> &emsp Example: </b>
+    With the same classes will create an object using the constructor with parameters.
+]]></Data></string>
+    <string name="learn354">What is an \'object\'?</string>
+    <string name="learn3540">an instance of the class</string>
+    <string name="learn3541">a set of attributes and methods</string>
+    <string name="learn3542">an instance of the class</string>
+    <string name="learn3543">a set of classes</string>
+    <string name="codelearn352"><Data><![CDATA[
+    <font color=#990099>class</font> Apple<font color=#000099>{</font>
+    <br/><br/> &emsp <font color=#00aa00> // Attributes: </font>
+    <br/> &emsp <font color=#990099>String</font> color<font color=#000099>;</font>
+    <br/> &emsp <font color=#990099>int</font> dimension<font color=#000099>;</font>
+    <br/> &emsp <font color=#990099>String</font> type<font color=#000099>;</font>
+    <br/> &emsp <font color=#990099>boolean</font> bought<font color=#000099>;</font>
+    <br/><br/> &emsp <font color=#00aa00> // Method: </font>
+    <br/> &emsp <font color=#990099>void</font> buy<font color=#000099>(){</font>
+    <br/> &emsp &emsp <font color=#000099>this.</font>bought<font color=#000099>=</font><font color=#ff8000>false</font><font color=#000099>;
+    <br/> &emsp }</font>
+    <br/><br/> &emsp <font color=#00aa00> // Constructors: </font>
+    <br/> &emsp Apple<font color=#000099>(){</font>
+    <br/> &emsp &emsp <font color=#000099>this.</font>color<font color=#000099>=</font><font color=#ff8000>\"Green\"</font><font color=#000099>;
+    <br/> &emsp &emsp this.</font>color<font color=#000099>=</font><font color=#ff8000>6</font><font color=#000099>;
+    <br/> &emsp &emsp this.</font>color<font color=#000099>=</font><font color=#ff8000>\"Granny Smith\"</font><font color=#000099>;
+    <br/> &emsp }</font>
+    <br/> &emsp Apple<font color=#000099>(</font><font color=#990099>String</font> newColor, <font color=#990099>int</font> newDimensions, <font color=#990099>String</font> newType<font color=#000099>){</font>
+    <br/> &emsp &emsp <font color=#000099>this.</font>color<font color=#000099>=</font>newColor<font color=#000099>;
+    <br/> &emsp &emsp this.</font>color<font color=#000099>=</font>newDimensions<font color=#000099>;
+    <br/> &emsp &emsp this.</font>color<font color=#000099>=</font>newType</font><font color=#000099>;
+    <br/> &emsp }</font>
+    <br/> <font color=#000099>}</font>
+
+    <br/><br/><br/><font color=#990099>class</font> Program<font color=#000099>{</font>
+    <br/><br/> &emsp <font color=#990099>public static void</font> main<font color=#000099>(</font>String<font color=#000099>[]</font> args<font color=#000099>){</font>
+    <br/> &emsp &emsp Apples obj <font color=#0099>= new</font> Object<font color=#000099>();</font>
+    <br/> &emsp &emsp <font color=#00aa00> /*an object is created
+    <br/> &emsp &emsp by calling the constructor of the class
+    <br/> &emsp &emsp which is Apple() with no parameters
+    <br/> &emsp &emsp the Apple() constructor will be executed
+    <br/> &emsp &emsp so the \'obj\' object will have:
+    <br/> &emsp &emsp  \'color\' attribute with \'Green\' value
+    <br/> &emsp &emsp  \'dimension\' attribute with \'6\' value
+    <br/> &emsp &emsp  \'type\' attribute with \'Granny Smith\' value */</font>
+    <br/> &emsp <font color=#000099>} <br/>}</font>
+]]></Data></string>
+    <string name="codelearn353"><Data><![CDATA[
+    <font color=#990099>class</font> Apple<font color=#000099>{</font>
+    <br/><br/> &emsp <font color=#00aa00> // Attributes: </font>
+    <br/> &emsp <font color=#990099>String</font> color<font color=#000099>;</font>
+    <br/> &emsp <font color=#990099>int</font> dimension<font color=#000099>;</font>
+    <br/> &emsp <font color=#990099>String</font> type<font color=#000099>;</font>
+    <br/> &emsp <font color=#990099>boolean</font> bought<font color=#000099>;</font>
+    <br/><br/> &emsp <font color=#00aa00> // Method: </font>
+    <br/> &emsp <font color=#990099>void</font> buy<font color=#000099>(){</font>
+    <br/> &emsp &emsp <font color=#000099>this.</font>bought<font color=#000099>=</font><font color=#ff8000>false</font><font color=#000099>;
+    <br/> &emsp }</font>
+    <br/><br/> &emsp <font color=#00aa00> // Constructors: </font>
+    <br/> &emsp Apple<font color=#000099>(){</font>
+    <br/> &emsp &emsp <font color=#000099>this.</font>color<font color=#000099>=</font><font color=#ff8000>\"Green\"</font><font color=#000099>;
+    <br/> &emsp &emsp this.</font>color<font color=#000099>=</font><font color=#ff8000>6</font><font color=#000099>;
+    <br/> &emsp &emsp this.</font>color<font color=#000099>=</font><font color=#ff8000>\"Granny Smith\"</font><font color=#000099>;
+    <br/> &emsp }</font>
+    <br/> &emsp Apple<font color=#000099>(</font><font color=#990099>String</font> newColor, <font color=#990099>int</font> newDimensions, <font color=#990099>String</font> newType<font color=#000099>){</font>
+    <br/> &emsp &emsp <font color=#000099>this.</font>color<font color=#000099>=</font>newColor<font color=#000099>;
+    <br/> &emsp &emsp this.</font>color<font color=#000099>=</font>newDimensions<font color=#000099>;
+    <br/> &emsp &emsp this.</font>color<font color=#000099>=</font>newType</font><font color=#000099>;
+    <br/> &emsp }</font>
+    <br/> <font color=#000099>}</font>
+
+    <br/><br/><br/><font color=#990099>class</font> Program<font color=#000099>{</font>
+    <br/><br/> &emsp <font color=#990099>public static void</font> main<font color=#000099>(</font>String<font color=#000099>[]</font> args<font color=#000099>){</font>
+    <br/> &emsp &emsp Apples obj <font color=#0099>= new</font> Object<font color=#000099>(</font><font color=#ff8000>\"Red\"</font><font color=#000099>,</font><font color=#ff8000>5</font><font color=#000099>,</font><font color=#ff8000>\"Fuji\"</font>);</font>
+    <br/> &emsp &emsp <font color=#00aa00> /*this means an object is created
+    <br/> &emsp &emsp by calling the constructor of the class
+    <br/> &emsp &emsp which is Apple() with no parameters
+    <br/> &emsp &emsp the Apple(String myColor, int myDimension, String myType)
+    <br/> &emsp &emsp will be executed
+    <br/> &emsp &emsp so the \'obj\' object will have
+    <br/> &emsp &emsp  \'color\' attribute with \'Red\' value
+    <br/> &emsp &emsp  \'dimension\' attribute with \'5\' value
+    <br/> &emsp &emsp  \'type\' attribute with \'Fuji\' value */
+    <br/> &emsp <font color=#000099>} <br/>}</font>
+]]></Data></string>
+
+    <!--More on Objects-->
+    <string name="learn361"><Data><![CDATA[
+    <h2>Object</h2>
+    <h4><u>Objects and Attributes:</u></h4>
+    <b> &emsp Syntax:</b>
+    <br/> -to change its value:
+    <br/> &emsp ->objectName.attributeName = value;
+    <br/> -to store its value into a new variable;
+    <br/> &emsp ->dataType variableName = objectName.attributeName;
+    <br/><br/><b> &emsp Example:</b>
+    <br/> In the code below we will change and get the value of an attribute from Apple class.
+]]></Data></string>
+    <string name="learn362"><Data><![CDATA[
+    <h4><u>Objects and Methods</u></h4>
+    <b> &emsp Syntax:</b>
+    <br/> -to change its value through a method:
+    <br/> &emsp ->objectName.setAttributeName(newValue);
+    <br/> -to store its value into a new variable;
+    <br/> &emsp ->dataType variableName = objectName.getAttributeName();
+    <br/> Both \'setAttributeName\' and \'getAttributeName()\' are methods created by developer in the same class as the attributes.
+    <br/><br/><b> &emsp Example:</b>
+    <br/> In the code below we will use some methods to change and get the value of an attribute from Apple class.
+    <br/> It is preferable to access the attributes of a class with some get and set methods.
+]]></Data></string>
+    <string name="learn364">How is the best to access attributes of a class?</string>
+    <string name="learn3640">with get and set methods</string>
+    <string name="learn3641">with get and set methods</string>
+    <string name="learn3642">direct with the attribute</string>
+    <string name="learn3643">with a constructor</string>
+    <string name="codelearn361"><Data><![CDATA[
+    <font color=#990099>class</font> Apple<font color=#000099>{</font>
+    <br/><br/> &emsp <font color=#00aa00> // Attributes: </font>
+    <br/> &emsp <font color=#990099>String</font> color<font color=#000099>;</font>
+    <br/> &emsp <font color=#990099>int</font> dimension<font color=#000099>;</font>
+    <br/> &emsp <font color=#990099>String</font> type<font color=#000099>;</font>
+    <br/> &emsp <font color=#990099>boolean</font> bought<font color=#000099>;</font>
+    <br/><br/> &emsp <font color=#00aa00> // Method: </font>
+    <br/> &emsp <font color=#990099>void</font> buy<font color=#000099>(){</font>
+    <br/> &emsp &emsp <font color=#000099>this.</font>bought<font color=#000099>=</font><font color=#ff8000>false</font><font color=#000099>;
+    <br/> &emsp }</font>
+    <br/><br/> &emsp <font color=#00aa00> // Constructors: </font>
+    <br/><br/> &emsp Apple<font color=#000099>(){</font>
+    <br/> &emsp &emsp <font color=#000099>this.</font>color<font color=#000099>=</font><font color=#ff8000>\"Green\"</font><font color=#000099>;
+    <br/> &emsp &emsp this.</font>color<font color=#000099>=</font><font color=#ff8000>6</font><font color=#000099>;
+    <br/> &emsp &emsp this.</font>color<font color=#000099>=</font><font color=#ff8000>\"Granny Smith\"</font><font color=#000099>;
+    <br/> &emsp }</font>
+    <br/><br/> &emsp Apple<font color=#000099>(</font><font color=#990099>String</font> newColor, <font color=#990099>int</font> newDimensions, <font color=#990099>String</font> newType<font color=#000099>){</font>
+    <br/> &emsp &emsp <font color=#000099>this.</font>color<font color=#000099>=</font>newColor<font color=#000099>;
+    <br/> &emsp &emsp this.</font>color<font color=#000099>=</font>newDimensions<font color=#000099>;
+    <br/> &emsp &emsp this.</font>color<font color=#000099>=</font>newType</font><font color=#000099>;
+    <br/> &emsp }</font>
+    <br/> <font color=#000099>}</font>
+
+    <br/><br/><br/><font color=#990099>class</font> Program<font color=#000099>{</font>
+    <br/><br/> &emsp <font color=#990099>public static void</font> main<font color=#000099>(</font>String<font color=#000099>[]</font> args<font color=#000099>){</font>
+    <br/><br/> &emsp &emsp Apples obj <font color=#0099>= new</font> Object<font color=#000099>();</font>
+    <br/> &emsp &emsp <font color=#00aa00> // the object \'obj\' was created </font>
+    <br/><br/> &emsp &emsp obj<font color=#000099>.</font>color <font color=#000099>=</font> <font color=#ff8000>\"yellow\"</font>;
+    <br/> &emsp &emsp <font color=#00aa00> /* the attribute \'color\'
+    <br/> &emsp &emsp of the obj will now be \'yellow\'*/ </font>
+    <br/><br/> &emsp &emsp <font color=#990099>int</font> colorVariable <font color=#000099>=</font> obj<font color=#000099>.</font>color<font color=#000099>;</font>
+    <br/> &emsp &emsp <font color=#00aa00> /* the \'colorVariable\' will
+    <br/> &emsp &emsp have the value of \'color\' attribute
+    <br/> &emsp &emsp from \'obj\' object*/</font>
+    <br/> <font color=#000099> &emsp }
+    <br/> }</font>
+]]></Data></string>
+    <string name="codelearn362"><Data><![CDATA[
+    <font color=#990099>class</font> Apple<font color=#000099>{</font>
+    <br/><br/> &emsp <font color=#00aa00> // Attributes: </font>
+    <br/> &emsp <font color=#990099>String</font> color<font color=#000099>;</font>
+    <br/> &emsp <font color=#990099>int</font> dimension<font color=#000099>;</font>
+    <br/> &emsp <font color=#990099>String</font> type<font color=#000099>;</font>
+    <br/> &emsp <font color=#990099>boolean</font> bought<font color=#000099>;</font>
+    <br/><br/> &emsp <font color=#00aa00> // Methods: </font>
+    <br/> &emsp <font color=#990099>void</font> buy<font color=#000099>(){</font>
+    <br/> &emsp &emsp <font color=#000099>this.</font>bought<font color=#000099>=</font><font color=#ff8000>false</font><font color=#000099>;
+    <br/> &emsp }</font>
+    <br/> &emsp <font color=#00aa00> // set color method: </font>
+    <br/> &emsp <font color=#990099>void</font> setColor<font color=#000099>(<font color=#990099>String</font> myColor){</font>
+    <br/> &emsp &emsp <font color=#000099>this.</font>color<font color=#000099>=</font>myColor<font color=#000099>;
+    <br/> &emsp }</font>
+    <br/> &emsp <font color=#00aa00> // get color method: </font>
+    <br/> &emsp <font color=#990099>void</font> getColor<font color=#000099>(){</font>
+    <br/> &emsp &emsp <font color=#000099>return this.</font>color<font color=#000099>;
+    <br/> &emsp }</font>
+
+    <br/><br/> &emsp <font color=#00aa00> // Constructors: </font>
+    <br/> &emsp Apple<font color=#000099>(){</font>
+    <br/> &emsp &emsp <font color=#000099>this.</font>color<font color=#000099>=</font><font color=#ff8000>\"Green\"</font><font color=#000099>;
+    <br/> &emsp &emsp this.</font>color<font color=#000099>=</font><font color=#ff8000>6</font><font color=#000099>;
+    <br/> &emsp &emsp this.</font>color<font color=#000099>=</font><font color=#ff8000>\"Granny Smith\"</font><font color=#000099>;
+    <br/> &emsp }</font>
+    <br/> &emsp Apple<font color=#000099>(</font><font color=#990099>String</font> newColor, <font color=#990099>int</font> newDimensions, <font color=#990099>String</font> newType<font color=#000099>){</font>
+    <br/> &emsp &emsp <font color=#000099>this.</font>color<font color=#000099>=</font>newColor<font color=#000099>;
+    <br/> &emsp &emsp this.</font>color<font color=#000099>=</font>newDimensions<font color=#000099>;
+    <br/> &emsp &emsp this.</font>color<font color=#000099>=</font>newType</font><font color=#000099>;
+    <br/> &emsp }</font>
+    <br/> <font color=#000099>}</font>
+
+    <br/><br/><br/><font color=#990099>class</font> Program<font color=#000099>{</font>
+    <br/><br/> &emsp <font color=#990099>public static void</font> main<font color=#000099>(</font>String<font color=#000099>[]</font> args<font color=#000099>){</font>
+    <br/><br/> &emsp &emsp Apples obj <font color=#0099>= new</font> Object<font color=#000099>();</font>
+    <br/> &emsp &emsp <font color=#00aa00> // the object \'obj\' was created </font>
+
+    <br/><br/> &emsp &emsp obj<font color=#000099>.</font>setColor<font color=#000099>(</font> <font color=#ff8000>\"yellow\"</font><font color=#000099>);</font>
+    <br/> &emsp &emsp <font color=#00aa00> /* the attribute \'color\'
+    <br/> &emsp &emsp of the obj will now be \'yellow\' */</font>
+
+    <br/><br/> &emsp &emsp <font color=#990099>int</font> colorVariable <font color=#000099>=</font> obj<font color=#000099>.</font>getColor<font color=#000099>(</font><font color=#000099>);</font>
+    <br/> &emsp &emsp <font color=#00aa00> /* the variable \'colorVariable\'
+    <br/> &emsp &emsp will take the value of \'color\' attribute
+    <br/> &emsp &emsp of the \'obj\' object because
+    <br/> &emsp &emsp the \'colorVariable\' will get the value
+    <br/> &emsp &emsp which method \'getColor\' will return */</font>
+    <br/> <font color=#000099> &emsp }
+    <br/> }</font>
+]]></Data></string>
+
+    <!--Static-->
+    <string name="learn411"><Data><![CDATA[
+    <h2>Static</h2>
+    <b> &emsp Static</b> means that the attribute or the method that is <b>static</b> belongs to the class more than to the instance(object).
+    <br/><br/><b> &emsp Example:</b>
+    <br/> We have the Apple class.
+    <br/> Two attributes, totalNumber which will store the total number of object created from the Apple class and singleNumber which will store the current number of the object.
+    <br/> When we create a new instance (object) the instance will have their own new currentNumber, but the totalNumber will NOT be duplicated for each instance, he will remain just one.
+]]></Data></string>
+    <string name="learn414">A \'static\' attribute or method belongs to the ...?</string>
+    <string name="learn4140">class</string>
+    <string name="learn4141">objects</string>
+    <string name="learn4142">class</string>
+    <string name="learn4143">attributes</string>
+    <string name="codelearn411"><Data><![CDATA[
+    <font color=#990099>class</font> Apple<font color=#000099>{</font>
+    <br/> &emsp <font color=#00aa00> // Attributes: </font>
+    <br/> &emsp <font color=#990099>static int</font> totalNumber<font color=#000099>=</font><font color=#ff8000>0</font><font color=#000099>;</font>
+    <br/> &emsp <font color=#990099>int</font> currentNumber<font color=#000099>=</font><font color=#ff8000>0</font><font color=#000099>;</font>
+    <br/> &emsp <font color=#00aa00> // Constructor: </font>
+    <br/> &emsp Apple<font color=#000099>(){</font>
+    <br/> &emsp &emsp <font color=#000099>this.</font>totalNumber<font color=#000099>++;
+    <br/> &emsp &emsp this.</font>currentNumber<font color=#000099>++;</font>
+    <br/> &emsp }</font>
+
+    <br/><br/><br/><font color=#990099>class</font> Program<font color=#000099>{</font>
+    <br/><br/> &emsp <font color=#990099>public static void</font> main<font color=#000099>(</font>String<font color=#000099>[]</font> args<font color=#000099>){</font>
+    <br/> &emsp &emsp Apples obj1 <font color=#0099>= new</font> Apples<font color=#000099>();</font>
+    <br/> &emsp &emsp Apples obj2 <font color=#0099>= new</font> Apples<font color=#000099>();</font>
+    <br/> &emsp &emsp System<font color=#000099>.</font>out<font color=#000099>.</font>println<font color=#000099>(</font>obj1<font color=#000099>.</font>currentNumber <font color=#000099>+</font><font color=#ff8000>" "</font><font color=#000099>+</font>obj2<font color=#000099>.</font>currentNumber<font color=#000099>);</font>
+    <br/> &emsp &emsp System<font color=#000099>.</font>out<font color=#000099>.</font>println<font color=#000099>(</font>Apples<font color=#000099>.</font>totalNumber<font color=#000099>);</font>
+    <br/> &emsp &emsp <font color=#00aa00> /* the output for the first display
+    <br/> &emsp &emsp will be "1 1"
+    <br/> &emsp &emsp and the output for the second one
+    <br/> &emsp &emsp will be 2*/</font>
+    <br/> <font color=#000099> &emsp }
+    <br/> }</font>
+]]></Data></string>
+
+    <!--Access modifiers and Encapsulation -->
+    <string name="learn421"><Data><![CDATA[
+    <h2>Access modifiers and Encapsulation</h2>
+    <h4><u>Access modifiers</u></h4>
+    <b> &emsp Access modifiers</b> are use to set access level for classes, attributes, methods and constructors.
+    <br/> There are 4 access modifiers:
+    <br/> &emsp -> <b>private</b>: the information is visible only in that class
+    <br/> &emsp -> <b>public</b>: the information is visible in every other class
+    <br/> &emsp -> <b>protected</b>: the information is visible to the subclasses of the class (inheritance)
+    <br/> &emsp -> no keyword, which means is the default and will be visible to the package
+    <br/> &emsp The <b>access modifiers</b> are written in the declarations before the data types.
+    <br/><br/><b> &emsp Example:</b>
+    <br/> We have the Apple class.
+    <br/> With attributes: public color, private dimension, protected type and default bought.
+    <br/> For the Program class which is in the same package with Apple class, we will only access the information with public and with no keyword.
+]]></Data></string>
+    <string name="learn422"><Data><![CDATA[
+    <h4><u>Encapsulation</u></h4>
+    <b> &emsp Encapsulation</b> is the property of a class to hide some of his data.
+    <br/> &emsp The role of encapsulation is to protect implementation details from the users.
+    <br/> &emsp In order to do that, attributes must be declared <b>private</b> and the setter and the getter methods must be <b>public</b> to modify and view the attributes values.
+
+    <br/><br/><b> &emsp Example:</b>
+    <br/> We have the Apple class.
+    <br/> With a private color attribute.
+    <br/> A constructor.
+    <br/> And a getter and setter method which will allowed user to modify and view the attributes values.
+]]></Data></string>
+    <string name="learn424">For what is used the \'private\' access modifier?</string>
+    <string name="learn4240">to access the information only from the class</string>
+    <string name="learn4241">to access the information only from subclasses</string>
+    <string name="learn4242">to access the information from any class</string>
+    <string name="learn4243">to access the information only from the class</string>
+    <string name="codelearn421"><Data><![CDATA[
+    <font color=#990099>class</font> Apple<font color=#000099>{</font>
+    <br/><br/> &emsp <font color=#00aa00> // Attributes: </font>
+    <br/> &emsp <font color=#990099>String</font> color<font color=#000099>;</font>
+    <br/> &emsp <font color=#990099>int</font> dimension<font color=#000099>;</font>
+    <br/> &emsp <font color=#990099>String</font> type<font color=#000099>;</font>
+    <br/> &emsp <font color=#990099>boolean</font> bought<font color=#000099>;</font>
+
+    <br/> &emsp <font color=#00aa00> // Constructor: </font>
+    <br/> &emsp <font color=#990099>public</font> Apple<font color=#000099>(</font><font color=#990099>String</font> newColor, <font color=#990099>int</font> newDimensions, <font color=#990099>String</font> newType, <font color=#990099>boolean</font> newBought<font color=#000099>){</font>
+    <br/> &emsp &emsp <font color=#000099>this.</font>color<font color=#000099>=</font>newColor<font color=#000099>;
+    <br/> &emsp &emsp this.</font>dimensions<font color=#000099>=</font>newDimensions<font color=#000099>;
+    <br/> &emsp &emsp this.</font>type<font color=#000099>=</font>newType</font><font color=#000099>;
+    <br/> &emsp &emsp this.</font>bought<font color=#000099>=</font>newBought</font><font color=#000099>;
+    <br/> &emsp }</font>
+    <br/> <font color=#000099>}</font>
+
+    <br/><br/><br/><font color=#990099>class</font> Program<font color=#000099>{</font>
+    <br/><br/> &emsp <font color=#990099>public static void</font> main<font color=#000099>(</font>String<font color=#000099>[]</font> args<font color=#000099>){</font>
+    <br/> &emsp &emsp Apples obj <font color=#990099>= new</font> Object<font color=#000099>(</font><font color=#ff8000>"Red"</font><font color=#000099>, </font><font color=#ff8000>5</font><font color=#000099>, </font><font color=#ff8000>"Fuji"</font><font color=#000099>, </font><font color=#ff8000>true</font><font color="#000099>);</font>
+    <br/> &emsp &emsp System<font color="#000099">.</font>out<font color="#000099">.</font>println<font color="#000099">.(</font>obj<font color="#000099">.</font>color<font color="#000099">);</font>
+    <br/> &emsp &emsp System<font color="#000099">.</font>out<font color="#000099">.</font>println<font color="#000099">.(</font>obj<font color="#000099">.</font>bought<font color="#000099">);</font>
+    <br/><br/> <font color=#00aa00> &emsp &emsp /* From the Program class we can access with an object from the Apple class only the \'color\' attribute because is private
+    and the \'bought\' attribute because is default*/ </font>
+    <br/> }</font>
+]]></Data></string>
+    <string name="codelearn422"><Data><![CDATA[
+    <font color=#990099>class</font> Apple<font color=#000099>{</font>
+    <br/><br/> &emsp <font color=#00aa00> // Attributes: </font>
+    <br/> &emsp <font color=#990099>String</font> color<font color=#000099>;</font>
+    <br/> &emsp <font color=#00aa00> // set color method: </font>
+    <br/> &emsp <font color=#990099>void</font> setColor<font color=#000099>(<font color=#990099>String</font> myColor){</font>
+    <br/> &emsp &emsp <font color=#000099>this.</font>color<font color=#000099>=</font>myColor<font color=#000099>;
+    <br/> &emsp }</font>
+    <br/> &emsp <font color=#00aa00> // get color method: </font>
+    <br/> &emsp <font color=#990099>void</font> getColor<font color=#000099>(){</font>
+    <br/> &emsp &emsp <font color=#000099>return this.</font>color<font color=#000099>;
+    <br/> &emsp }</font>
+    <br/> &emsp <font color=#00aa00> // Constructor: </font>
+    <br/> &emsp Apple<font color=#000099>(){</font>
+    <br/> &emsp &emsp <font color=#000099>this.</font>color<font color=#000099>=</font><font color=#ff8000>\"Green\"</font><font color=#000099>;
+    <br/> &emsp }</font>
+
+    <br/><br/><br/><font color=#990099>class</font> Program<font color=#000099>{</font>
+    <br/><br/> &emsp <font color=#990099>public static void</font> main<font color=#000099>(</font>String<font color=#000099>[]</font> args<font color=#000099>){</font>
+    <br/> &emsp &emsp Apples obj <font color=#0099>= new</font> Apple<font color=#000099>();</font>
+    <br/> &emsp &emsp obj<font color=#000099>.</font>setColor<font color=#000099>(</font> <font color=#ff8000>\"yellow\"</font><font color=#000099>);</font>
+    <br/> &emsp &emsp <font color=#990099>int</font> colorVariable <font color=#000099>=</font> obj<font color=#000099>.</font>getColor<font color=#000099>(</font><font color=#000099>);</font>
+    <br/><br/> &emsp &emsp <font color=#00aa00> /* The \'color\' attribute is private so it can only be access by getters and setters. (Encapsulation) */</font>
+    <br/> <font color=#000099> &emsp }
+    <br/> }</font>
+]]></Data></string>
+
+    <!--Final and Inheritance-->
+    <string name="learn431"><Data><![CDATA[
+    <h2>Final and Inheritance</h2>
+    <h4><u>Final</u></h4>
+    <b> &emsp Final</b> is a keyword which can be used in 2 ways:
+    <br/> 1. With an attribute, which means that the attribute will not change his value.
+    <br/> 2. With a class, which means that the class will not be inherited.
+
+    <br/><br/><b> &emsp Example:</b>
+    <br/> We have a final Fruit class which have a final /*color/* attribute.
+]]></Data></string>
+    <string name="learn432"><Data><![CDATA[
+    <h4><u>Inheritance</u></h4>
+    <b> &emsp Inheritance</b> is the property of a class that enables one class to acquire the methods and attributes from another.
+    <br/> &emsp To inherit from a class we need to use the <b>extends</b> keyword.
+    <br/> &emsp The first class is name parent class or superclass and the class that inherit the first is named child class or subclass.
+    <br/> &emsp A class can extend only one class.
+    <br/><br/><b> &emsp Example:</b>
+    <br/> We have the Fruit superclass which have a color attribute, and a getColor method.
+    <br/> And we have the Apple subclass, which will inherit the color attribute and the getColor method.
+]]></Data></string>
+    <string name="learn434">For what is used the \'final\' keyword on an attribute?</string>
+    <string name="learn4340">to make the attribute constant</string>
+    <string name="learn4341">to make the attribute static</string>
+    <string name="learn4342">to make the attribute constant</string>
+    <string name="learn4343">to make the attribute private</string>
+    <string name="codelearn431"><Data><![CDATA[
+    <font color=#990099>final class</font> Fruit<font color=#000099>{</font>
+    <br/> &emsp <font color=#00aa00> /* the Fruit class is final, which means the class can not be inherit anymore.*/</font>
+    <br/><br/> &emsp <font color=#990099>final String</font> color<font color=#000099>=</font> <font color=#ff8000>\"red\"</font><font color=#000099>;</font>
+    <br/> &emsp <font color=#00aa00> /* The attribute is final which means that is constant and its value can not be change anymore.*</font>
+    <br/><font color="#000099>}</font>
+]]></Data></string>
+    <string name="codelearn432"><Data><![CDATA[
+    <font color=#990099>class</font> Fruit<font color=#000099>{</font>
+    <br/> &emsp <font color=#00aa00> // Attributes: </font>
+    <br/> &emsp <font color=#990099>String</font> color<font color=#000099>=</font> <font color=#ff8000>\"red\"</font><font color=#000099>;</font>
+    <br/> &emsp <font color=#00aa00> // get color method: </font>
+    <br/> &emsp <font color=#990099>void</font> getColor<font color=#000099>(){</font>
+    <br/> &emsp &emsp <font color=#000099>return this.</font>color<font color=#000099>;
+    <br/> &emsp }</font>
+    <br/> &emsp <font color=#00aa00> // Constructors: </font>
+    <br/> &emsp <font color=#990099>public</font> Fruit<font color=#000099>(){}<br/>}</font>
+
+    <br/><br/> &emsp<font color=#990099>class</font> Apple <font color=#000099>extends</font> Fruit <font color="#000099">{</font>
+    <br/> &emsp <font color=#00aa00> // Attributes:
+    <br/> &emsp /*The \'color\' attribute already exist in the parent class(Fruit), so it will not be needed to be declared again.*/
+    <br/> &emsp // get color method:
+    <br/> &emsp /*The \'getColor\' method already exist in the parent class(Fruit), so it will not be needed to be implemented again.*/</font>
+    <br/> &emsp <font color=#00aa00> // Constructors: </font>
+    <br/> &emsp <font color=#990099>public</font> Apple<font color=#000099>(){}</font>
+
+    <br/><br/><br/><font color=#990099>class</font> Program<font color=#000099>{</font>
+    <br/><br/> &emsp <font color=#990099>public static void</font> main<font color=#000099>(</font>String<font color=#000099>[]</font> args<font color=#000099>){</font>
+    <br/><br/> &emsp &emsp Fruit fruit <font color=#0099>= new</font> Fruit<font color=#000099>();</font>
+    <br/> &emsp &emsp Apples apple <font color=#0099>= new</font> Apple<font color=#000099>();</font>
+    <br/> &emsp &emsp System<font color=#000099>.</font>out<font color=#000099>.</font>println<font color=#000099>(</font>fruit<font color=#000099>.</font>getColor<font color=#000099>());</font>
+    <br/> &emsp &emsp <font color=#00aa00> // output: red</font>
+    <br/> &emsp &emsp System<font color=#000099>.</font>out<font color=#000099>.</font>println<font color=#000099>(</font>apple<font color=#000099>.</font>getColor<font color=#000099>());</font>
+    <br/> &emsp &emsp<font color=#00aa00> // output: red</font>
+    <br/><br/> &emsp <font color=#00aa00> /*The \'getColor\' method of Apple class is the same with the method from Fruit class, because Apple class inherit all the attributes and the method from the parent class(Fruit class in this case).
+    <br/> So the output will be the value of the \'color\'  attribute (red) which is declared in parent class*/</font>
+    <br/> <font color=#000099> &emsp }
+    <br/> }</font>
+]]></Data></string>
+
+    <!--Polymorphism-->
+    <string name="learn441"><Data><![CDATA[
+    <h4><u>Polymorphism</u></h4>
+    <b> &emsp Polymorphism</b> is a property of the class similar to inheritance.
+    <br/> &emsp The difference between them is that the implementation of method can be rewritten in the subclass.
+
+    <br/><br/><b> &emsp Example:</b>
+    <br/> We have the Fruit parent class with a getColor method and two subclasses Apple and Banana with the getColor rewritten.
+]]></Data></string>
+    <string name="learn444">What does polymorphism do?</string>
+    <string name="learn4440">rewritten methods</string>
+    <string name="learn4441">rewritten methods</string>
+    <string name="learn4442">inherit methods</string>
+    <string name="learn4443">written methods</string>
+    <string name="codelearn441"><Data><![CDATA[
+    <font color=#990099>class</font> Fruit<font color=#000099>{</font>
+    <br/> &emsp <font color=#00aa00> // show color method: </font>
+    <br/> &emsp <font color=#990099>void</font> showColor<font color=#000099>(){</font>
+    <br/> &emsp &emsp System<font color=#000099>.</font>out<font color=#000099>.</font>println<font color=#000099>(</font><font color=#ff8000>\"many colors\"</font><font color=#000099>);</font>
+    <br/> &emsp }</font>
+    <br/> &emsp <font color=#00aa00> // Constructor: </font>
+    <br/> &emsp <font color=#990099>public</font> Fruit<font color=#000099>(){}<br/>}</font>
+
+    <br/><br/><font color=#990099>class</font> Apple <font color=#000099>extends</font> Fruit <font color="#000099">{</font>
+    <br/> &emsp <font color=#00aa00> // show color method: </font>
+    <br/> &emsp <font color=#990099>void</font> showColor<font color=#000099>(){</font>
+    <br/> &emsp &emsp System<font color=#000099>.</font>out<font color=#000099>.</font>println<font color=#000099>(</font><font color=#ff8000>\"green\"</font><font color=#000099>);</font>
+    <br/> &emsp }</font>
+    <br/> &emsp <font color=#00aa00> // Constructor: </font>
+    <br/> &emsp <font color=#990099>public</font> Apple<font color=#000099>(){}<br/>}</font>
+
+    <br/><br/><font color=#990099>class</font> Banana <font color=#000099>extends</font> Fruit <font color="#000099">{</font>
+    <br/> &emsp <font color=#00aa00> // show color method: </font>
+    <br/> &emsp <font color=#990099>void</font> showColor<font color=#000099>(){</font>
+    <br/> &emsp &emsp System<font color=#000099>.</font>out<font color=#000099>.</font>println<font color=#000099>(</font><font color=#ff8000>\"yellow\"</font><font color=#000099>);</font>
+    <br/> &emsp }</font>
+    <br/> &emsp <font color=#00aa00> // Constructor: </font>
+    <br/> &emsp <font color=#990099>public</font> Banana<font color=#000099>(){}<br/>}</font>
+
+
+    <br/><br/><br/><font color=#990099>class</font> Program<font color=#000099>{</font>
+    <br/><br/> &emsp <font color=#990099>public static void</font> main<font color=#000099>(</font>String<font color=#000099>[]</font> args<font color=#000099>){</font>
+    <br/><br/> &emsp &emsp Fruit fruit <font color=#0099>= new</font> Fruit<font color=#000099>();</font>
+    <br/> &emsp &emsp Apples apple <font color=#0099>= new</font> Apple<font color=#000099>();</font>
+    <br/> &emsp &emsp Banana obj <font color=#0099>= new</font> Banana<font color=#000099>();</font>
+    <br/><br/> &emsp &emsp fruit<font color=#000099>.</font>showColor<font color=#000099>());</font>
+    <br/> &emsp &emsp <font color=#00aa00> // output: many colors</font>
+    <br/> &emsp &emsp apple<font color=#000099>.</font>showColor<font color=#000099>());</font>
+    <br/> &emsp &emsp <font color=#00aa00> // output: red</font>
+    <br/> &emsp &emsp banana<font color=#000099>.</font>showColor<font color=#000099>());</font>
+    <br/> &emsp &emsp <font color=#00aa00> // output: yellow</font>
+    <br/><br/> &emsp &emsp <font color=#00aa00> /*The \'showColor\' method is rewritten for every subclass of Fruit class*/</font>
+    <br/> <font color=#000099> &emsp }<br/> }</font>
+]]></Data></string>
+
+    <!--Abstract class-->
+    <string name="learn451"><Data><![CDATA[
+    <h4>Abstract class</h4>
+    &emsp An<b> Abstract</b> class is a class that contains abstract methods, but also regular methods and attributes.
+    <br/> &emsp An <b>abstract</b> method is a method that does not have any implementation and its role is to be inherit and modify by subclasses.
+
+    <br/><br/><b> &emsp Example:</b>
+    <br/> We have the \'Fruit\' abstract class with an abstract \'showColor\' method and a subclass \'Apple\' which will implement the showColor method.
+]]></Data></string>
+    <string name="learn454">What will happen if a class is \'abstract\'?</string>
+    <string name="learn4540">its abstract methods will be implemented by a subclass</string>
+    <string name="learn4541">its methods can not be modify in a subclass</string>
+    <string name="learn4542">it can not be inherit</string>
+    <string name="learn4543">its abstract methods will be implemented by a subclass</string>
+    <string name="codelearn451"><Data><![CDATA[
+    <font color=#990099>abstract class</font> Fruit<font color=#000099>{</font>
+    <br/> &emsp <font color=#00aa00> // show color method: </font>
+    <br/> &emsp <font color=#990099>abstract void</font> showColor<font color=#000099>();<bt/>}</font>
+
+    <br/><br/> &emsp <font color=#990099>class</font> Apple <font color=#000099>extends</font> Fruit <font color="#000099">{</font>
+    <br/> &emsp <font color=#00aa00> // show color method: </font>
+    <br/> &emsp <font color=#990099>void</font> showColor<font color=#000099>(){</font>
+    <br/> &emsp &emsp System<font color=#000099>.</font>out<font color=#000099>.</font>println<font color=#000099>(</font><font color=#ff8000>\"green\"</font><font color=#000099>);</font>
+    <br/> &emsp }</font>
+
+    <br/><br/><br/><font color=#990099>class</font> Program<font color=#000099>{</font>
+    <br/><br/> &emsp <font color=#990099>public static void</font> main<font color=#000099>(</font>String<font color=#000099>[]</font> args<font color=#000099>){</font>
+    <br/></br> &emsp &emsp Apples apple <font color=#0099>= new</font> Apple<font color=#000099>();</font>
+    <br/> &emsp &emsp apple<font color=#000099>.</font>showColor<font color=#000099>());</font>
+    <br/> &emsp &emsp <font color=#00aa00> // output: red</font>
+    <br/><br/> &emsp &emsp <font color=#00aa00> /*The abstract \'showColor\' method is implemented only in the \'Apple\' subclass.*/</font>
+    <br/> <font color=#000099> &emsp }<br/> }</font>
+]]></Data></string>
+
+    <!--Interface-->
+    <string name="learn461"><Data><![CDATA[
+    <h4>Interface</h4>
+    &emsp An<b> Interface</b> is similar to the <b>abstract</b> class, but it has no regular attribute and no regular methods. It contains only non implemented methods.
+    <br/> &emsp A interface can be implemented using the word <b>\'implements\'</b>.
+    <br/> &emsp A class can implement as many interfaces as it needs.
+    <br/> &emsp A class can extends a superclass and implement other interfaces in the same time.
+
+    <br/><br/><b> &emsp Example:</b>
+    <br/> We have the \'IFruit\' interface with a non implemented \'showColor\' method and a class \'Apple\' which will implement the showColor method from the interface.
+]]></Data></string>
+    <string name="learn464">What is the difference between abstract class and interface?</string>
+    <string name="learn4640">interface has only non implemented methods</string>
+    <string name="learn4641">interface has only non implemented methods</string>
+    <string name="learn4642">interface has only implemented methods</string>
+    <string name="learn4643">interface has no methods</string>
+    <string name="codelearn461"><Data><![CDATA[
+    <font color=#990099>interface</font> IFruit<font color=#000099>{</font>
+    <br/> &emsp <font color=#00aa00> // show color method: </font>
+    <br/> &emsp <font color=#990099>public void</font> showColor<font color=#000099>();<br/>}</font>
+
+    <br/><br/> &emsp <font color=#990099>class</font> Apple <font color=#000099>implements</font> Fruit <font color="#000099">{</font>
+    <br/> &emsp <font color=#00aa00> // show color method: </font>
+    <br/> &emsp <font color=#990099>public void</font> showColor<font color=#000099>(){</font>
+    <br/> &emsp &emsp System<font color=#000099>.</font>out<font color=#000099>.</font>println<font color=#000099>(</font><font color=#ff8000>\"green\"</font><font color=#000099>);</font>
+    <br/> &emsp }</font>
+
+    <br/><br/><br/><font color=#990099>class</font> Program<font color=#000099>{</font>
+    <br/><br/> &emsp <font color=#990099>public static void</font> main<font color=#000099>(</font>String<font color=#000099>[]</font> args<font color=#000099>){</font>
+    <br/></br> &emsp &emsp Apples apple <font color=#0099>= new</font> Apple<font color=#000099>();</font>
+    <br/> &emsp &emsp apple<font color=#000099>.</font>showColor<font color=#000099>());</font>
+    <br/> &emsp &emsp <font color=#00aa00> // output: red</font>
+    <br/><br/> &emsp &emsp <font color=#00aa00> /*The non implemented \'showColor\' method is implemented only in the \'Apple\' class.*/</font>
+    <br/> <font color=#000099> &emsp }<br/> }</font>
+]]></Data></string>
+
+    <!--Test1-->
+    <string name="test101">"1. Choose the correct answer: What is \'JDK\' stands for?"</string>
+    <string name="test1010">Java Development Kit</string>
+    <string name="test1011">Java Development Kit</string>
+    <string name="test1012">Java Development Key</string>
+    <string name="test1013">Java Developer Kit</string>
+    <string name="test102">2. What is the output of the fallowing code?</string>
+    <string name="test1021"><Data><![CDATA[ System<font color="#000099">.</font>out<font color="#000099">.</font>println
+    <font color="#000099">(</font><font color=#ff8000>\"Learning Java\"</font><font color="#000099">);</font>]]></Data></string>
+    <string name="test1020">Learning Java</string>
+    <string name="test103">3. Complete the fallowing sentence.</string>
+    <string name="test1031">Java is a </string>
+    <string name="test1032">-oriented programing language.</string>
+    <string name="test1030">object</string>
+    <string name="test104">4. Choose the correct answer: Which of the fallowing operators is an \'arithmetic operator\'?</string>
+    <string name="test1040">%</string>
+    <string name="test1041">+=</string>
+    <string name="test1042">||</string>
+    <string name="test1043">%</string>
+    <string name="test105">5. Complete the fallowing method in order to display \'21\'.</string>
+    <string name="test1051"><Data><![CDATA[ number1 <font color="#000099">=</font><font color=#ff8000>10"</font> ]]></Data></string>
+    <string name="test1052"><Data><![CDATA[ <font color="#990099">int</font> number2 <font color="#000099">=</font><font color=#ff8000>11"</font> ]]></Data></string>
+    <string name="test1053"><Data><![CDATA[ System<font color="#000099">.</font> ]]></Data></string>
+    <string name="test1054"><Data><![CDATA[ <font color="#000099">.</font>println<font color="#000099">
+    (</font>a <font color=#000099>+</font>b<font color="#000099">);</font> ]]></Data></string>
+    <string name="test10501">int</string>
+    <string name="test10502">out</string>
+
+
+    <!--test2-->
+    <string name="test201">1. Complete the fallowing method in order to display \'a > b\'.</string>
+    <string name="test2010">if(</string>
+    <string name="test2011"><Data><![CDATA[
+    <font color="#990099">int </font> a<font color="#000099">=</font><font color=#ff8000>10</font><font color="#000099">;</font>
+    <br/> <font color="#990099">int </font> b<font color="#000099">=</font><font color=#ff8000>8</font><font color="#000099">;</font>
+    ]]></Data></string>
+    <string name="test2012"><Data><![CDATA[
+    a<font color=#000099>&gt</font>b<font color=#000099>){</font> ]]></Data></string>
+    <string name="test2013"><Data><![CDATA[
+    &emsp &emsp System<font color=#000099>.</font>out<font color=#000099>.</font>println<font color=#000099>(</font> <font color=#ff8000>\"a > b\"</font><font color=#000099>);</font>
+    <br/> <font color=#000099>} else{</font>
+    <br/> &emsp System<font color=#000099>.</font>out<font color=#000099>.</font>println<font color=#000099>(</font> <font color=#ff8000>\"a < b\"</font><font color=#000099>);</font>
+    <br/> <font color=#000099>} </font>
+    ]]></Data></string>
+    <string name="test202">2. Choose the correct answer: What happens when the if condition is not true?</string>
+    <string name="test2020">the instruction will not be executed</string>
+    <string name="test2021">the instruction will be executed</string>
+    <string name="test2022">the instruction will not be executed</string>
+    <string name="test2023">the instruction will be partially executed</string>
+    <string name="test203">3. What is the output of the fallowing code?</string>
+    <string name="test2030">case 2</string>
+    <string name="test2031"><Data><![CDATA[
+        <font color="#990099">int</font> number<font color="#000099">=</font><font color=#ff8000>2</font><font color="#000099">;</font>
+        <br/><font color=#000099>switch(</font>number<font color=#000099>){</font>
+        <br/><font color=#000099> &emsp case</font><font color=#ff8000> 1</font><font color=#000099>:</font>
+        <br/> &emsp System<font color=#000099>.</font>out<font color=#000099>.</font>println<font color=#000099>(</font> <font color=#ff8000>\"case 1\"</font><font color=#000099>);</font> break</font><font color=#000099>;</font>
+        <br/><font color=#000099> &emsp case</font><font color=#ff8000> 2</font><font color=#000099>:</font>
+        <br/> &emsp System<font color=#000099>.</font>out<font color=#000099>.</font>println<font color=#000099>(</font> <font color=#ff8000>\"case 2\"</font><font color=#000099>);</font> break</font><font color=#000099>;</font>
+        <br/><font color=#000099> &emsp case</font><font color=#ff8000> 3</font><font color=#000099>:</font>
+        <br/> &emsp System<font color=#000099>.</font>out<font color=#000099>.</font>println<font color=#000099>(</font> <font color=#ff8000>\"case 3\"</font><font color=#000099>);</font> break</font><font color=#000099>;</font>
+        <br/><font color=#000099> &emsp default:</font>
+        <br/> &emsp System<font color=#000099>.</font>out<font color=#000099>.</font>println<font color=#000099>(</font> <font color=#ff8000>\"default\"</font><font color=#000099>);
+        <br/>}</font>
+
+]]></Data></string>
+    <string name="test204">4. Complete the fallowing method in order to get the user input.</string>
+    <string name="test2040">Scanner</string>
+    <string name="test2041"><Data><![CDATA[
+   <font color=#000099>import</font> java<font color=#000099>.</font>util<font color=#000099>.</font>Scanner<font color=#000099>;</font>
+        <br/><br/><font color=#990099>class</font> Program<font color=#000099>{</font>
+        <br/> &emsp &emsp <font color=#990099>public static void</font> main<font color=#000099>(</font>String<font color=#000099>[]</font> args<font color=#000099>)</font><font color=#000099>{</font>]]></Data></string>
+    <string name="test2042"><Data><![CDATA[
+     input <font color=#000099>= new</font> Scanner<font color=#000099>(</font>System<font color=#000099>.</font>in<font color=#000099>);</font>
+         ]]></Data></string>
+    <string name="test2043"><Data><![CDATA[
+        &emsp &emsp &emsp &emsp &emsp System.out.println<font color=#000099>(</font>input<font color=#000099>.</font>nextLine<font color=#000099>());</font>
+        <br/> &emsp &emsp <font color=#000099>}</font>
+        <br/> <font color=#000099>}</font>
+    ]]></Data></string>
+    <string name="test205">5. Choose the correct answer: How many times you can use an \'else if\' statement after an if?</string>
+    <string name="test2050">as many times as it needed</string>
+    <string name="test2051">twice</string>
+    <string name="test2052">as many times as it needed</string>
+    <string name="test2053">once</string>
+
+    <!--Test3-->
+    <string name="test301">"1. How many times will run a while loop, if the condition is always true"</string>
+    <string name="test3010">infinite number of time</string>
+    <string name="test3011">one time</string>
+    <string name="test3012">infinite number of time</string>
+    <string name="test3013">never</string>
+    <string name="test302">2. What is the output of the fallowing code?</string>
+    <string name="test3021"><Data><![CDATA[
+    <font color="#990099">int</font> a <font color="#000099">=</font><font color=#ff8000> 0</font><font color="#000099">;</font>
+    <br/>
+    <font color="#990099">while</font><font color="#000099">(</font>a<font color="#000099">&lt</font>2<font color="#000099">){</font>
+   <br/>System<font color="#000099">.</font>out<font color="#000099">.</font>println
+    <font color="#000099">(</font>a<font color="#000099">);</font>
+    <br/> a<font color="#000099">++;
+    <br/>}</font>]]></Data></string>
+    <string name="test3020">01</string>
+    <string name="test303">3. Complete the fallowing sentence.</string>
+    <string name="test3031">In \'do while\', the block of code will</string>
+    <string name="test3032">at least once.</string>
+    <string name="test3030">run</string>
+    <string name="test304">4. What is the correct declaration of an array of 2 integers?</string>
+    <string name="test3040">int[] number = new int[2];</string>
+    <string name="test3041">int[] number = new numbers[2];</string>
+    <string name="test3042">int[2] number = new int[];</string>
+    <string name="test3043">int[] number = new int[2];</string>
+    <string name="test305">5. What is the output of the fallowing sentance?</string>
+    <string name="test3051"><Data><![CDATA[ <font color=#990099>int </font>array<font color=#000099>={</font><font color=#ff8000>0</font><font color=#000099>,</font><font color=#ff8000>1</font><font color=#000099>,</font><font color=#ff8000>2</font><font color=#000099>};</font>
+<br/> <font color=#000099>for(</font><font color=#990099>int </font>i<font color=#000099>=</font><font color=#ff8000>0</font><font color=#990099>;</font>i<font color=#000099>&lt</font><font color=#ff8000>3</font><font color=#000099>;</font> i<font color=#000099>++){</font>
+<br/> System<font color=#000099>.</font>out<font color=#000099>.</font>println<font color=#000099>(</font>array<font color=#000099>[</font><font color=#ff8000>i</font><font color=#000099>]<font color=#000099>);<br/>}</font>
+ ]]></Data></string>
+
+    <string name="test3050">012</string>
+
+    <!--Test4-->
+    <string name="test401">"1. What is a method?"</string>
+    <string name="test4010">A behavior of the class</string>
+    <string name="test4011">A state of the class</string>
+    <string name="test4012">A behavior of the class</string>
+    <string name="test4013">An object</string>
+    <string name="test402">2. What is the output of the fallowing code?</string>
+    <string name="test4021"><Data><![CDATA[
+
+    <font color=#990099>class</font> Apple<font color=#000099>{</font>
+    <br/> &emsp <font color=#990099>int</font> dimension<font color=#000099>=</font><font color=#ff8000>10</font>  <font color=#000099>;</font>
+    <br/><br/> &emsp <font color=#990099>void</font> display<font color=#000099>(){</font>
+    <br/> &emsp System<font color="#000099">.</font>out<font color="#000099">.</font>println
+    <font color="#000099">(this.</font>dimension<font color="#000099">);
+    <br/><font color=#000099>}</font>
+     </font>]]></Data></string>
+    <string name="test4020">10</string>
+    <string name="test403">3. Complete the fallowing sentence.</string>
+    <string name="test4031">A</string>
+    <string name="test4032">is used to initialize an object.</string>
+    <string name="test4030">constructor</string>
+    <string name="test404">4. Choose the correct answer: What is an object?</string>
+    <string name="test4040">an instance of the class</string>
+    <string name="test4041">an instance of the class</string>
+    <string name="test4042">a set of attributes and methods</string>
+    <string name="test4043">a set of classes</string>
+    <string name="test405">5. Complete the fallowing sentence.</string>
+    <string name="test4051"><Data><![CDATA[ An attribute represents a]]></Data></string>
+    <string name="test4052"><Data><![CDATA[ of the class. ]]></Data></string>
+    <string name="test4050">state</string>
+
+    <!--Test5-->
+    <string name="test501">"1. For what is used the 'private' access modifier?"</string>
+    <string name="test5010">to access the information only from the class</string>
+    <string name="test5011">to access the information only from the subclass</string>
+    <string name="test5012">to access the information only from any class</string>
+    <string name="test5013">to access the information only from the class</string>
+    <string name="test502">2. What type of class is the fallowing one?</string>
+    <string name="test5021"><Data><![CDATA[
+    <font color=#990099>interface</font> Apple<font color=#000099>{</font>
+    <br/><br/> &emsp <font color=#990099>void</font> display<font color=#000099>();<br/>}</font>
+     </font>]]></Data></string>
+    <string name="test5020">interface</string>
+    <string name="test503">3. Complete the fallowing sentence.</string>
+    <string name="test5031">class require its abstract methods to</string>
+    <string name="test5032"> be implemented.</string>
+    <string name="test5030">Abstract</string>
+    <string name="test504">4. Choose the correct answer: For what is used the \'final\' keyword on an attribute?</string>
+    <string name="test5040">to make the attribute constant</string>
+    <string name="test5041">to make the attribute constant</string>
+    <string name="test5042">to make the attribute static</string>
+    <string name="test5043">to make the attribute private</string>
+    <string name="test505">5. Complete the fallowing sentence in order to create a final attribute.</string>
+    <string name="test5051"><Data><![CDATA[ <font color=#990099>String</font> <font color=#000099>color = </font><font color=#ff8000>\"red\"</font><font color=#000099>;</font>]]></Data></string>
+    <string name="test5050">final</string>
+    <string name="type_simple_answer">Simple</string>
+    <string name="type_insert_answer">Insert</string>
+    <string name="type_multiple_answers">Multiple</string>
+    <string name="str_question_type">Choose the question type:</string>
+    <string name="str_type_simple">Simple</string>
+    <string name="str_type_insert">Insert</string>
+    <string name="str_type_multiple">Multiple</string>
+    <string name="str_question_no">Question No.</string>
+    <string name="str_answer_no">Answer No.</string>
+    <string name="done">DONE</string>
+
+</resources>

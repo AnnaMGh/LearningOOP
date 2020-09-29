@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/intro_main_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/rounded_darkblue"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/background_intro"
+        android:alpha="0.3"
+        android:scaleType="center"
+        />
+    <LinearLayout
+        android:id="@+id/intro_moving_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/intro_welcome_txtv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/lato_bold"
+            android:gravity="center"
+            android:paddingBottom="20dp"
+            android:text="Welcome to"
+            android:textAlignment="center"
+            android:textColor="#fff"
+            android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/intro_learning_txtv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/adventure"
+            android:text="Learning Java"
+            android:textColor="#fff"
+            android:textSize="40sp" />
+
+        <ImageView
+            android:id="@+id/intro_image"
+            android:layout_width="350dp"
+            android:layout_height="350dp"
+            android:layout_gravity="center"
+            android:src="@drawable/java_icon_low" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/intro_swipe_txtv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="8"
+        android:fontFamily="@font/lato_regular"
+        android:gravity="end"
+        android:paddingLeft="10dp"
+        android:text="Swipe left for more!"
+        android:textAlignment="viewEnd"
+        android:textColor="#fff"
+        android:visibility="gone" />
+
+
+</RelativeLayout>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#005580</color>
+    <!--<color name="colorPrimaryDark">#005580</color>-->
+    <color name="colorPrimaryDark">#000000</color>
+    <color name="colorAccent">#00a0ee</color>
+    <color name="colorGray">#c7c7c7</color>
+    <color name="gmailColor">#cc4128</color>
+    <!--<color name="colorBlue">#061424</color>-->
+    <color name="colorBlue">#4F73B3</color>
+    <color name="colorBar">#004460</color>
+    <color name="colorViolet">#990099</color>
+    <color name="colorGreenAnswer">#009900</color>
+    <color name="colorYellowAnswer">#f4d803</color>
+    <color name="colorRedAnswer">#990000</color>
+</resources>

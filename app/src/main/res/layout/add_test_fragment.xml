@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#eee"
+    android:orientation="vertical">
+
+
+    <!--header-->
+    <LinearLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:orientation="horizontal"
+        android:weightSum="100">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="40"
+            android:fontFamily="@font/lato_bold"
+            android:gravity="center"
+            android:text="Create a new test"
+            android:textColor="#333"
+            android:textSize="15sp" />
+
+        <EditText
+            android:id="@+id/addtest_title"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="60"
+            android:fontFamily="@font/lato_bold"
+            android:gravity="center"
+            android:hint="test name"
+            android:inputType="text"
+            android:textColor="#333"
+            android:textColorHint="#bbb"
+            android:textSize="15sp" />
+
+    </LinearLayout>
+
+    <!--list of questions-->
+    <ListView
+        android:id="@+id/list_view_questions"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/btn_add_test"
+        android:layout_below="@+id/header" />
+
+    <!--add test-->
+    <Button
+        android:id="@+id/btn_add_test"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="10dp"
+        android:background="@drawable/rounded_blue"
+        android:orientation="vertical"
+        android:text="Add test"
+        android:textColor="#fff" />
+
+</RelativeLayout>

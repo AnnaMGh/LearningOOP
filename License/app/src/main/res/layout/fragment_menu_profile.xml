@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bar"
+    android:gravity="center"
+    android:orientation="vertical">
+
+
+    <ScrollView
+        android:layout_marginTop="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/menuprofile_layout1"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:gravity="center_vertical"
+                android:weightSum="100">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="50"
+                    android:fontFamily="@font/lato_regular"
+                    android:text="@string/learn_progress"
+                    android:textColor="@color/colorGray"
+                    android:textSize="17sp" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="50"
+                    android:gravity="center_vertical|end">
+
+                    <me.itangqi.waveloadingview.WaveLoadingView
+                        android:id="@+id/menuprofile_learn_wave"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginStart="10dp"
+                        app:wlv_borderColor="@color/colorPrimary"
+                        app:wlv_borderWidth="3dp"
+                        app:wlv_round_rectangle="true"
+                        app:wlv_shapeType="circle"
+                        app:wlv_titleBottomColor="#fff"
+
+                        app:wlv_titleBottomSize="15sp"
+                        app:wlv_titleBottomStrokeColor="@color/colorGray"
+                        app:wlv_titleBottomStrokeWidth="3dp"
+                        app:wlv_titleCenterColor="#fff"
+
+                        app:wlv_titleCenterSize="15sp"
+                        app:wlv_titleCenterStrokeColor="@color/colorPrimary"
+                        app:wlv_titleCenterStrokeWidth="3dp"
+                        app:wlv_titleTopColor="@color/colorPrimaryDark"
+
+                        app:wlv_titleTopSize="15sp"
+                        app:wlv_titleTopStrokeColor="@color/colorGray"
+                        app:wlv_titleTopStrokeWidth="3dp"
+                        app:wlv_triangle_direction="north"
+
+                        app:wlv_waveAmplitude="70"
+                        app:wlv_waveColor="@color/colorGray"
+
+                        />
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center_vertical"
+                android:weightSum="100">
+
+                <TextView
+
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="50"
+                    android:fontFamily="@font/lato_regular"
+                    android:gravity="start"
+                    android:text="@string/test_progress"
+                    android:textColor="@color/colorGray"
+                    android:textSize="17sp" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="50"
+                    android:gravity="center_vertical|end">
+
+                    <me.itangqi.waveloadingview.WaveLoadingView
+                        android:id="@+id/menuprofile_test_wave"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginStart="10dp"
+                        app:wlv_borderColor="@color/colorPrimary"
+                        app:wlv_borderWidth="3dp"
+                        app:wlv_round_rectangle="true"
+                        app:wlv_shapeType="circle"
+                        app:wlv_titleBottomColor="#fff"
+
+                        app:wlv_titleBottomSize="15sp"
+                        app:wlv_titleBottomStrokeColor="@color/colorGray"
+                        app:wlv_titleBottomStrokeWidth="3dp"
+                        app:wlv_titleCenterColor="#fff"
+
+                        app:wlv_titleCenterSize="15sp"
+                        app:wlv_titleCenterStrokeColor="@color/colorPrimary"
+                        app:wlv_titleCenterStrokeWidth="3dp"
+                        app:wlv_titleTopColor="@color/colorPrimaryDark"
+
+                        app:wlv_titleTopSize="15sp"
+                        app:wlv_titleTopStrokeColor="@color/colorGray"
+                        app:wlv_titleTopStrokeWidth="3dp"
+                        app:wlv_triangle_direction="north"
+
+                        app:wlv_waveAmplitude="70"
+                        app:wlv_waveColor="@color/colorGray"
+                        />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center_vertical"
+                android:weightSum="100">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="50"
+                    android:fontFamily="@font/lato_regular"
+                    android:text="Notifications: "
+                    android:textColor="@color/colorGray"
+                    android:textSize="17sp" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="50"
+                    android:gravity="center_vertical|end">
+
+                    <Switch
+                        android:id="@+id/menuprofile_swich"
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:scaleX="1.1"
+                        android:scaleY="1.1" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center_vertical"
+                android:weightSum="100">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="50"
+                    android:fontFamily="@font/lato_regular"
+                    android:text="Total points: "
+                    android:textColor="@color/colorGray"
+                    android:textSize="17sp" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="50"
+                    android:gravity="center_vertical|end">
+
+                    <TextView
+                        android:id="@+id/menuprofile_points_txtv"
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:fontFamily="@font/lato_regular"
+                        android:textColor="@color/colorGray"
+                        android:textSize="17sp"
+                        android:text="0"/>
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginTop="10dp"
+                android:descendantFocusability="beforeDescendants"
+                android:gravity="center_vertical"
+                android:visibility="gone"
+                android:weightSum="100">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="50"
+                    android:fontFamily="@font/lato_regular"
+                    android:text="Change user name: "
+                    android:textColor="@color/colorGray"
+                    android:textSize="17sp" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="50"
+                    android:gravity="end">
+
+                    <LinearLayout
+                        android:layout_width="0px"
+                        android:layout_height="0px"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true" />
+
+
+                    <EditText
+                        android:id="@+id/menuprofile_name_edtv"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:focusedByDefault="false"
+                        android:fontFamily="@font/lato_regular"
+                        android:inputType="text"
+                        android:textColor="@color/colorGray" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/menuprofile_logout_btn"
+                android:layout_width="190dp"
+                android:layout_height="35dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/rounded_transparent"
+                android:fontFamily="@font/lato_regular"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="@string/logout"
+                android:textAllCaps="false"
+                android:textColor="@color/colorPrimary"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/menuprofile_delete_btn"
+                android:layout_width="190dp"
+                android:layout_height="35dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="10dp"
+                android:background="@drawable/rounded_transparent"
+                android:fontFamily="@font/lato_regular"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="@string/delete_account"
+                android:textAllCaps="false"
+                android:textColor="@color/colorPrimary"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/menuprofile_deleteall_btn"
+                android:layout_width="190dp"
+                android:layout_height="35dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="10dp"
+                android:background="@drawable/blue_rounded_solid_stroke"
+                android:fontFamily="@font/lato_regular"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="@string/deleteall_accounts"
+                android:textAllCaps="false"
+                android:textColor="#FFF"
+                android:textSize="17sp"
+                android:textStyle="bold"
+                android:visibility="gone" />
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>

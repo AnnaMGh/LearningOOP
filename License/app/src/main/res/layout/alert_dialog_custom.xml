@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#000">
+
+    <ImageView
+        android:scaleType="fitXY"
+        android:layout_width="320dp"
+        android:layout_height="180dp"
+        android:alpha="0.2"
+        android:src="@drawable/gray_rounded_gradient"/>
+
+    <ImageView
+        android:scaleType="fitXY"
+        android:layout_width="320dp"
+        android:layout_height="180dp"
+        android:alpha="0.2"
+        android:src="@drawable/gray_rounded_gradient"/>
+
+    <LinearLayout
+        android:layout_width="320dp"
+        android:layout_height="180dp"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/alert_cancel"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="right"
+            android:layout_marginBottom="10dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/cancel" />
+
+        <TextView
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:fontFamily="@font/lato_bold"
+            android:text="Select Picture"
+            android:textAlignment="center"
+            android:textSize="21sp"
+            android:textColor="#eee"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/alert_camera"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginEnd="30dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/camera" />
+
+            <ImageView
+                android:id="@+id/alert_gallery"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/gallery" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

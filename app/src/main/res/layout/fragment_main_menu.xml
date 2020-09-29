@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="100">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="25"
+        android:background="@drawable/bar_top"
+        android:orientation="horizontal"
+        android:padding="18dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/mainmenu_imgv"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_margin="20dp"
+            android:src="@drawable/user"
+            app:civ_border_width="3dp" />
+
+        <TextView
+            android:id="@+id/mainmenu_txtv"
+            android:layout_width="wrap_content"
+            android:layout_height="120dp"
+            android:layout_margin="10dp"
+            android:gravity="center_vertical"
+            android:text="@string/hello_user"
+            android:textColor="@color/colorGray"
+            android:textSize="17sp" />
+
+    </LinearLayout>
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/mainmenu_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="75">
+
+        <androidx.viewpager.widget.PagerTabStrip
+            android:id="@+id/mainmenu_tabstrip"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:paddingStart="40dp"
+            android:paddingEnd="40dp"
+            android:background="#000" />
+    </androidx.viewpager.widget.ViewPager>
+
+</LinearLayout>

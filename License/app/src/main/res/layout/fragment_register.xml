@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/wallpaper_blueline_top"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="70dp"
+        android:layout_marginBottom="70dp"
+        android:fontFamily="@font/lato_bold"
+        android:gravity="center"
+        android:text="Registration"
+        android:textAlignment="center"
+        android:textColor="@color/colorGray"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/register_username"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginEnd="30dp"
+        android:inputType="text"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/rounded_transparent"
+        android:fontFamily="@font/lato_regular"
+        android:hint="username"
+        android:paddingLeft="12dp"
+        android:paddingStart="12dp" />
+
+    <EditText
+        android:id="@+id/register_email"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:inputType="text"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginEnd="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/rounded_transparent"
+        android:fontFamily="@font/lato_regular"
+        android:hint="email"
+        android:paddingLeft="12dp"
+        android:paddingStart="12dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_transparent"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/register_password"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                android:background="@null"
+                android:fontFamily="@font/lato_regular"
+                android:hint="password"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:paddingLeft="12dp"
+                android:paddingStart="12dp"
+                android:singleLine="true" />
+
+            <ImageView
+                android:id="@+id/register_check_imgv"
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="4"
+                android:fontFamily="@font/lato_regular"
+                android:src="@drawable/check_green"
+                android:visibility="gone" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/register_check_txtv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            android:text="Week password"
+            android:textColor="#fff"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="20dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_transparent"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/register_password2"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                android:background="@null"
+                android:fontFamily="@font/lato_regular"
+                android:hint="password"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:paddingLeft="12dp"
+                android:paddingStart="12dp"
+                android:singleLine="true" />
+
+            <ImageView
+
+                android:id="@+id/register_check_imgv2"
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="4"
+                android:src="@drawable/check_red"
+                android:visibility="gone" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/register_check_txtv2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            android:fontFamily="@font/lato_regular"
+            android:text="Password match"
+            android:textColor="#fff"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/register_signup_btn"
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/rounded_transparent"
+        android:fontFamily="@font/lato_regular"
+        android:text="Sign up"
+        android:textAllCaps="false"
+        android:textColor="@color/colorPrimary" />
+
+</LinearLayout>
