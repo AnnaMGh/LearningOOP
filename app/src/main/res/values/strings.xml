@@ -993,7 +993,7 @@
     <string name="learn343"><Data><![CDATA[
     <b> &emsp Example: </b>
     <br/>We have the Apple class.
-    <br/>The attributes: color, dimension, type and bought'.
+    <br/>The attributes: color, dimension, type and bought.
     <br/>A method named \'buy\' which will make the attribute \'bought\' be \'true\'.
     <br/>A a constructor with no parameters with will give a default value to the attributes above.
     <br/>And a constructor with three parameters with will give a value to the attributes above.

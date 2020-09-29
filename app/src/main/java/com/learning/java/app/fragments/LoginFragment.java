@@ -6,7 +6,9 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
+
 import androidx.annotation.Nullable;
+
 import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,6 +31,7 @@ import com.learning.java.app.model.ITestListener;
 import com.learning.java.app.model.IUserListener;
 import com.learning.java.app.model.Test;
 import com.learning.java.app.model.User;
+import com.learning.java.app.services.AnalyticsHandler;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -166,6 +169,11 @@ public class LoginFragment extends BaseFragment {
                             //save token
                             gs.setString(Constants.TOKEN_KEY, user.getToken());
 
+                            //send event
+                            Bundle bundle = new Bundle();
+                            bundle.putString(Constants.EVENT_PARAM_EMAIL, user.getEmail());
+                            AnalyticsHandler.sendMessage(getActivity(), Constants.EVENT_LOGGED_IN, bundle);
+
                             //send to next fragment
                             gs.setString(Constants.TOKEN_KEY, user.getToken());
                             MainMenuFragment fragmentMenu = new MainMenuFragment();
@@ -265,6 +273,11 @@ public class LoginFragment extends BaseFragment {
                                                             //save token
                                                             gs.setString(Constants.TOKEN_KEY, newUser.getToken());
 
+                                                            //send event
+                                                            Bundle bundle = new Bundle();
+                                                            bundle.putString(Constants.EVENT_PARAM_EMAIL, newUser.getEmail());
+                                                            AnalyticsHandler.sendMessage(getActivity(), Constants.EVENT_LOGGED_IN, bundle);
+
                                                             //send to next fragment
                                                             MainMenuFragment fragmentMenu = new MainMenuFragment();
                                                             fragmentMenu.user = newUser;
@@ -284,6 +297,11 @@ public class LoginFragment extends BaseFragment {
 
                                     //save token
                                     gs.setString(Constants.TOKEN_KEY, user.getToken());
+
+                                    //send event
+                                    Bundle bundle = new Bundle();
+                                    bundle.putString(Constants.EVENT_PARAM_EMAIL, user.getEmail());
+                                    AnalyticsHandler.sendMessage(getActivity(), Constants.EVENT_LOGGED_IN, bundle);
 
                                     //send to next fragment
                                     MainMenuFragment fragmentMenu = new MainMenuFragment();

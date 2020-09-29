@@ -1,7 +1,9 @@
 package com.learning.java.app.fragments;
 
 import android.os.Bundle;
+
 import androidx.annotation.Nullable;
+
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +16,8 @@ import com.learning.java.app.R;
 import com.learning.java.app.database.FirestoreDatabase;
 import com.learning.java.app.model.IUserListener;
 import com.learning.java.app.model.User;
+import com.learning.java.app.services.AdHandler;
+import com.learning.java.app.utilities.GlobalSingleton;
 
 import java.util.ArrayList;
 
@@ -69,6 +73,11 @@ public class LearnFragment extends BaseFragment {
 
         getLevel();
         setLevel();
+
+        //load ad
+        if (getActivity() != null) {
+            AdHandler.addInterstitialAd(getActivity(), Constants.adInterstitialTestUnitId);
+        }
     }
 
     void getLevel() {
@@ -105,17 +114,29 @@ public class LearnFragment extends BaseFragment {
             public void onClick(View v) {
 
                 if ((index) + 6 * level > user.getLearnProgress()) {
-
                     Toast.makeText(getActivity(), "Unlocked lesson", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                LessonsFragment fragmentLessons = new LessonsFragment();
-                fragmentLessons.user = user;
-                fragmentLessons.level1 = level + 1;
-                fragmentLessons.level2 = index;
-                fragmentLessons.learn = String.valueOf(level) + String.valueOf(index);
-                replaceFragment(fragmentLessons, "LessonsFragment");
+                //load ad
+                if (GlobalSingleton.getInstance().lastShowedAd < System.currentTimeMillis() - (2 * 60 * 1000)) {
+                    GlobalSingleton.getInstance().lastShowedAd = System.currentTimeMillis();
+                    AdHandler.showInterstitialAd(getActivity(), obj -> {
+                        LessonsFragment fragmentLessons = new LessonsFragment();
+                        fragmentLessons.user = user;
+                        fragmentLessons.level1 = level + 1;
+                        fragmentLessons.level2 = index;
+                        fragmentLessons.learn = String.valueOf(level) + String.valueOf(index);
+                        replaceFragment(fragmentLessons, "LessonsFragment");
+                    });
+                } else {
+                    LessonsFragment fragmentLessons = new LessonsFragment();
+                    fragmentLessons.user = user;
+                    fragmentLessons.level1 = level + 1;
+                    fragmentLessons.level2 = index;
+                    fragmentLessons.learn = String.valueOf(level) + String.valueOf(index);
+                    replaceFragment(fragmentLessons, "LessonsFragment");
+                }
             }
         });
     }

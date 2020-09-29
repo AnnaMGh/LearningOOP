@@ -22,6 +22,7 @@ import com.learning.java.app.model.ITestListener;
 import com.learning.java.app.model.IUserListener;
 import com.learning.java.app.model.Test;
 import com.learning.java.app.model.User;
+import com.learning.java.app.services.AnalyticsHandler;
 
 import java.util.ArrayList;
 
@@ -264,6 +265,11 @@ public class RegisterFragment extends BaseFragment {
 
                                         //hide loading bar
                                         hideLoadingBar();
+
+                                        //send event
+                                        Bundle bundle = new Bundle();
+                                        bundle.putString(Constants.EVENT_PARAM_EMAIL, user.getEmail());
+                                        AnalyticsHandler.sendMessage(getActivity(), Constants.EVENT_REGISTERED, bundle);
 
                                         //send to next fragment
                                         MainMenuFragment fragmentMenu = new MainMenuFragment();

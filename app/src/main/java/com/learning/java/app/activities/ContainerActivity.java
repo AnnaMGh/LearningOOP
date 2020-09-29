@@ -17,15 +17,19 @@ import android.content.pm.Signature;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Handler;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdView;
 import com.learning.java.app.Constants;
 import com.learning.java.app.R;
 import com.learning.java.app.database.FirestoreDatabase;
@@ -36,6 +40,8 @@ import com.learning.java.app.model.ITestListener;
 import com.learning.java.app.model.IUserListener;
 import com.learning.java.app.model.Test;
 import com.learning.java.app.model.User;
+import com.learning.java.app.services.AdHandler;
+import com.learning.java.app.services.AnalyticsHandler;
 import com.learning.java.app.utilities.GlobalSingleton;
 import com.learning.java.app.utilities.ServiceChecker;
 import com.facebook.AccessToken;
@@ -62,6 +68,8 @@ public class ContainerActivity extends AppCompatActivity {
 
     //views
     public RelativeLayout layoutNetwork, layoutLoading;
+    public LinearLayout llParentAd;
+    public AdView adView;
 
     LoginFragment.IFacebookListener listener;
     public AccessToken accessToken;
@@ -81,9 +89,17 @@ public class ContainerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //facebook
-       // FacebookSdk.sdkInitialize(getApplicationContext());
-       // AppEventsLogger.activateApp(this);
+        // FacebookSdk.sdkInitialize(getApplicationContext());
+        // AppEventsLogger.activateApp(this);
         setContentView(R.layout.activity_menu);
+
+        AnalyticsHandler.enableCrashlytics(ContainerActivity.this);
+        AnalyticsHandler.registerAnalytics(ContainerActivity.this);
+
+        //ad
+        llParentAd = findViewById(R.id.ll_parent_ad);
+        adView = findViewById(R.id.ad_banner);
+        AdHandler.initialize(ContainerActivity.this, adView, llParentAd);
 
         //views
         layoutNetwork = findViewById(R.id.layout_network);
@@ -143,6 +159,12 @@ public class ContainerActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        AnalyticsHandler.unregisterAnalytics();
     }
 
     @Override
@@ -505,7 +527,7 @@ public class ContainerActivity extends AppCompatActivity {
     }
 
     void addFragment(Fragment fragment, String backStackFragmentName) {
-        if(this.isFinishing()){
+        if (this.isFinishing()) {
             return;
         }
 
@@ -516,9 +538,10 @@ public class ContainerActivity extends AppCompatActivity {
         transaction.addToBackStack(backStackFragmentName);
 //        transaction.commit();
 
-        try{
+        try {
             transaction.commitAllowingStateLoss();
-        }catch (Exception e){}
+        } catch (Exception e) {
+        }
 
     }
 }

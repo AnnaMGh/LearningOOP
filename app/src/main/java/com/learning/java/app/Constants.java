@@ -18,4 +18,24 @@ public class Constants {
     public static final int INTENT_REQUEST_CAMERA = 1;
     public static final int INTENT_REQUEST_GALLERY = 2;
 
+
+    //Ads
+    public static final String adAppId = "ca-app-pub-6252100624852887~8656049797";
+    public static final String adInterstitialTestUnitId = "ca-app-pub-3940256099942544/1033173712";
+    public static final String adInterstitialUnitId = "ca-app-pub-6252100624852887/3170599455";
+    public static final String adBannerTestUnitId = "ca-app-pub-3940256099942544/6300978111";
+    public static final String adBannerUnitId = "ca-app-pub-6252100624852887/3250490505";
+    public static final String adTypeBanner = "BANNER";
+    public static final String adTypeInterstitial = "INTERSTITIAL";
+
+    //Analytics Events
+    public static final String EVENT_LAUNCH = "APP_LAUNCH";
+    public static final String EVENT_AD_OPENED = "APP_AD_OPENED";
+    public static final String EVENT_AD_CLICKED = "APP_AD_CLICKED";
+    public static final String EVENT_AD_CLOSED = "APP_AD_CLOSED";
+    public static final String EVENT_AD_FAILED = "APP_AD_FAILED";
+    public static final String EVENT_REGISTERED = "APP_REGISTERED";
+    public static final String EVENT_LOGGED_IN = "APP_LOGGED_IN";
+    public static final String EVENT_PARAM_AD = "APP_AD";
+    public static final String EVENT_PARAM_EMAIL = "APP_EMAIL";
 }

@@ -6,7 +6,9 @@ import android.app.FragmentTransaction;
 import android.content.res.Resources;
 import android.os.Build;
 import android.os.Handler;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
 import android.view.KeyCharacterMap;
 import android.view.KeyEvent;
@@ -18,11 +20,11 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.crashlytics.android.Crashlytics;
+import com.learning.java.app.Constants;
 import com.learning.java.app.R;
 import com.learning.java.app.fragments.IntroFragment;
-
-import io.fabric.sdk.android.Fabric;
+import com.learning.java.app.services.AnalyticsHandler;
+import com.learning.java.app.utilities.GlobalSingleton;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -31,8 +33,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_main);
+
+        AnalyticsHandler.enableCrashlytics(MainActivity.this);
+        AnalyticsHandler.registerAnalytics(MainActivity.this);
 
         if (getIntent().getBooleanExtra("Exit me", false)) {
             finish();
@@ -51,8 +55,17 @@ public class MainActivity extends AppCompatActivity {
         makeStatusBarTransparent();
 
         addFragment(new IntroFragment(), "IntroFragment");
+
+        //send event
+        Bundle bundle = new Bundle();
+        AnalyticsHandler.sendMessage(MainActivity.this, Constants.EVENT_LAUNCH, bundle);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        AnalyticsHandler.unregisterAnalytics();
+    }
 
     @Override
     public void onBackPressed() {

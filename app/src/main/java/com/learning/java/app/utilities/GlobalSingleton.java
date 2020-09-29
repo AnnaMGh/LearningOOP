@@ -7,6 +7,8 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Point;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.util.Base64;
 import android.view.Display;
 import android.view.WindowManager;
@@ -19,7 +21,7 @@ public class GlobalSingleton {
     public Context mContext;
 
     private SharedPreferences prefs;
-
+    public long lastShowedAd = 0;
 
     public static GlobalSingleton getInstance() {
         if (mInstance == null) {
@@ -141,5 +143,14 @@ public class GlobalSingleton {
 
     public int convertFromOneRangeToAnother(int oldValue, int oldMin, int oldMax, int newMin, int newMax) {
         return (((oldValue - oldMin) * (newMax - newMin)) / (oldMax - oldMin)) + newMin;
+    }
+
+    public boolean hasInternet(Context context) {
+        if (context == null) {
+            return false;
+        }
+        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = (connectivityManager != null ? connectivityManager.getActiveNetworkInfo() : null);
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 }
