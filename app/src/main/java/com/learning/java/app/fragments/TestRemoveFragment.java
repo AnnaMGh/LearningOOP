@@ -4,7 +4,9 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
+
 import androidx.annotation.Nullable;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +19,7 @@ import com.learning.java.app.adapters.TestAdapter;
 import com.learning.java.app.database.FirestoreDatabase;
 import com.learning.java.app.model.ITestListener;
 import com.learning.java.app.model.Test;
+import com.learning.java.app.model.User;
 
 import java.util.ArrayList;
 
@@ -27,6 +30,7 @@ public class TestRemoveFragment extends BaseFragment {
     TextView btnDone;
 
     //variables from previous fragment
+    User user;
     ArrayList<Test> testList;
     ITestListener listenerTest;
 
@@ -53,6 +57,7 @@ public class TestRemoveFragment extends BaseFragment {
             testList = new ArrayList<>();
         }
         adapter = new TestAdapter(getActivity(), R.layout.list_cell, R.id.list_text, testList);
+        adapter.setUser(user);
         listView.setAdapter(adapter);
     }
 

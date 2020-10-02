@@ -9,9 +9,11 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,10 +29,13 @@ import com.learning.java.app.database.FirestoreDatabase;
 import com.learning.java.app.model.IBitmapListener;
 import com.learning.java.app.model.IRefreshListener;
 import com.learning.java.app.model.IUserListener;
+import com.learning.java.app.model.ObjectListener;
 import com.learning.java.app.model.Test;
 import com.learning.java.app.model.User;
+import com.learning.java.app.services.AuthHandler;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import me.itangqi.waveloadingview.WaveLoadingView;
 
@@ -52,6 +57,7 @@ public class MenuProfileFragment extends BaseFragment {
 
     //variables
     int nrOfTests = 1;
+    int nrOfTestsLiveAndChecked = 1;
     int nrOfUserUpdatesAfterDelete;
     boolean fromRefresh;
 
@@ -87,9 +93,6 @@ public class MenuProfileFragment extends BaseFragment {
         btnDeleteAccount = baseView.findViewById(R.id.menuprofile_delete_btn);
         btnDeleteAccountsList = baseView.findViewById(R.id.menuprofile_deleteall_btn);
 
-        if (testList != null) {
-            nrOfTests = testList.size();
-        }
 
         if (user != null) {
             //learn progress
@@ -106,11 +109,47 @@ public class MenuProfileFragment extends BaseFragment {
             }
 
             //test progress
+            if (testList != null) {
+                if (user.getTestsFinished() != null && user.getTestsFinished().size() > 0) {
+                    HashMap<String, String> finishedTests = new HashMap<>(user.getTestsFinished());
+
+                    boolean hadChanges = false;
+                    for (String testFinishedName : finishedTests.keySet()) {
+                        if (!testStillExist(testFinishedName)) {
+                            hadChanges = true;
+                            user.getTestsFinished().remove(testFinishedName);
+                            user.setTestProgress(user.getTestProgress() - 1);
+                            user.setTotalPoints(user.getTotalPoints() - 1);
+                        }
+                    }
+                    if (hadChanges) {
+                        FirestoreDatabase.updateUser(user);
+                    }
+                }
+
+                nrOfTests = 0;
+                nrOfTestsLiveAndChecked = 0;
+                if (user.getFunction().equals(Constants.ADMIN_FUNCTION)) {
+                    nrOfTests = testList.size();
+                    nrOfTestsLiveAndChecked = user.getTestProgress();
+                } else {
+                    for (Test t : testList) {
+                        if (t.isLive()) {
+                            nrOfTests++;
+                            if (user.getTestsFinished().containsKey(t.getToken())) {
+                                nrOfTestsLiveAndChecked++;
+                            }
+                        }
+                    }
+                }
+            }
+
+
             if (user.getTestProgress() == 0) {
                 lWTest.setProgressValue(0);
                 lWTest.setCenterTitle(String.valueOf(0) + "%");
             } else {
-                int progress = user.getTestProgress() * 100 / (nrOfTests);
+                int progress = nrOfTestsLiveAndChecked * 100 / (nrOfTests);
                 if (progress > 100) {
                     progress = 100;
                 }
@@ -126,7 +165,7 @@ public class MenuProfileFragment extends BaseFragment {
             refreshNotifications();
 
             //check admin
-            if (user.getName().equals(Constants.ADMIN_NAME)) {
+            if (user.getFunction().equals(Constants.ADMIN_FUNCTION)) {
                 btnDeleteAccountsList.setVisibility(View.VISIBLE);
             } else {
                 btnDeleteAccountsList.setVisibility(View.GONE);
@@ -134,6 +173,15 @@ public class MenuProfileFragment extends BaseFragment {
         }
 
         getTop3Users();
+    }
+
+    private boolean testStillExist(String testName) {
+        for (Test test : testList) {
+            if (testName.equals(test.getToken())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private void refreshNotifications() {
@@ -271,6 +319,7 @@ public class MenuProfileFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 gs.cleanSharedPreferences();
+                AuthHandler.singOut();
 
                 Intent i = getActivity().getBaseContext().getPackageManager().getLaunchIntentForPackage(getActivity().getBaseContext().getPackageName());
                 if (i != null) {
@@ -293,66 +342,86 @@ public class MenuProfileFragment extends BaseFragment {
                                 //show loading bar
                                 showLoadingBar();
 
-                                //clean shared preferences
-                                gs.cleanSharedPreferences();
+                                //delete Auth account + sing out
+                                AuthHandler.deleteAccount(new ObjectListener() {
+                                    @Override
+                                    public void getObject(Object obj) {
+                                        try {
+                                            boolean isSuccess = (boolean) obj;
+                                            if (isSuccess) {
+                                                AuthHandler.singOut();
 
-                                //remove item from database
-                                FirestoreDatabase.deleteUser(user);
+                                                //clean shared preferences
+                                                gs.cleanSharedPreferences();
 
-                                //remove photo from database
-                                FirestoreDatabase.deletePhoto(user);
+                                                //remove item from database
+                                                FirestoreDatabase.deleteUser(user);
 
-                                //remove item from list
-                                userList.remove(user.getId());
+                                                //remove photo from database
+                                                FirestoreDatabase.deletePhoto(user);
 
-                                //check updatedUserList
-                                if (updatedUserList == null) {
-                                    updatedUserList = new ArrayList<>();
-                                }
-                                updatedUserList.clear();
-                                nrOfUserUpdatesAfterDelete = 0;
+                                                //remove item from list
+                                                userList.remove(user.getId());
 
-                                //change rest of the user ids
-                                if (user.getId() < userList.size()) {
-                                    for (int i = user.getId(); i < userList.size(); i++) {
-                                        User userUpdated = userList.get(i);
-                                        userUpdated.setId(i);
-                                        updatedUserList.add(userUpdated);
-                                    }
-                                }
+                                                //check updatedUserList
+                                                if (updatedUserList == null) {
+                                                    updatedUserList = new ArrayList<>();
+                                                }
+                                                updatedUserList.clear();
+                                                nrOfUserUpdatesAfterDelete = 0;
 
-
-                                //modify in Firestore
-                                if (updatedUserList.size() == 0) {
-                                    hideLoadingBar();
-                                    Intent i = getActivity().getBaseContext().getPackageManager().getLaunchIntentForPackage(getActivity().getBaseContext().getPackageName());
-                                    if (i != null) {
-                                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                        startActivity(i);
-                                    }
-                                } else {
-                                    for (final User updatedUser : updatedUserList) {
-                                        new Handler().postDelayed(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                FirestoreDatabase.updateUserWithCallback(updatedUser, new IRefreshListener() {
-                                                    @Override
-                                                    public void doRefresh(boolean doRefresh) {
-                                                        //refresh main activity after last update
-                                                        if (++nrOfUserUpdatesAfterDelete == updatedUserList.size()) {
-                                                            hideLoadingBar();
-                                                            Intent i = getActivity().getBaseContext().getPackageManager().getLaunchIntentForPackage(getActivity().getBaseContext().getPackageName());
-                                                            if (i != null) {
-                                                                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                                                startActivity(i);
-                                                            }
-                                                        }
+                                                //change rest of the user ids
+                                                if (user.getId() < userList.size()) {
+                                                    for (int i = user.getId(); i < userList.size(); i++) {
+                                                        User userUpdated = userList.get(i);
+                                                        userUpdated.setId(i);
+                                                        updatedUserList.add(userUpdated);
                                                     }
-                                                });
+                                                }
+
+                                                //modify in Firestore
+                                                if (updatedUserList.size() == 0) {
+                                                    hideLoadingBar();
+                                                    Intent i = getActivity().getBaseContext().getPackageManager().getLaunchIntentForPackage(getActivity().getBaseContext().getPackageName());
+                                                    if (i != null) {
+                                                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                                        startActivity(i);
+                                                    }
+                                                } else {
+                                                    for (final User updatedUser : updatedUserList) {
+                                                        new Handler().postDelayed(new Runnable() {
+                                                            @Override
+                                                            public void run() {
+                                                                FirestoreDatabase.updateUserWithCallback(updatedUser, new IRefreshListener() {
+                                                                    @Override
+                                                                    public void doRefresh(boolean doRefresh) {
+                                                                        //refresh main activity after last update
+                                                                        if (++nrOfUserUpdatesAfterDelete == updatedUserList.size()) {
+                                                                            hideLoadingBar();
+                                                                            Intent i = getActivity().getBaseContext().getPackageManager().getLaunchIntentForPackage(getActivity().getBaseContext().getPackageName());
+                                                                            if (i != null) {
+                                                                                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                                                                startActivity(i);
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                });
+                                                            }
+                                                        }, 0);
+                                                    }
+                                                }
+                                            } else {
+                                                hideLoadingBar();
+                                                showSimpleAlert("Something went wrong. Please try again later!");
                                             }
-                                        }, 0);
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
+                                            hideLoadingBar();
+                                            showSimpleAlert("Something went wrong. Please try again later!");
+                                        }
                                     }
-                                }
+                                });
+
 
                             }
                         })

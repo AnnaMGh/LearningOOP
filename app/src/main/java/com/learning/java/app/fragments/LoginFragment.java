@@ -14,13 +14,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.firebase.auth.FirebaseUser;
 import com.learning.java.app.Constants;
 import com.learning.java.app.R;
 import com.learning.java.app.activities.ContainerActivity;
@@ -29,9 +32,13 @@ import com.learning.java.app.model.IBitmapListener;
 import com.learning.java.app.model.IRefreshListener;
 import com.learning.java.app.model.ITestListener;
 import com.learning.java.app.model.IUserListener;
+import com.learning.java.app.model.ObjectListener;
 import com.learning.java.app.model.Test;
 import com.learning.java.app.model.User;
 import com.learning.java.app.services.AnalyticsHandler;
+import com.learning.java.app.services.AuthHandler;
+import com.learning.java.app.utilities.AESCrypt;
+import com.learning.java.app.utilities.GlobalSingleton;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -41,6 +48,10 @@ public class LoginFragment extends BaseFragment {
     //views
     EditText emailEt, passwordEt;
     TextView registerTxtV;
+    TextView forgotPassTxtV;
+    Button loginBtn;
+    Button sendEmailBtn;
+    Button backBtn;
 
     //variables from previous fragment
     public ArrayList<User> mainUserList;
@@ -48,6 +59,7 @@ public class LoginFragment extends BaseFragment {
 
     //variables
     User user;
+    boolean isLogin = true;
 
 
     @Nullable
@@ -66,6 +78,10 @@ public class LoginFragment extends BaseFragment {
         emailEt = baseView.findViewById(R.id.login_email);
         passwordEt = baseView.findViewById(R.id.login_password);
         registerTxtV = baseView.findViewById(R.id.login_register);
+        forgotPassTxtV = baseView.findViewById(R.id.login_forgot_pass);
+        loginBtn = baseView.findViewById(R.id.login_login_btn);
+        sendEmailBtn = baseView.findViewById(R.id.login_send_btn);
+        backBtn = baseView.findViewById(R.id.login_back_btn);
 
         //get all users
         if (mainUserList == null || mainUserList.size() == 0) {
@@ -93,8 +109,8 @@ public class LoginFragment extends BaseFragment {
                 for (int i = 0; i < mainUserList.size() - 1; i++) {
                     for (int j = 0; j < mainUserList.size() - 1; j++) {
                         if ((mainUserList.get(j).getTotalPoints() < mainUserList.get(j + 1).getTotalPoints()
-                                && !mainUserList.get(j).getFunction().equals(Constants.ADMIN_NAME))
-                                || mainUserList.get(j + 1).getFunction().equals(Constants.ADMIN_NAME)) {
+                                && !mainUserList.get(j).getFunction().equals(Constants.ADMIN_FUNCTION))
+                                || mainUserList.get(j + 1).getFunction().equals(Constants.ADMIN_FUNCTION)) {
                             User replacedUser = mainUserList.get(j);
                             mainUserList.set(j, mainUserList.get(j + 1));
                             mainUserList.set(j + 1, replacedUser);
@@ -141,7 +157,7 @@ public class LoginFragment extends BaseFragment {
 
     private void setOnClickViews() {
         //login
-        baseView.findViewById(R.id.login_login_btn).setOnClickListener(new View.OnClickListener() {
+        loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -157,53 +173,79 @@ public class LoginFragment extends BaseFragment {
                     return;
                 }
 
+                if (!GlobalSingleton.getInstance().isValidEmailAddress(emailEt.getText().toString())) {
+                    showSimpleAlert("Please provide a valid email!");
+                    return;
+                }
+
                 //show loading bar
                 showLoadingBar();
-                FirestoreDatabase.isUserExisting(new User(emailEt.getText().toString(), passwordEt.getText().toString()), new IUserListener() {
+
+
+                //sign in
+                AuthHandler.signInUser(getActivity(), emailEt.getText().toString(), passwordEt.getText().toString(), new ObjectListener() {
                     @Override
-                    public void getUser(final User user) {
-                        //hide loading bar
-                        hideLoadingBar();
+                    public void getObject(Object obj) {
+                        if (obj != null) {
+                            try {
+                                FirebaseUser receivedUser = (FirebaseUser) obj;
+                                FirestoreDatabase.isUserExisting(new User(emailEt.getText().toString(), AESCrypt.encryptOrEmpty(passwordEt.getText().toString())), new IUserListener() {
+                                    @Override
+                                    public void getUser(final User user) {
+                                        //hide loading bar
+                                        hideLoadingBar();
 
-                        if (user != null) {
-                            //save token
-                            gs.setString(Constants.TOKEN_KEY, user.getToken());
+                                        if (user != null) {
+                                            //save token
+                                            gs.setString(Constants.TOKEN_KEY, user.getToken());
 
-                            //send event
-                            Bundle bundle = new Bundle();
-                            bundle.putString(Constants.EVENT_PARAM_EMAIL, user.getEmail());
-                            AnalyticsHandler.sendMessage(getActivity(), Constants.EVENT_LOGGED_IN, bundle);
+                                            //user has email verified
+                                            user.setEmailVerified(receivedUser.isEmailVerified() ? 1 : 0);
+                                            if (user.getEmailVerified() == 0) {
+                                                showSimpleAlert("Please confirm the email address. A verification email has been sent to you!");
+                                                AuthHandler.sendVerificationEmail(getActivity(), null);
+                                            }
 
-                            //send to next fragment
-                            gs.setString(Constants.TOKEN_KEY, user.getToken());
-                            MainMenuFragment fragmentMenu = new MainMenuFragment();
-                            fragmentMenu.user = user;
-                            fragmentMenu.userList = mainUserList;
-                            fragmentMenu.testList = mainTestList;
-                            replaceFragment(fragmentMenu, "MainMenuFragment");
+                                            //send event
+                                            Bundle bundle = new Bundle();
+                                            bundle.putString(Constants.EVENT_PARAM_EMAIL, user.getEmail());
+                                            AnalyticsHandler.sendMessage(getActivity(), Constants.EVENT_LOGGED_IN, bundle);
 
-                        } else {
-                            Dialog dialog = new Dialog(getActivity());
-                            dialog.setCancelable(true);
-                            dialog.setContentView(R.layout.cell_alert_dialog);
-                            if (dialog.getWindow() != null) {
-                                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+                                            //send to next fragment
+                                            MainMenuFragment fragmentMenu = new MainMenuFragment();
+                                            fragmentMenu.user = user;
+                                            fragmentMenu.userList = mainUserList;
+                                            fragmentMenu.testList = mainTestList;
+                                            replaceFragment(fragmentMenu, "MainMenuFragment");
+
+                                        } else {
+                                            showSimpleAlert("Email or password incorrect!");
+                                        }
+                                    }
+
+                                    @Override
+                                    public void getAllUsers(ArrayList<User> userList) {
+
+                                    }
+
+                                    @Override
+                                    public void getUserToken(String token) {
+
+                                    }
+                                });
+                            } catch (Exception e) {
+                                hideLoadingBar();
+                                showSimpleAlert("Email or password incorrect!");
+                                e.printStackTrace();
                             }
-                            ((TextView) dialog.findViewById(R.id.txt)).setText(String.valueOf("Email or password incorrect!"));
-                            dialog.show();
+                        } else {
+                            hideLoadingBar();
+                            showSimpleAlert("Email or password incorrect!");
                         }
                     }
-
-                    @Override
-                    public void getAllUsers(ArrayList<User> userList) {
-
-                    }
-
-                    @Override
-                    public void getUserToken(String token) {
-
-                    }
                 });
+
+
             }
         });
 
@@ -225,8 +267,9 @@ public class LoginFragment extends BaseFragment {
 
                                 if (user == null) {
                                     //user does NOT exist in FireStore so we will add it
-                                    final User newUser = new User(mainUserList.size(), name, email, "",
-                                            "user", 1, 1, 0, 1, 1, Constants.baseImage);
+                                    //create user
+                                    final User newUser = new User(mainUserList.size(), name, email, AESCrypt.encryptOrEmpty(Constants.FB_PASSWORD),
+                                            "user", 1, 1, 0, 1, 0, 1, Constants.baseImage);
                                     FirestoreDatabase.addUserWithCallback(newUser, false, new IRefreshListener() {
                                         @Override
                                         public void doRefresh(boolean doRefresh) {
@@ -246,8 +289,8 @@ public class LoginFragment extends BaseFragment {
                                                             mainUserList.add(newUser);
                                                             for (int i = 0; i < mainUserList.size() - 1; i++) {
                                                                 if (mainUserList.get(i).getTotalPoints() < mainUserList.get(i + 1).getTotalPoints()
-                                                                        && !mainUserList.get(i).getFunction().equals(Constants.ADMIN_NAME)
-                                                                        && !mainUserList.get(i + 1).getFunction().equals(Constants.ADMIN_NAME)) {
+                                                                        && !mainUserList.get(i).getFunction().equals(Constants.ADMIN_FUNCTION)
+                                                                        && !mainUserList.get(i + 1).getFunction().equals(Constants.ADMIN_FUNCTION)) {
                                                                     User replacedUser = mainUserList.get(i);
                                                                     mainUserList.set(i, mainUserList.get(i + 1));
                                                                     mainUserList.set(i + 1, replacedUser);
@@ -255,7 +298,7 @@ public class LoginFragment extends BaseFragment {
                                                             }
 
                                                             for (int i = 1; i < mainUserList.size() - 1; i++) {
-                                                                if (mainUserList.get(i).getId() != i && !mainUserList.get(i).getFunction().equals(Constants.ADMIN_NAME)) {
+                                                                if (mainUserList.get(i).getId() != i && !mainUserList.get(i).getFunction().equals(Constants.ADMIN_FUNCTION)) {
                                                                     mainUserList.get(i).setId(i);
                                                                     final User sortUser = mainUserList.get(i);
                                                                     new Handler().postDelayed(new Runnable() {
@@ -329,6 +372,51 @@ public class LoginFragment extends BaseFragment {
             }
         });
 
+        //send email
+        sendEmailBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (emailEt.getText().toString().isEmpty()) {
+                    showSimpleAlert("You did not complete the email field!");
+                    return;
+                }
+
+                if (!GlobalSingleton.getInstance().isValidEmailAddress(emailEt.getText().toString())) {
+                    showSimpleAlert("Please provide a valid email!");
+                    return;
+                }
+
+                //how loading
+                showLoadingBar();
+                AuthHandler.sendPasswordResetEmail(getActivity(), emailEt.getText().toString(), new ObjectListener() {
+                    @Override
+                    public void getObject(Object obj) {
+                        hideLoadingBar();
+                        showSimpleAlert("If your address is registered, an email with instructions have been sent to you!");
+                        switchUI(true);
+                    }
+                });
+
+
+            }
+        });
+
+        //back
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                switchUI(true);
+            }
+        });
+
+        //forgot password
+        forgotPassTxtV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                switchUI(false);
+            }
+        });
+
         //register
         registerTxtV.setText(Html.fromHtml(getResources().getString(R.string.sing_up)));
         registerTxtV.setOnClickListener(new View.OnClickListener() {
@@ -376,6 +464,25 @@ public class LoginFragment extends BaseFragment {
             Log.e("RESPONSE", e.getMessage());
             e.printStackTrace();
             bitmapListener.getBitmap(null);
+        }
+    }
+
+    private void switchUI(boolean value) {
+        isLogin = value;
+        if (isLogin) {
+            passwordEt.setVisibility(View.VISIBLE);
+            forgotPassTxtV.setVisibility(View.VISIBLE);
+            registerTxtV.setVisibility(View.VISIBLE);
+            loginBtn.setVisibility(View.VISIBLE);
+            sendEmailBtn.setVisibility(View.GONE);
+            backBtn.setVisibility(View.GONE);
+        } else {
+            passwordEt.setVisibility(View.GONE);
+            forgotPassTxtV.setVisibility(View.GONE);
+            registerTxtV.setVisibility(View.GONE);
+            loginBtn.setVisibility(View.GONE);
+            sendEmailBtn.setVisibility(View.VISIBLE);
+            backBtn.setVisibility(View.VISIBLE);
         }
     }
 

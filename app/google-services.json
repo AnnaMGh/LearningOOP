@@ -8,43 +8,6 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:657275581114:android:0bcc0195931f670d",
-        "android_client_info": {
-          "package_name": "com.example.anna.license"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "657275581114-b5b08kvtvp0lreasjeeh51273pkm0ikl.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.anna.license",
-            "certificate_hash": "ae0798c982efffa597f474b02a4b89f70b058569"
-          }
-        },
-        {
-          "client_id": "657275581114-095uq2pmvg31pjiisnn50pgcmvejftut.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyA2zCMrcC4tC-6ii_q7v5YwhAzT66hXoGg"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "657275581114-095uq2pmvg31pjiisnn50pgcmvejftut.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
         "mobilesdk_app_id": "1:657275581114:android:1c04a70fd5c968ec",
         "android_client_info": {
           "package_name": "com.learning.java.app"

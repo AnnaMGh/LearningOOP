@@ -1741,7 +1741,7 @@
     <string name="test501">"1. For what is used the 'private' access modifier?"</string>
     <string name="test5010">to access the information only from the class</string>
     <string name="test5011">to access the information only from the subclass</string>
-    <string name="test5012">to access the information only from any class</string>
+    <string name="test5012">to access the information from any class</string>
     <string name="test5013">to access the information only from the class</string>
     <string name="test502">2. What will create the fallowing code?</string>
     <string name="test5021"><Data><![CDATA[

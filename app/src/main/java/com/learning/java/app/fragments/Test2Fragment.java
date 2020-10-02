@@ -24,6 +24,8 @@ import com.learning.java.app.model.IUserListener;
 import com.learning.java.app.model.Test;
 import com.learning.java.app.model.User;
 
+import java.util.HashMap;
+
 public class Test2Fragment extends BaseFragment {
 
     //views
@@ -214,6 +216,15 @@ public class Test2Fragment extends BaseFragment {
                                         //update user
                                         user.setTestProgress(user.getTestProgress() + 1);
                                         user.setTotalPoints(user.getTotalPoints() + 1);
+
+                                        //add test token in user's list of done tests
+                                        HashMap<String, String> testsFinished = user.getTestsFinished();
+                                        if (testsFinished == null) {
+                                            testsFinished = new HashMap<>();
+                                        }
+                                        testsFinished.put(test.getToken(), "checked");
+                                        user.setTestsFinished(testsFinished);
+
 
                                         //update user to Firestore
                                         FirestoreDatabase.updateUser(user);

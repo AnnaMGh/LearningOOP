@@ -32,6 +32,7 @@ public class SqliteHelper extends SQLiteOpenHelper {
     private static final String KEY_LEARN_PROGRESS = "learnProgress";
     private static final String KEY_TEST_PROGRESS = "testProgress";
     private static final String KEY_DAYS_RAW = "days";
+    private static final String KEY_TIMESTAMP = "timestamp";
     private static final String KEY_POINTS = "points";
     private static final String KEY_PHOTO = "photo";
 
@@ -93,7 +94,7 @@ public class SqliteHelper extends SQLiteOpenHelper {
                 + KEY_EMAIL + " TEXT, " + KEY_PASSWORD + " TEXT, "
                 + KEY_FUNCTION + " TEXT, "
                 + KEY_NOTIFICATION + " TEXT, " + KEY_LEARN_PROGRESS + " TEXT, "
-                + KEY_TEST_PROGRESS + " TEXT, " + KEY_DAYS_RAW + " TEXT, "
+                + KEY_TEST_PROGRESS + " TEXT, " + KEY_DAYS_RAW + " TEXT, " + KEY_TIMESTAMP + " INTEGER, "
                 + KEY_POINTS + " TEXT, " + KEY_PHOTO + " TEXT)";
 
         db.execSQL(CREATE_USER_TABLE);
@@ -143,6 +144,7 @@ public class SqliteHelper extends SQLiteOpenHelper {
             values.put(KEY_LEARN_PROGRESS, String.valueOf(user.getLearnProgress()));
             values.put(KEY_TEST_PROGRESS, String.valueOf(user.getTestProgress()));
             values.put(KEY_DAYS_RAW, String.valueOf(user.getDaysInARaw()));
+            values.put(KEY_TIMESTAMP, String.valueOf(user.getRegisteredTimestamp()));
             values.put(KEY_POINTS, String.valueOf(user.getTotalPoints()));
             values.put(KEY_PHOTO, user.getPhoto());
 
@@ -161,7 +163,7 @@ public class SqliteHelper extends SQLiteOpenHelper {
 
         Cursor cursor = db.query(TABLE_USER, new String[]{KEY_ID, KEY_NAME, KEY_EMAIL,
                         KEY_PASSWORD, KEY_FUNCTION, KEY_NOTIFICATION, KEY_LEARN_PROGRESS,
-                        KEY_TEST_PROGRESS, KEY_DAYS_RAW,
+                        KEY_TEST_PROGRESS, KEY_DAYS_RAW, KEY_TIMESTAMP,
                         KEY_POINTS, KEY_PHOTO}, KEY_ID + "=?",
                 new String[]{String.valueOf(id)}, null, null, null, null);
 
@@ -173,7 +175,8 @@ public class SqliteHelper extends SQLiteOpenHelper {
                         cursor.getString(2), cursor.getString(3), cursor.getString(4),
                         Integer.parseInt(cursor.getString(5)), Integer.parseInt(cursor.getString(6)),
                         Integer.parseInt(cursor.getString(7)), Integer.parseInt(cursor.getString(8)),
-                        Integer.parseInt(cursor.getString(9)), cursor.getString(10));
+                        Long.parseLong(cursor.getString(9)),
+                        Integer.parseInt(cursor.getString(10)), cursor.getString(11));
             }
         } catch (Exception e) {
             Log.d(TAG, "Error while trying to get users from database!");
@@ -192,7 +195,7 @@ public class SqliteHelper extends SQLiteOpenHelper {
 
         Cursor cursor = db.query(TABLE_USER, new String[]{KEY_ID, KEY_NAME, KEY_EMAIL,
                         KEY_PASSWORD, KEY_FUNCTION, KEY_NOTIFICATION, KEY_LEARN_PROGRESS,
-                        KEY_TEST_PROGRESS, KEY_DAYS_RAW,
+                        KEY_TEST_PROGRESS, KEY_DAYS_RAW, KEY_TIMESTAMP,
                         KEY_POINTS, KEY_PHOTO}, KEY_NAME + "=?",
                 new String[]{name}, null, null, null, null);
 
@@ -203,7 +206,8 @@ public class SqliteHelper extends SQLiteOpenHelper {
                         cursor.getString(2), cursor.getString(3), cursor.getString(4),
                         Integer.parseInt(cursor.getString(5)), Integer.parseInt(cursor.getString(6)),
                         Integer.parseInt(cursor.getString(7)), Integer.parseInt(cursor.getString(8)),
-                        Integer.parseInt(cursor.getString(9)), cursor.getString(10));
+                        Long.parseLong(cursor.getString(9)),
+                        Integer.parseInt(cursor.getString(10)), cursor.getString(11));
             }
         } catch (Exception e) {
             Log.d(TAG, "Error while trying to get users from database!");
@@ -222,7 +226,7 @@ public class SqliteHelper extends SQLiteOpenHelper {
             if (u.getName().equals(user.getName()) && u.getEmail().equals(user.getEmail()) && u.getPassword().equals(user.getPassword())
                     && u.getFunction().equals(user.getFunction()) && u.getNotifications() == user.getNotifications()
                     && u.getLearnProgress() == user.getLearnProgress() && u.getTestProgress() == user.getTestProgress()
-                    && u.getDaysInARaw() == user.getDaysInARaw() && u.getTotalPoints() == user.getTotalPoints()) {
+                    && u.getDaysInARaw() == user.getDaysInARaw() && u.getRegisteredTimestamp() == user.getRegisteredTimestamp() && u.getTotalPoints() == user.getTotalPoints()) {
                 return u;
             }
         }
@@ -292,8 +296,9 @@ public class SqliteHelper extends SQLiteOpenHelper {
                     user.setLearnProgress(Integer.parseInt(cursor.getString(6)));
                     user.setTestProgress(Integer.parseInt(cursor.getString(7)));
                     user.setDaysInARaw(Integer.parseInt(cursor.getString(8)));
-                    user.setTotalPoints(Integer.parseInt(cursor.getString(9)));
-                    user.setPhoto(cursor.getString(10));
+                    user.setRegisteredTimestamp(Integer.parseInt(cursor.getString(9)));
+                    user.setTotalPoints(Integer.parseInt(cursor.getString(10)));
+                    user.setPhoto(cursor.getString(11));
 
                     userList.add(user);
                 } while (cursor.moveToNext());
@@ -321,6 +326,7 @@ public class SqliteHelper extends SQLiteOpenHelper {
             values.put(KEY_LEARN_PROGRESS, String.valueOf(user.getLearnProgress()));
             values.put(KEY_TEST_PROGRESS, String.valueOf(user.getTestProgress()));
             values.put(KEY_DAYS_RAW, String.valueOf(user.getDaysInARaw()));
+            values.put(KEY_TIMESTAMP, String.valueOf(user.getRegisteredTimestamp()));
             values.put(KEY_POINTS, String.valueOf(user.getTotalPoints()));
             values.put(KEY_PHOTO, user.getPhoto());
 

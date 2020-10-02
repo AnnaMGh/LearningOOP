@@ -76,7 +76,7 @@ public class LearnFragment extends BaseFragment {
 
         //load ad
         if (getActivity() != null) {
-            AdHandler.addInterstitialAd(getActivity(), Constants.adInterstitialTestUnitId);
+            AdHandler.addInterstitialAd(getActivity(), Constants.adInterstitialUnitId);
         }
     }
 
@@ -119,7 +119,8 @@ public class LearnFragment extends BaseFragment {
                 }
 
                 //load ad
-                if (GlobalSingleton.getInstance().lastShowedAd < System.currentTimeMillis() - (2 * 60 * 1000)) {
+                Log.d("adHandler", GlobalSingleton.getInstance().lastShowedAd + " | " + (System.currentTimeMillis() - (2 * 60 * 1000)));
+                if (GlobalSingleton.getInstance().lastShowedAd < System.currentTimeMillis() - (4 * 60 * 1000)) {
                     GlobalSingleton.getInstance().lastShowedAd = System.currentTimeMillis();
                     AdHandler.showInterstitialAd(getActivity(), obj -> {
                         LessonsFragment fragmentLessons = new LessonsFragment();

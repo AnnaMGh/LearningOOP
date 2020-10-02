@@ -2,7 +2,9 @@ package com.learning.java.app.fragments;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
+
 import androidx.annotation.Nullable;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -140,7 +142,7 @@ public class TestAddFragment extends BaseFragment {
                 }
 
                 //create test from question
-                final Test newTest = new Test(title.getText().toString(), false, listQuestions);
+                final Test newTest = new Test(title.getText().toString(), false, false, listQuestions);
                 newTest.setId(testCountByNow + 1);
 
                 //add test to Firestore

@@ -9,11 +9,11 @@ public class AnalyticsHandler {
 
     private static FirebaseAnalytics analyticsInstance;
 
-    public static void enableCrashlytics(Context context){
+    public static void enableCrashlytics(Context context) {
         //this is automatically done with firebase
     }
 
-    public static void forceCrash(Context context){
+    public static void forceCrash(Context context) {
         throw new RuntimeException("Test Crash"); // Force a crash
     }
 

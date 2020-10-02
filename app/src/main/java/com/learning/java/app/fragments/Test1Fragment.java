@@ -5,8 +5,10 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
+
 import androidx.annotation.Nullable;
 import androidx.core.view.ViewCompat;
+
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +26,8 @@ import com.learning.java.app.database.FirestoreDatabase;
 import com.learning.java.app.model.IUserListener;
 import com.learning.java.app.model.Test;
 import com.learning.java.app.model.User;
+
+import java.util.HashMap;
 
 
 public class Test1Fragment extends BaseFragment {
@@ -241,6 +245,14 @@ public class Test1Fragment extends BaseFragment {
                                         //update user
                                         user.setTestProgress(1);
                                         user.setTotalPoints(user.getTotalPoints() + 1);
+
+                                        //add test token in user's list of done tests
+                                        HashMap<String, String> testsFinished = user.getTestsFinished();
+                                        if (testsFinished == null) {
+                                            testsFinished = new HashMap<>();
+                                        }
+                                        testsFinished.put(test.getToken(), "checked");
+                                        user.setTestsFinished(testsFinished);
 
                                         //update user to Firestore
                                         FirestoreDatabase.updateUser(user);

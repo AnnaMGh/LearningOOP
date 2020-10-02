@@ -5,7 +5,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+
 import androidx.annotation.Nullable;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +21,7 @@ import com.learning.java.app.database.FirestoreDatabase;
 import com.learning.java.app.model.IRefreshListener;
 import com.learning.java.app.model.IUserListener;
 import com.learning.java.app.model.User;
+import com.learning.java.app.services.AuthHandler;
 
 import java.util.ArrayList;
 
@@ -60,7 +63,7 @@ public class AdminAccountsFragment extends BaseFragment {
         } else {
             standardUsersList.clear();
             for (User user : userList) {
-                if (!user.getFunction().equals(Constants.ADMIN_NAME)) {
+                if (!user.getFunction().equals(Constants.ADMIN_FUNCTION)) {
                     standardUsersList.add(user);
                 }
             }
@@ -115,6 +118,12 @@ public class AdminAccountsFragment extends BaseFragment {
                                     new Handler().postDelayed(new Runnable() {
                                         @Override
                                         public void run() {
+
+                                            //can't delete from program with firebase auth
+                                            //need to do this manulaly from console
+//                                            AuthHandler.deleteAccount(null);
+
+
                                             FirestoreDatabase.updateUserWithCallback(userUpdated, new IRefreshListener() {
                                                 @Override
                                                 public void doRefresh(boolean doRefresh) {
@@ -160,7 +169,7 @@ public class AdminAccountsFragment extends BaseFragment {
                 //sort users
                 standardUsersList.clear();
                 for (User u : userList) {
-                    if (!u.getFunction().equals(Constants.ADMIN_NAME))
+                    if (!u.getFunction().equals(Constants.ADMIN_FUNCTION))
                         standardUsersList.add(u);
                 }
 

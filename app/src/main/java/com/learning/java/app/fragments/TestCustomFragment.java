@@ -5,8 +5,10 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.res.ColorStateList;
 import android.os.Bundle;
+
 import androidx.annotation.Nullable;
 import androidx.core.view.ViewCompat;
+
 import android.text.Editable;
 import android.text.Html;
 import android.text.InputFilter;
@@ -33,6 +35,7 @@ import com.learning.java.app.model.Test;
 import com.learning.java.app.model.User;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class TestCustomFragment extends BaseFragment {
 
@@ -750,11 +753,19 @@ public class TestCustomFragment extends BaseFragment {
                             public void onClick(DialogInterface dialog, int which) {
                                 closeKeyboard();
                                 if (points == test.getQuestionsList().size()) {
-                                    if (user.getTestProgress() == (test.getId() - 1)) {
+                                    if (!test.getChecked()) {
 
                                         //update user
                                         user.setTestProgress(user.getTestProgress() + 1);
                                         user.setTotalPoints(user.getTotalPoints() + 1);
+
+                                        //add test token in user's list of done tests
+                                        HashMap<String, String> testsFinished = user.getTestsFinished();
+                                        if (testsFinished == null) {
+                                            testsFinished = new HashMap<>();
+                                        }
+                                        testsFinished.put(test.getToken(), "checked");
+                                        user.setTestsFinished(testsFinished);
 
                                         //update user to Firestore
                                         FirestoreDatabase.updateUser(user);

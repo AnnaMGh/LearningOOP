@@ -21,6 +21,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.legacy.app.FragmentPagerAdapter;
@@ -28,6 +29,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.viewpager.widget.PagerTabStrip;
 import androidx.viewpager.widget.ViewPager;
+
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -270,8 +272,8 @@ public class MainMenuFragment extends BaseFragment {
                 for (int i = 0; i < userList.size() - 1; i++) {
                     for (int j = 0; j < userList.size() - 1; j++) {
                         if ((userList.get(j).getTotalPoints() < userList.get(j + 1).getTotalPoints()
-                                && !userList.get(j).getFunction().equals(Constants.ADMIN_NAME))
-                                || userList.get(j + 1).getFunction().equals(Constants.ADMIN_NAME)) {
+                                && !userList.get(j).getFunction().equals(Constants.ADMIN_FUNCTION))
+                                || userList.get(j + 1).getFunction().equals(Constants.ADMIN_FUNCTION)) {
                             User replacedUser = userList.get(j);
                             userList.set(j, userList.get(j + 1));
                             userList.set(j + 1, replacedUser);
@@ -370,15 +372,13 @@ public class MainMenuFragment extends BaseFragment {
         int yesterdayYear = calendar.get(Calendar.YEAR);
 
         //get last entrance time
-        calendar.setTimeInMillis(gs.getLong(Constants.LAST_ENTRANCE_KEY));
+        calendar.setTimeInMillis(user.getRegisteredTimestamp());
 
         if (yesterdayDay == calendar.get(Calendar.DAY_OF_MONTH) && yesterdayMonth == calendar.get(Calendar.MONTH) && yesterdayYear == calendar.get(Calendar.YEAR)) {
 
-            //refresh last entrance
-            gs.setLong(Constants.LAST_ENTRANCE_KEY, Calendar.getInstance().getTimeInMillis());
-
             //add one more day
             user.setDaysInARaw(user.getDaysInARaw() + 1);
+            user.setRegisteredTimestamp(Calendar.getInstance().getTimeInMillis());
 
             //set bonus points
             int bonusPoints = 1;
@@ -415,17 +415,15 @@ public class MainMenuFragment extends BaseFragment {
 
             //update user to Firestore
             FirestoreDatabase.updateUser(user);
-        } else if (gs.getLong(Constants.LAST_ENTRANCE_KEY) == 0 || Calendar.getInstance().getTimeInMillis() - gs.getLong(Constants.LAST_ENTRANCE_KEY) > oneDayInMilliseconds) {
+        } else if (user.getRegisteredTimestamp() == 0 || Calendar.getInstance().getTimeInMillis() - user.getRegisteredTimestamp() > oneDayInMilliseconds) {
 
-            if (gs.getLong(Constants.LAST_ENTRANCE_KEY) > 0) {
+            if (user.getRegisteredTimestamp() > 0) {
                 showSimpleAlert("You just lost your series of " + user.getDaysInARaw() + " days in raw!");
             }
 
-            //refresh last entrance
-            gs.setLong(Constants.LAST_ENTRANCE_KEY, Calendar.getInstance().getTimeInMillis());
-
             //start days in raw over
             user.setDaysInARaw(1);
+            user.setRegisteredTimestamp(Calendar.getInstance().getTimeInMillis());
             FirestoreDatabase.updateUser(user);
         }
     }
@@ -435,7 +433,7 @@ public class MainMenuFragment extends BaseFragment {
         userList.set(user.getId(), user);
 
         //check if no admin
-        if (user == null || !user.getFunction().equals(Constants.ADMIN_NAME) || userList != null) {
+        if (user == null || !user.getFunction().equals(Constants.ADMIN_FUNCTION) || userList != null) {
             return;
         }
 
@@ -444,8 +442,8 @@ public class MainMenuFragment extends BaseFragment {
         for (int i = 0; i < userList.size() - 1; i++) {
             for (int j = 0; j < userList.size() - 1; j++) {
                 if ((userList.get(j).getTotalPoints() < userList.get(j + 1).getTotalPoints()
-                        && !userList.get(j).getFunction().equals(Constants.ADMIN_NAME))
-                        || userList.get(j + 1).getFunction().equals(Constants.ADMIN_NAME)) {
+                        && !userList.get(j).getFunction().equals(Constants.ADMIN_FUNCTION))
+                        || userList.get(j + 1).getFunction().equals(Constants.ADMIN_FUNCTION)) {
                     User replacedUser = userList.get(j);
                     userList.set(j, userList.get(j + 1));
                     userList.set(j + 1, replacedUser);

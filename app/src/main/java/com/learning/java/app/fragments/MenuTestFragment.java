@@ -1,7 +1,10 @@
 package com.learning.java.app.fragments;
 
 import android.os.Bundle;
+
 import androidx.annotation.Nullable;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.learning.java.app.Constants;
 import com.learning.java.app.R;
 import com.learning.java.app.adapters.TestAdapter;
 import com.learning.java.app.database.FirestoreDatabase;
@@ -19,6 +23,8 @@ import com.learning.java.app.model.ITestListener;
 import com.learning.java.app.model.IUserListener;
 import com.learning.java.app.model.Test;
 import com.learning.java.app.model.User;
+import com.learning.java.app.services.AdHandler;
+import com.learning.java.app.utilities.GlobalSingleton;
 
 import java.util.ArrayList;
 
@@ -62,6 +68,11 @@ public class MenuTestFragment extends BaseFragment {
 
         checkIfAdmin(user);
         setList();
+
+        //load ad
+        if (getActivity() != null) {
+            AdHandler.addInterstitialAd(getActivity(), Constants.adInterstitialUnitId);
+        }
     }
 
     void checkIfAdmin(User user) {
@@ -128,6 +139,7 @@ public class MenuTestFragment extends BaseFragment {
             public void onClick(View v) {
                 TestRemoveFragment fragmentRemoveTest = new TestRemoveFragment();
                 fragmentRemoveTest.testList = testList;
+                fragmentRemoveTest.user = user;
                 fragmentRemoveTest.listenerTest = new ITestListener() {
                     @Override
                     public void getAllTests(ArrayList<Test> receivedTestList) {
@@ -149,6 +161,8 @@ public class MenuTestFragment extends BaseFragment {
     }
 
     void selectFragment(final Test clickedTest) {
+        BaseFragment nextTest = null;
+        String backStackName = null;
 
         switch (clickedTest.getId()) {
             case 1: {
@@ -170,13 +184,14 @@ public class MenuTestFragment extends BaseFragment {
                     public void getUserToken(String token) {
                     }
                 };
-                replaceFragment(fragmentTest, "Test1Fragment");
-
+                nextTest = fragmentTest;
+                backStackName = "Test1Fragment";
+//                replaceFragment(fragmentTest, "Test1Fragment");
                 break;
             }
             case 2: {
                 if (1 > user.getTestProgress()) {
-                    Toast.makeText(getActivity(), "First you need to finish " + testList.get(clickedTest.getId()-2).getTitle() + "!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "First you need to finish " + testList.get(clickedTest.getId() - 2).getTitle() + "!", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 Test2Fragment fragmentTest = new Test2Fragment();
@@ -197,7 +212,9 @@ public class MenuTestFragment extends BaseFragment {
                     public void getUserToken(String token) {
                     }
                 };
-                replaceFragment(fragmentTest, "Test2Fragment");
+                nextTest = fragmentTest;
+                backStackName = "Test2Fragment";
+//                replaceFragment(fragmentTest, "Test2Fragment");
                 break;
             }
             case 3: {
@@ -224,7 +241,9 @@ public class MenuTestFragment extends BaseFragment {
                     public void getUserToken(String token) {
                     }
                 };
-                replaceFragment(fragmentTest, "First you need to finish the base level 2!");
+                nextTest = fragmentTest;
+                backStackName = "Test3Fragment";
+//                replaceFragment(fragmentTest, "Test3Fragment");
                 break;
             }
             case 4: {
@@ -251,7 +270,9 @@ public class MenuTestFragment extends BaseFragment {
                     public void getUserToken(String token) {
                     }
                 };
-                replaceFragment(fragmentTest, "Test4Fragment");
+                nextTest = fragmentTest;
+                backStackName = "Test4Fragment";
+//                replaceFragment(fragmentTest, "Test4Fragment");
                 break;
             }
             case 5: {
@@ -278,13 +299,24 @@ public class MenuTestFragment extends BaseFragment {
                     public void getUserToken(String token) {
                     }
                 };
-                replaceFragment(fragmentTest, "Test5Fragment");
+                nextTest = fragmentTest;
+                backStackName = "Test5Fragment";
+//                replaceFragment(fragmentTest, "Test5Fragment");
                 break;
             }
             default: {
-                if ((clickedTest.getId() - 1) > user.getTestProgress()) {
-                    Toast.makeText(getActivity(), "First you need to finish " + testList.get(clickedTest.getId() - 2).getTitle() + "!", Toast.LENGTH_SHORT).show();
+                if (user.getTestProgress() < 5) {
+                    Toast.makeText(getActivity(), "First you need to finish " + testList.get(user.getTestProgress()).getTitle() + "!", Toast.LENGTH_SHORT).show();
                     return;
+                }
+                if ((clickedTest.getId() - 1) > user.getTestProgress()) {
+                    for (int i = 5; i < clickedTest.getId() - 1; i++) {
+                        //if is not checked and (is live or user is admin) must finish first unchecked test
+                        if (!testList.get(i).getChecked() && (testList.get(i).isLive() || user.getFunction().equals(Constants.ADMIN_FUNCTION))) {
+                            Toast.makeText(getActivity(), "First you need to finish " + testList.get(i).getTitle() + "!", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                    }
                 }
 
                 TestCustomFragment fragmentTest = new TestCustomFragment();
@@ -293,7 +325,6 @@ public class MenuTestFragment extends BaseFragment {
                 fragmentTest.listenerRefreshUser = new IUserListener() {
                     @Override
                     public void getUser(User updatedUser) {
-
                         if (user != null && user.getName().equals("-1")) {
                             selectFragment(clickedTest);
                         } else {
@@ -311,9 +342,30 @@ public class MenuTestFragment extends BaseFragment {
                     public void getUserToken(String token) {
                     }
                 };
-                replaceFragment(fragmentTest, "TestNewFragment");
+
+                nextTest = fragmentTest;
+                backStackName = "TestNewFragment";
+
+//                replaceFragment(fragmentTest, "TestNewFragment");
             }
         }
+
+        if (nextTest != null && backStackName != null) {
+            final BaseFragment nextTestFinal = nextTest;
+            final String backStackNameFinal = backStackName;
+            //load ad
+            Log.d("adHandler", GlobalSingleton.getInstance().lastShowedAd + " | " + (System.currentTimeMillis() - (2 * 60 * 1000)));
+            if (GlobalSingleton.getInstance().lastShowedAd < (System.currentTimeMillis() - (4 * 60 * 1000))) {
+                GlobalSingleton.getInstance().lastShowedAd = System.currentTimeMillis();
+                AdHandler.showInterstitialAd(getActivity(), obj -> {
+                    replaceFragment(nextTestFinal, backStackNameFinal);
+                });
+            } else {
+                replaceFragment(nextTestFinal, backStackNameFinal);
+            }
+
+        }
+
     }
 
 

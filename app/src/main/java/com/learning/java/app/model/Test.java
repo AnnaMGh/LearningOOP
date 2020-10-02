@@ -8,29 +8,32 @@ public class Test {
     private String token;
     private String title;
     private boolean checked;
+    private boolean live;
     private ArrayList<Question> questionsList = new ArrayList<>();
 
     public Test() {
     }
 
-    public Test(String title, boolean checked, ArrayList<Question> questions) {
+    public Test(String title, boolean checked, boolean live, ArrayList<Question> questions) {
         this.title = title;
         this.checked = checked;
+        this.live = live;
         this.questionsList = questions;
     }
 
-    public Test(String token, String title, boolean checked, ArrayList<Question> questions) {
-        this.token = token;
-        this.title = title;
-        this.checked = checked;
-        this.questionsList = questions;
-    }
+//    public Test(String token, String title, boolean checked, ArrayList<Question> questions) {
+//        this.token = token;
+//        this.title = title;
+//        this.checked = checked;
+//        this.questionsList = questions;
+//    }
 
-    public Test(int id,String token, String title, boolean checked, ArrayList<Question> questions) {
+    public Test(int id, String token, String title, boolean checked, boolean live, ArrayList<Question> questions) {
         this.id = id;
         this.token = token;
         this.title = title;
         this.checked = checked;
+        this.live = live;
         this.questionsList = questions;
     }
 
@@ -50,20 +53,28 @@ public class Test {
         this.token = token;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public boolean getChecked() {
+        return checked;
     }
 
     public void setChecked(boolean checked) {
         this.checked = checked;
     }
 
-    public String getTitle() {
-        return title;
+    public boolean isLive() {
+        return live;
     }
 
-    public boolean getChecked() {
-        return checked;
+    public void setLive(boolean live) {
+        this.live = live;
     }
 
     public ArrayList<Question> getQuestionsList() {

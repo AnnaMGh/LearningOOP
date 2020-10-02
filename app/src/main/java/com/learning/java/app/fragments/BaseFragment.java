@@ -81,4 +81,5 @@ public class BaseFragment extends Fragment {
             ((ContainerActivity) activity).layoutLoading.setVisibility(View.VISIBLE);
         }
     }
+
 }

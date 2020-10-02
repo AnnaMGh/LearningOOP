@@ -3,6 +3,7 @@
     <string name="facebook_app_id">251889832229968</string>
     <string name="fb_login_protocol_scheme">fb251889832229968</string>
 
+
     <string name="welcome">Login</string>
     <string name="sing_up"><Data><![CDATA[ Don\'t have an account? Sign up <u>here</u>! ]]></Data></string>
     <string name="test">Test</string>
@@ -1740,7 +1741,7 @@
     <string name="test501">"1. For what is used the 'private' access modifier?"</string>
     <string name="test5010">to access the information only from the class</string>
     <string name="test5011">to access the information only from the subclass</string>
-    <string name="test5012">to access the information only from any class</string>
+    <string name="test5012">to access the information from any class</string>
     <string name="test5013">to access the information only from the class</string>
     <string name="test502">2. What type of class is the fallowing one?</string>
     <string name="test5021"><Data><![CDATA[
@@ -1770,5 +1771,6 @@
     <string name="str_question_no">Question No.</string>
     <string name="str_answer_no">Answer No.</string>
     <string name="done">DONE</string>
+    <string name="forgot_pass">Forgot password</string>
 
 </resources>

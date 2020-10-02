@@ -1,5 +1,7 @@
 package com.learning.java.app.model;
 
+import java.util.HashMap;
+
 /**
  * Created by Anna on 3/13/2018.
  */
@@ -9,6 +11,7 @@ public class User {
     //attributes
     private String token;
     private int id;
+    private int emailVerified;
     private String name;
     private String email;
     private String password;
@@ -16,9 +19,12 @@ public class User {
     private int notifications;
     private int learnProgress;
     private int testProgress;
+    private HashMap<String, String> testsFinished = new HashMap<>();
     private int daysInARaw;
+    private long registeredTimestamp;
     private int totalPoints;
     private String photo;
+
 
     public User(String email, String password) {
         this.email = email;
@@ -33,6 +39,14 @@ public class User {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getEmailVerified() {
+        return emailVerified;
+    }
+
+    public void setEmailVerified(int emailVerified) {
+        this.emailVerified = emailVerified;
     }
 
     public void setName(String name) {
@@ -63,8 +77,16 @@ public class User {
         this.testProgress = testProgress;
     }
 
+    public void setTestsFinished(HashMap<String, String> testsFinished) {
+        this.testsFinished = testsFinished;
+    }
+
     public void setDaysInARaw(int daysInARaw) {
         this.daysInARaw = daysInARaw;
+    }
+
+    public void setRegisteredTimestamp(long registeredTimestamp) {
+        this.registeredTimestamp = registeredTimestamp;
     }
 
     public void setTotalPoints(int totalPoints) {
@@ -113,8 +135,16 @@ public class User {
         return this.testProgress;
     }
 
+    public HashMap<String, String> getTestsFinished() {
+        return testsFinished;
+    }
+
     public int getDaysInARaw() {
         return this.daysInARaw;
+    }
+
+    public long getRegisteredTimestamp() {
+        return registeredTimestamp;
     }
 
     public int getTotalPoints() {
@@ -162,7 +192,7 @@ public class User {
     }
 
 
-    public User(int id, String name, String email, String password, String function, int notifications, int learnProgress, int testProgress, int daysInARaw, int totalPoints, String photoByte) {
+    public User(int id, String name, String email, String password, String function, int notifications, int learnProgress, int testProgress, int daysInARaw, long registeredTimestamp, int totalPoints, String photoByte) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -172,6 +202,7 @@ public class User {
         this.learnProgress = learnProgress;
         this.testProgress = testProgress;
         this.daysInARaw = daysInARaw;
+        this.registeredTimestamp = registeredTimestamp;
         this.totalPoints = totalPoints;
         this.photo = photoByte;
     }

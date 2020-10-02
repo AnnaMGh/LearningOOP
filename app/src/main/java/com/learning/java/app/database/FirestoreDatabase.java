@@ -3,7 +3,9 @@ package com.learning.java.app.database;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+
 import androidx.annotation.NonNull;
+
 import android.util.Log;
 
 import com.learning.java.app.Constants;
@@ -96,8 +98,10 @@ public class FirestoreDatabase {
         updateMap.put("id", user.getId());
         updateMap.put("token", user.getToken());
         updateMap.put("daysInARaw", user.getDaysInARaw());
+        updateMap.put("registeredTimestamp", user.getRegisteredTimestamp());
         updateMap.put("learnProgress", user.getLearnProgress());
         updateMap.put("testProgress", user.getTestProgress());
+        updateMap.put("testsFinished", user.getTestsFinished());
         updateMap.put("notifications", user.getNotifications());
         updateMap.put("totalPoints", user.getTotalPoints());
         updateMap.put("photo", user.getPhoto());
@@ -136,8 +140,10 @@ public class FirestoreDatabase {
         updateMap.put("id", user.getId());
         updateMap.put("token", user.getToken());
         updateMap.put("daysInARaw", user.getDaysInARaw());
+        updateMap.put("registeredTimestamp", user.getRegisteredTimestamp());
         updateMap.put("learnProgress", user.getLearnProgress());
         updateMap.put("testProgress", user.getTestProgress());
+        updateMap.put("testsFinished", user.getTestsFinished());
         updateMap.put("notifications", user.getNotifications());
         updateMap.put("totalPoints", user.getTotalPoints());
         updateMap.put("photo", user.getPhoto());
@@ -195,7 +201,7 @@ public class FirestoreDatabase {
 
     public static void isUserExisting(final User user, final IUserListener listener) {
         usersReferences.whereEqualTo("email", user.getEmail())
-                .whereEqualTo("password", user.getPassword())
+//                .whereEqualTo("password", user.getPassword())
                 .limit(1)
                 .get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
@@ -250,7 +256,7 @@ public class FirestoreDatabase {
 
     //tests
     public static void addTest(final Test test, final ITestListener listenerTest) {
-        Test newTest = new Test(test.getId(), "", test.getTitle(), test.getChecked(), new ArrayList<Question>());
+        Test newTest = new Test(test.getId(), "", test.getTitle(), test.getChecked(), test.isLive(), new ArrayList<>());
         testsReferences.add(newTest)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
@@ -364,10 +370,16 @@ public class FirestoreDatabase {
                                     checked = true;
                                 }
 
+                                boolean live = false;
+                                if (testMap.get("live").toString().equals("true")) {
+                                    live = true;
+                                }
+
                                 //add data to test
                                 Test test = new Test(Integer.parseInt(testMap.get("id").toString()), testMap.get("token").toString(),
                                         testMap.get("title").toString(),
                                         checked,
+                                        live,
                                         questionList);
 
                                 testList.add(test);

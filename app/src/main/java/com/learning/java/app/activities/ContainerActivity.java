@@ -42,6 +42,8 @@ import com.learning.java.app.model.Test;
 import com.learning.java.app.model.User;
 import com.learning.java.app.services.AdHandler;
 import com.learning.java.app.services.AnalyticsHandler;
+import com.learning.java.app.services.AuthHandler;
+import com.learning.java.app.utilities.AESCrypt;
 import com.learning.java.app.utilities.GlobalSingleton;
 import com.learning.java.app.utilities.ServiceChecker;
 import com.facebook.AccessToken;
@@ -95,6 +97,15 @@ public class ContainerActivity extends AppCompatActivity {
 
         AnalyticsHandler.enableCrashlytics(ContainerActivity.this);
         AnalyticsHandler.registerAnalytics(ContainerActivity.this);
+        AuthHandler.createAuth(ContainerActivity.this);
+
+        try {
+            String crypted = AESCrypt.encrypt("LucieBff123");
+            String decrypted = AESCrypt.decrypt(crypted);
+            Log.d("CryptedPass", crypted + " | " + decrypted);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         //ad
         llParentAd = findViewById(R.id.ll_parent_ad);
@@ -159,6 +170,12 @@ public class ContainerActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        AuthHandler.startAuth(ContainerActivity.this);
     }
 
     @Override
@@ -345,8 +362,8 @@ public class ContainerActivity extends AppCompatActivity {
                 for (int i = 0; i < mainUserList.size() - 1; i++) {
                     for (int j = 0; j < mainUserList.size() - 1; j++) {
                         if ((mainUserList.get(j).getTotalPoints() < mainUserList.get(j + 1).getTotalPoints()
-                                && !mainUserList.get(j).getFunction().equals(Constants.ADMIN_NAME))
-                                || mainUserList.get(j + 1).getFunction().equals(Constants.ADMIN_NAME)) {
+                                && !mainUserList.get(j).getFunction().equals(Constants.ADMIN_FUNCTION))
+                                || mainUserList.get(j + 1).getFunction().equals(Constants.ADMIN_FUNCTION)) {
                             User replacedUser = mainUserList.get(j);
                             mainUserList.set(j, mainUserList.get(j + 1));
                             mainUserList.set(j + 1, replacedUser);
@@ -454,6 +471,7 @@ public class ContainerActivity extends AppCompatActivity {
                 MessageDigest md = MessageDigest.getInstance("SHA");
                 md.update(signature.toByteArray());
                 Log.e("KeyHash", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+                Toast.makeText(ContainerActivity.this, Base64.encodeToString(md.digest(), Base64.DEFAULT), Toast.LENGTH_LONG).show();
             }
         } catch (PackageManager.NameNotFoundException | NoSuchAlgorithmException e) {
             e.printStackTrace();
@@ -503,15 +521,17 @@ public class ContainerActivity extends AppCompatActivity {
     }
 
     boolean isNetworkAvailable() {
-        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        if (connectivityManager != null) {
-            if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
-                    connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
-                //we are connected to a network
-                return true;
-            }
-        }
-        return false;
+        return GlobalSingleton.getInstance().hasInternet(ContainerActivity.this);
+//        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+//        if (connectivityManager != null
+//                && connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE) != null
+//                && connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI) != null
+//        ) {
+//            //we are connected to a network
+//            return connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+//                    connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED;
+//        }
+//        return false;
     }
 
     public void scheduleInFuture() {

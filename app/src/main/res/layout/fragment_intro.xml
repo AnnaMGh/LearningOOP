@@ -3,16 +3,23 @@
     android:id="@+id/intro_main_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/rounded_darkblue"
+    android:background="@color/colorPrimary"
     android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0.6"
+        android:background="@drawable/background_intro" />
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/background_intro"
         android:alpha="0.3"
         android:scaleType="center"
-        />
+        android:src="@drawable/background_intro"
+        android:visibility="gone" />
+
     <LinearLayout
         android:id="@+id/intro_moving_layout"
         android:layout_width="match_parent"
