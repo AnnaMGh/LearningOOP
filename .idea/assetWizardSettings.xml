@@ -62,11 +62,23 @@
                                 <PersistentState>
                                   <option name="children">
                                     <map>
+                                      <entry key="backgroundImage">
+                                        <value>
+                                          <PersistentState>
+                                            <option name="values">
+                                              <map>
+                                                <entry key="imagePath" value="D:\Work\Android\Projects\Personal Projects\Learning Java\License\app\src\main\res\drawable\background_binary.xml" />
+                                              </map>
+                                            </option>
+                                          </PersistentState>
+                                        </value>
+                                      </entry>
                                       <entry key="foregroundClipArt">
                                         <value>
                                           <PersistentState>
                                             <option name="values">
                                               <map>
+                                                <entry key="color" value="000000" />
                                                 <entry key="imagePath" value="C:\Users\Anna\AppData\Local\Temp\ic_android_black_24dp.xml" />
                                               </map>
                                             </option>
@@ -79,8 +91,8 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
-                                                <entry key="imagePath" value="D:\Work\Android\Projects\Personal Projects\Learning Java\License\app\src\main\res\mipmap-xxxhdpi\ic_launcher_learning_java_round.png" />
-                                                <entry key="scalingPercent" value="66" />
+                                                <entry key="imagePath" value="D:\Work\Android\Projects\Personal Projects\Learning Java\License\app\src\main\res\drawable\learning_oop.png" />
+                                                <entry key="scalingPercent" value="70" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -112,10 +124,7 @@
                                   </option>
                                   <option name="values">
                                     <map>
-                                      <entry key="backgroundAssetType" value="COLOR" />
-                                      <entry key="backgroundColor" value="005588" />
-                                      <entry key="legacyIconShape" value="CIRCLE" />
-                                      <entry key="outputName" value="ic_launcher_learning_java_round" />
+                                      <entry key="outputName" value="ic_launcher_learning_oop" />
                                     </map>
                                   </option>
                                 </PersistentState>

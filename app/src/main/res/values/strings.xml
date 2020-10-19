@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Learning java</string>
+    <string name="app_name">Learning OOP</string>
     <string name="facebook_app_id">251889832229968</string>
     <string name="fb_login_protocol_scheme">fb251889832229968</string>
 
@@ -829,7 +829,7 @@
 
     <!--OOP-->
     <string name="learn311"><Data><![CDATA[
-    <h2>Object-Orientation Programing</h2>
+    <h2>Object-Orientated Programing</h2>
     <b>&emsp Java </b> is an object-orientated programing language, which means it is based on <b>objects</b>.
     <br/> &emsp An <b>object</b> is an instance of a <b>class</b> and a <b>class</b> is a set of attributes and methods.
     <br/><br/> <b> &emsp Syntax: </b>

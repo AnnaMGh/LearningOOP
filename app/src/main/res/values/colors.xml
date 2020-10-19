@@ -18,4 +18,5 @@
     <color name="colorDarkGray">#333333</color>
     <color name="colorBlackTransparent">#dd000000</color>
     <color name="colorBlackTransparent2">#55000000</color>
+    <color name="colorOrange">#ffaa7f</color>
 </resources>

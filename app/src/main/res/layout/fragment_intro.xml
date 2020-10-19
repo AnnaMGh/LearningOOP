@@ -3,56 +3,90 @@
     android:id="@+id/intro_main_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
     android:orientation="vertical">
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:alpha="0.6"
-        android:background="@drawable/background_intro" />
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:alpha="0.3"
-        android:scaleType="center"
-        android:src="@drawable/background_intro"
-        android:visibility="gone" />
+        android:scaleType="centerInside"
+        android:src="@drawable/background_binary"
+        android:background="@drawable/background_binary"
+        android:visibility="visible" />
 
     <LinearLayout
         android:id="@+id/intro_moving_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/intro_welcome_txtv"
-            android:layout_width="match_parent"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/lato_bold"
+            android:layout_gravity="center_horizontal"
+            android:background="@color/colorOrange"
+            android:fontFamily="@font/new_athletic"
             android:gravity="center"
-            android:paddingBottom="20dp"
-            android:text="Welcome to"
             android:textAlignment="center"
-            android:textColor="#fff"
-            android:textSize="30sp" />
+            android:paddingTop="4dp"
+            android:paddingBottom="2dp"
+            android:paddingLeft="2dp"
+            android:paddingRight="2dp"
+            android:text="LEARNING"
+            android:textColor="#3e3e3e"
+            android:textSize="60sp" />
 
-        <TextView
-            android:id="@+id/intro_learning_txtv"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/intro_text"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/adventure"
-            android:text="Learning Java"
-            android:textColor="#fff"
-            android:textSize="40sp" />
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:id="@+id/intro_oop_txtv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/new_athletic"
+                android:text="oop"
+                android:textColor="#fff"
+                android:textSize="60sp" />
+
+            <TextView
+                android:id="@+id/intro_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sin_city"
+                android:text="{"
+                android:layout_marginStart="-10dp"
+                android:textColor="#fff"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/intro_learning_txtv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/new_athletic"
+                android:text="Java"
+                android:textColor="#fff"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/intro_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/sin_city"
+                android:text="}"
+                android:textColor="#fff"
+                android:textSize="20sp" />
+        </LinearLayout>
+
 
         <ImageView
             android:id="@+id/intro_image"
             android:layout_width="350dp"
             android:layout_height="350dp"
             android:layout_gravity="center"
+            android:visibility="gone"
             android:src="@drawable/java_icon_low" />
 
     </LinearLayout>
@@ -61,14 +95,13 @@
         android:id="@+id/intro_swipe_txtv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="8"
         android:fontFamily="@font/lato_regular"
         android:gravity="end"
-        android:paddingLeft="10dp"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
         android:text="Swipe left for more!"
         android:textAlignment="viewEnd"
         android:textColor="#fff"
         android:visibility="gone" />
-
 
 </RelativeLayout>

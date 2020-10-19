@@ -33,6 +33,7 @@ public class IntroFragment extends BaseFragment {
     TextView learningTxtV, swipeTxtV;
     LinearLayout movingLayout;
     RelativeLayout mainLayout;
+    LinearLayout llIntroText;
 
     //variables
     Timer myTimer;
@@ -57,6 +58,7 @@ public class IntroFragment extends BaseFragment {
 
     private void initializeViews() {
         learningTxtV = baseView.findViewById(R.id.intro_learning_txtv);
+        llIntroText = baseView.findViewById(R.id.intro_text);
         swipeTxtV = baseView.findViewById(R.id.intro_swipe_txtv);
         mainLayout = baseView.findViewById(R.id.intro_main_layout);
         movingLayout = baseView.findViewById(R.id.intro_moving_layout);
@@ -72,16 +74,16 @@ public class IntroFragment extends BaseFragment {
     }
 
     private void getViewDimensions() {
-        ViewTreeObserver viewTreeObserver = learningTxtV.getViewTreeObserver();
+        ViewTreeObserver viewTreeObserver = llIntroText.getViewTreeObserver();
         if (viewTreeObserver.isAlive()) {
             viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
                 @Override
                 public void onGlobalLayout() {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                        learningTxtV.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                        llIntroText.getViewTreeObserver().removeOnGlobalLayoutListener(this);
                     }
-                    widthView = learningTxtV.getWidth();
-                    heightView = learningTxtV.getHeight();
+                    widthView = llIntroText.getWidth();
+                    heightView = llIntroText.getHeight();
 
                     animationStart();
                 }
@@ -91,12 +93,12 @@ public class IntroFragment extends BaseFragment {
 
     private void animationStart() {
         movingLayout.setY(-300);
-        learningTxtV.setX(-widthView);
+        llIntroText.setX(-widthView);
 
-        ObjectAnimator animatorImg = ObjectAnimator.ofFloat(movingLayout, "y", heightWindow / 4);
+        ObjectAnimator animatorImg = ObjectAnimator.ofFloat(movingLayout, "y", heightWindow / 2.15f);
         animatorImg.setDuration(1500);
 
-        ObjectAnimator animatorTxtV = ObjectAnimator.ofFloat(learningTxtV, "x", widthWindow / 2 - widthView / 2);
+        ObjectAnimator animatorTxtV = ObjectAnimator.ofFloat(llIntroText, "x", widthWindow / 2f - widthView / 2f);
         animatorTxtV.setDuration(1500);
 
         animatorSet = new AnimatorSet();
