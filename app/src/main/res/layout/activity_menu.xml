@@ -21,7 +21,7 @@
             android:layout_height="match_parent"
             ads:adSize="BANNER"
             ads:adUnitId="ca-app-pub-6252100624852887/3250490505" />
-
+        <!--ads:adUnitId="ca-app-pub-6252100624852887/3250490505" />-->
     </LinearLayout>
 
     <!--container-->
