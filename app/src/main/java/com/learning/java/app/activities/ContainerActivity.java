@@ -331,11 +331,17 @@ public class ContainerActivity extends AppCompatActivity {
 
             @Override
             public void onCancel() {
+                if (listener != null) {
+                    listener.getFacebookData(null, null, null);
+                }
                 Log.e("facebook111", "onCancel");
             }
 
             @Override
             public void onError(FacebookException error) {
+                if (listener != null) {
+                    listener.getFacebookData(null, null, null);
+                }
                 Log.e("facebook111", "onError " + error);
             }
         });

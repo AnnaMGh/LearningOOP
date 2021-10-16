@@ -250,126 +250,126 @@ public class LoginFragment extends BaseFragment {
         });
 
         //login with facebook
-        baseView.findViewById(R.id.login_facebook).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showLoadingBar();
-                ContainerActivity activity = (ContainerActivity) getActivity();
-                activity.processFacebookLogin(new IFacebookListener() {
+        baseView.findViewById(R.id.login_facebook).setOnClickListener(v -> {
+            showLoadingBar();
+            ContainerActivity activity = (ContainerActivity) getActivity();
+            activity.processFacebookLogin((id, name, email) -> {
+                if (id == null || name == null || email == null) {
+                    //hide loading bar
+                    hideLoadingBar();
+                    return;
+                }
+
+                //check if user exist in FireStore
+                FirestoreDatabase.getUserBy("email", email, new IUserListener() {
                     @Override
-                    public void getFacebookData(final String id, final String name, final String email) {
-                        //check if user exist in FireStore
-                        FirestoreDatabase.getUserBy("email", email, new IUserListener() {
-                            @Override
-                            public void getUser(final User user) {
+                    public void getUser(final User user) {
 //                                //hide loading bar
 //                                hideLoadingBar();
 
-                                if (user == null) {
-                                    //user does NOT exist in FireStore so we will add it
-                                    //create user
-                                    final User newUser = new User(mainUserList.size(), name, email, AESCrypt.encryptOrEmpty(Constants.FB_PASSWORD),
-                                            "user", 1, 1, 0, 1, 0, 1, Constants.baseImage);
-                                    FirestoreDatabase.addUserWithCallback(newUser, false, new IRefreshListener() {
-                                        @Override
-                                        public void doRefresh(boolean doRefresh) {
+                        if (user == null) {
+                            //user does NOT exist in FireStore so we will add it
+                            //create user
+                            final User newUser = new User(mainUserList.size(), name, email, AESCrypt.encryptOrEmpty(Constants.FB_PASSWORD),
+                                    "user", 1, 1, 0, 1, 0, 1, Constants.baseImage);
+                            FirestoreDatabase.addUserWithCallback(newUser, false, new IRefreshListener() {
+                                @Override
+                                public void doRefresh(boolean doRefresh) {
 
-                                            getFacebookProfilePicture(id, new IBitmapListener() {
+                                    getFacebookProfilePicture(id, new IBitmapListener() {
+                                        @Override
+                                        public void getBitmap(Bitmap bitmap) {
+                                            Bitmap facebookPicture = bitmap;
+                                            if (facebookPicture == null) {
+                                                facebookPicture = BitmapFactory.decodeResource(getActivity().getResources(), R.drawable.user);
+                                            }
+
+                                            FirestoreDatabase.addPhotoWithCallback(newUser, facebookPicture, new IRefreshListener() {
                                                 @Override
-                                                public void getBitmap(Bitmap bitmap) {
-                                                    Bitmap facebookPicture = bitmap;
-                                                    if (facebookPicture == null) {
-                                                        facebookPicture = BitmapFactory.decodeResource(getActivity().getResources(), R.drawable.user);
+                                                public void doRefresh(boolean doRefresh) {
+                                                    //sort userList
+                                                    mainUserList.add(newUser);
+                                                    for (int i = 0; i < mainUserList.size() - 1; i++) {
+                                                        if (mainUserList.get(i).getTotalPoints() < mainUserList.get(i + 1).getTotalPoints()
+                                                                && !mainUserList.get(i).getFunction().equals(Constants.ADMIN_FUNCTION)
+                                                                && !mainUserList.get(i + 1).getFunction().equals(Constants.ADMIN_FUNCTION)) {
+                                                            User replacedUser = mainUserList.get(i);
+                                                            mainUserList.set(i, mainUserList.get(i + 1));
+                                                            mainUserList.set(i + 1, replacedUser);
+                                                        }
                                                     }
 
-                                                    FirestoreDatabase.addPhotoWithCallback(newUser, facebookPicture, new IRefreshListener() {
-                                                        @Override
-                                                        public void doRefresh(boolean doRefresh) {
-                                                            //sort userList
-                                                            mainUserList.add(newUser);
-                                                            for (int i = 0; i < mainUserList.size() - 1; i++) {
-                                                                if (mainUserList.get(i).getTotalPoints() < mainUserList.get(i + 1).getTotalPoints()
-                                                                        && !mainUserList.get(i).getFunction().equals(Constants.ADMIN_FUNCTION)
-                                                                        && !mainUserList.get(i + 1).getFunction().equals(Constants.ADMIN_FUNCTION)) {
-                                                                    User replacedUser = mainUserList.get(i);
-                                                                    mainUserList.set(i, mainUserList.get(i + 1));
-                                                                    mainUserList.set(i + 1, replacedUser);
+                                                    for (int i = 1; i < mainUserList.size() - 1; i++) {
+                                                        if (mainUserList.get(i).getId() != i && !mainUserList.get(i).getFunction().equals(Constants.ADMIN_FUNCTION)) {
+                                                            mainUserList.get(i).setId(i);
+                                                            final User sortUser = mainUserList.get(i);
+                                                            new Handler().postDelayed(new Runnable() {
+                                                                @Override
+                                                                public void run() {
+                                                                    FirestoreDatabase.updateUser(sortUser);
                                                                 }
-                                                            }
-
-                                                            for (int i = 1; i < mainUserList.size() - 1; i++) {
-                                                                if (mainUserList.get(i).getId() != i && !mainUserList.get(i).getFunction().equals(Constants.ADMIN_FUNCTION)) {
-                                                                    mainUserList.get(i).setId(i);
-                                                                    final User sortUser = mainUserList.get(i);
-                                                                    new Handler().postDelayed(new Runnable() {
-                                                                        @Override
-                                                                        public void run() {
-                                                                            FirestoreDatabase.updateUser(sortUser);
-                                                                        }
-                                                                    }, 0);
-                                                                }
-                                                            }
-
-                                                            //hide loading bar
-                                                            hideLoadingBar();
-
-                                                            //save token
-                                                            gs.setString(Constants.TOKEN_KEY, newUser.getToken());
-
-                                                            //send event
-                                                            Bundle bundle = new Bundle();
-                                                            bundle.putString(Constants.EVENT_PARAM_EMAIL, newUser.getEmail());
-                                                            AnalyticsHandler.sendMessage(getActivity(), Constants.EVENT_LOGGED_IN, bundle);
-
-                                                            //send to next fragment
-                                                            MainMenuFragment fragmentMenu = new MainMenuFragment();
-                                                            fragmentMenu.user = newUser;
-                                                            fragmentMenu.userList = mainUserList;
-                                                            fragmentMenu.testList = mainTestList;
-                                                            replaceFragment(fragmentMenu, "MainMenuFragment");
+                                                            }, 0);
                                                         }
-                                                    });
+                                                    }
+
+                                                    //hide loading bar
+                                                    hideLoadingBar();
+
+                                                    //save token
+                                                    gs.setString(Constants.TOKEN_KEY, newUser.getToken());
+
+                                                    //send event
+                                                    Bundle bundle = new Bundle();
+                                                    bundle.putString(Constants.EVENT_PARAM_EMAIL, newUser.getEmail());
+                                                    AnalyticsHandler.sendMessage(getActivity(), Constants.EVENT_LOGGED_IN, bundle);
+
+                                                    //send to next fragment
+                                                    MainMenuFragment fragmentMenu = new MainMenuFragment();
+                                                    fragmentMenu.user = newUser;
+                                                    fragmentMenu.userList = mainUserList;
+                                                    fragmentMenu.testList = mainTestList;
+                                                    replaceFragment(fragmentMenu, "MainMenuFragment");
                                                 }
                                             });
                                         }
                                     });
-
-                                } else {
-                                    //hide loading bar
-                                    hideLoadingBar();
-
-                                    //save token
-                                    gs.setString(Constants.TOKEN_KEY, user.getToken());
-
-                                    //send event
-                                    Bundle bundle = new Bundle();
-                                    bundle.putString(Constants.EVENT_PARAM_EMAIL, user.getEmail());
-                                    AnalyticsHandler.sendMessage(getActivity(), Constants.EVENT_LOGGED_IN, bundle);
-
-                                    //send to next fragment
-                                    MainMenuFragment fragmentMenu = new MainMenuFragment();
-                                    fragmentMenu.user = user;
-                                    fragmentMenu.userList = mainUserList;
-                                    fragmentMenu.testList = mainTestList;
-                                    replaceFragment(fragmentMenu, "MainMenuFragment");
                                 }
+                            });
+
+                        } else {
+                            //hide loading bar
+                            hideLoadingBar();
+
+                            //save token
+                            gs.setString(Constants.TOKEN_KEY, user.getToken());
+
+                            //send event
+                            Bundle bundle = new Bundle();
+                            bundle.putString(Constants.EVENT_PARAM_EMAIL, user.getEmail());
+                            AnalyticsHandler.sendMessage(getActivity(), Constants.EVENT_LOGGED_IN, bundle);
+
+                            //send to next fragment
+                            MainMenuFragment fragmentMenu = new MainMenuFragment();
+                            fragmentMenu.user = user;
+                            fragmentMenu.userList = mainUserList;
+                            fragmentMenu.testList = mainTestList;
+                            replaceFragment(fragmentMenu, "MainMenuFragment");
+                        }
 
 
-                            }
+                    }
 
-                            @Override
-                            public void getAllUsers(ArrayList<User> userList) {
+                    @Override
+                    public void getAllUsers(ArrayList<User> userList) {
 
-                            }
+                    }
 
-                            @Override
-                            public void getUserToken(String token) {
+                    @Override
+                    public void getUserToken(String token) {
 
-                            }
-                        });
                     }
                 });
-            }
+            });
         });
 
         //send email

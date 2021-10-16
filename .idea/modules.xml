@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/License.iml" filepath="$PROJECT_DIR$/License.iml" group="License" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="License/app" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/LearningOOP.iml" filepath="$PROJECT_DIR$/.idea/modules/LearningOOP.iml" group="LearningOOP" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="LearningOOP/app" />
     </modules>
   </component>
 </project>
