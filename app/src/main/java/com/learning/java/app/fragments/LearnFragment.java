@@ -1,9 +1,6 @@
 package com.learning.java.app.fragments;
 
 import android.os.Bundle;
-
-import androidx.annotation.Nullable;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,12 +8,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+
 import com.learning.java.app.Constants;
 import com.learning.java.app.R;
 import com.learning.java.app.database.FirestoreDatabase;
 import com.learning.java.app.model.IUserListener;
 import com.learning.java.app.model.User;
-import com.learning.java.app.services.AdHandler;
 import com.learning.java.app.utilities.GlobalSingleton;
 
 import java.util.ArrayList;
@@ -24,6 +22,7 @@ import java.util.ArrayList;
 
 public class LearnFragment extends BaseFragment {
 
+    private static final String TAG = "LEARN_F";
     //views
     Button[] buttons = new Button[6];
 
@@ -76,7 +75,7 @@ public class LearnFragment extends BaseFragment {
 
         //load ad
         if (getActivity() != null) {
-            AdHandler.addInterstitialAd(getActivity(), Constants.adInterstitialUnitId);
+//            AdHandler.addInterstitialAd(getActivity(), Constants.adInterstitialUnitId);
         }
     }
 
@@ -85,8 +84,7 @@ public class LearnFragment extends BaseFragment {
             try {
                 buttons[i].setText(getResources().getIdentifier("learn" + (level + 1) + "" + (i + 1), "string", getActivity().getPackageName()));
             } catch (Exception e) {
-                Log.e("CRASH", "LearnFragment | getLevel | learn" + (level + 1) + "" + (i + 1) + ": " + e.getMessage());
-                e.printStackTrace();
+                Log.e(TAG, "getLevel: Error " + (level + 1) + (i + 1) + ":\n" + e);
                 getActivity().getFragmentManager().popBackStack();
             }
         }
@@ -109,46 +107,39 @@ public class LearnFragment extends BaseFragment {
 
 
     void setButtonListener(Button btn, final int index) {
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        btn.setOnClickListener(v -> {
 
-                if ((index) + 6 * level > user.getLearnProgress()) {
-                    Toast.makeText(getActivity(), "Unlocked lesson", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                //load ad
-                Log.d("adHandler", GlobalSingleton.getInstance().lastShowedAd + " | " + (System.currentTimeMillis() - (2 * 60 * 1000)));
-                if (GlobalSingleton.getInstance().lastShowedAd < System.currentTimeMillis() - (4 * 60 * 1000)) {
-                    GlobalSingleton.getInstance().lastShowedAd = System.currentTimeMillis();
-                    AdHandler.showInterstitialAd(getActivity(), obj -> {
-                        LessonsFragment fragmentLessons = new LessonsFragment();
-                        fragmentLessons.user = user;
-                        fragmentLessons.level1 = level + 1;
-                        fragmentLessons.level2 = index;
-                        fragmentLessons.learn = String.valueOf(level) + String.valueOf(index);
-                        replaceFragment(fragmentLessons, "LessonsFragment");
-                    });
-                } else {
-                    LessonsFragment fragmentLessons = new LessonsFragment();
-                    fragmentLessons.user = user;
-                    fragmentLessons.level1 = level + 1;
-                    fragmentLessons.level2 = index;
-                    fragmentLessons.learn = String.valueOf(level) + String.valueOf(index);
-                    replaceFragment(fragmentLessons, "LessonsFragment");
-                }
+            if ((index) + 6 * level > user.getLearnProgress()) {
+                Toast.makeText(getActivity(), "Unlocked lesson", Toast.LENGTH_SHORT).show();
+                return;
             }
+
+            //load ad
+            Log.d("adHandler", GlobalSingleton.getInstance().lastShowedAd + " | " + (System.currentTimeMillis() - (2 * 60 * 1000)));
+//                if (GlobalSingleton.getInstance().lastShowedAd < System.currentTimeMillis() - (4 * 60 * 1000)) {
+//                    GlobalSingleton.getInstance().lastShowedAd = System.currentTimeMillis();
+//                    AdHandler.showInterstitialAd(getActivity(), obj -> {
+//                        LessonsFragment fragmentLessons = new LessonsFragment();
+//                        fragmentLessons.user = user;
+//                        fragmentLessons.level1 = level + 1;
+//                        fragmentLessons.level2 = index;
+//                        fragmentLessons.learn = String.valueOf(level) + String.valueOf(index);
+//                        replaceFragment(fragmentLessons, "LessonsFragment");
+//                    });
+//                } else {
+            LessonsFragment fragmentLessons = new LessonsFragment();
+            fragmentLessons.user = user;
+            fragmentLessons.level1 = level + 1;
+            fragmentLessons.level2 = index;
+            fragmentLessons.learn = String.valueOf(level) + String.valueOf(index);
+            replaceFragment(fragmentLessons, "LessonsFragment");
+//                }
         });
     }
 
     void onClickViews() {
         //base view
-        baseView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
+        baseView.setOnClickListener(v -> {
         });
 
         //buttons
@@ -157,12 +148,6 @@ public class LearnFragment extends BaseFragment {
         }
 
         //back
-        baseView.findViewById(R.id.txt_back).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getActivity().getFragmentManager().popBackStack("MainMenuFragment", 0);
-            }
-        });
+        baseView.findViewById(R.id.txt_back).setOnClickListener(view -> getActivity().getFragmentManager().popBackStack("MainMenuFragment", 0));
     }
-
 }

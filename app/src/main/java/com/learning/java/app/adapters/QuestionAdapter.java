@@ -1,8 +1,6 @@
 package com.learning.java.app.adapters;
 
 import android.content.Context;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -11,6 +9,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.learning.java.app.R;
 import com.learning.java.app.model.ICallbackListener;
@@ -433,19 +434,14 @@ public class QuestionAdapter extends ArrayAdapter<Question> {
         viewHolder.rdGrMultiple.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int i) {
-                switch (viewHolder.rdGrMultiple.getCheckedRadioButtonId()) {
-                    case R.id.rd_btn_multiple_answer_1: {
-                        question.multipleCorrectAnswerId = "1";
-                        break;
-                    }
-                    case R.id.rd_btn_multiple_answer_2: {
-                        question.multipleCorrectAnswerId = "2";
-                        break;
-                    }
-                    case R.id.rd_btn_multiple_answer_3: {
-                        question.multipleCorrectAnswerId = "3";
-                        break;
-                    }
+                int idChecked = viewHolder.rdGrMultiple.getCheckedRadioButtonId();
+
+                if (idChecked == R.id.rd_btn_multiple_answer_1) {
+                    question.multipleCorrectAnswerId = "1";
+                } else if (idChecked == R.id.rd_btn_multiple_answer_2) {
+                    question.multipleCorrectAnswerId = "2";
+                } else if (idChecked == R.id.rd_btn_multiple_answer_3) {
+                    question.multipleCorrectAnswerId = "3";
                 }
             }
         });

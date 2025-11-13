@@ -216,7 +216,7 @@ public class  ContainerActivity extends AppCompatActivity {
         long ct = System.currentTimeMillis();
         AlarmManager mgr = (AlarmManager) getApplicationContext().getSystemService(Context.ALARM_SERVICE);
         Intent i = new Intent(getApplicationContext(), ServiceChecker.class);
-        PendingIntent pi = PendingIntent.getService(getApplicationContext(), 0, i, 0);
+        PendingIntent pi = PendingIntent.getService(getApplicationContext(), 0, i, PendingIntent.FLAG_IMMUTABLE);
 
         if (mgr != null) {
             //mgr.set(AlarmManager.RTC_WAKEUP, ct + 10 * 60 * 1000/*10 minute*/, pi);

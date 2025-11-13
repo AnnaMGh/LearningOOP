@@ -9,27 +9,34 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.app.PendingIntent;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
+import android.os.Build;
+import android.os.Bundle;
 import android.os.Handler;
+import android.util.Base64;
+import android.util.Log;
+import android.view.View;
+import android.view.Window;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.Toast;
+import android.window.OnBackInvokedDispatcher;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.os.Bundle;
-import android.util.Base64;
-import android.util.Log;
-import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.Toast;
-
-import com.google.android.gms.ads.AdView;
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
+import com.google.firebase.storage.FirebaseStorage;
 import com.learning.java.app.Constants;
 import com.learning.java.app.R;
 import com.learning.java.app.database.FirestoreDatabase;
@@ -40,21 +47,11 @@ import com.learning.java.app.model.ITestListener;
 import com.learning.java.app.model.IUserListener;
 import com.learning.java.app.model.Test;
 import com.learning.java.app.model.User;
-import com.learning.java.app.services.AdHandler;
 import com.learning.java.app.services.AnalyticsHandler;
 import com.learning.java.app.services.AuthHandler;
-import com.learning.java.app.utilities.AESCrypt;
 import com.learning.java.app.utilities.GlobalSingleton;
 import com.learning.java.app.utilities.ServiceChecker;
-import com.facebook.AccessToken;
-import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
-import com.facebook.GraphRequest;
-import com.facebook.GraphResponse;
-import com.facebook.login.LoginManager;
-import com.facebook.login.LoginResult;
-import com.google.firebase.storage.FirebaseStorage;
+import com.learning.java.app.utilities.StatusBarUtil;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -63,15 +60,17 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class ContainerActivity extends AppCompatActivity {
 
+    private static final String TAG = "CONTAINER_ACTIVITY";
     //views
     public RelativeLayout layoutNetwork, layoutLoading;
     public LinearLayout llParentAd;
-    public AdView adView;
+//    public AdView adView;
 
     LoginFragment.IFacebookListener listener;
     public AccessToken accessToken;
@@ -93,33 +92,32 @@ public class ContainerActivity extends AppCompatActivity {
         //facebook
         // FacebookSdk.sdkInitialize(getApplicationContext());
         // AppEventsLogger.activateApp(this);
+
+        androidx.core.view.WindowCompat.setDecorFitsSystemWindows(getWindow(), true);
+
         setContentView(R.layout.activity_menu);
+
+        Window window = getWindow();
+        StatusBarUtil.makeStatusBarOpaque(window);
+        StatusBarUtil.changeStatusBarColor(this, window);
+
+        androidx.core.view.WindowInsetsControllerCompat controller =
+                androidx.core.view.WindowCompat.getInsetsController(getWindow(), getWindow().getDecorView());
+        controller.setAppearanceLightStatusBars(false); // set true if your bar is light
 
         AnalyticsHandler.enableCrashlytics(ContainerActivity.this);
         AnalyticsHandler.registerAnalytics(ContainerActivity.this);
         AuthHandler.createAuth(ContainerActivity.this);
 
-        try {
-            String crypted = AESCrypt.encrypt("LucieBff123");
-            String decrypted = AESCrypt.decrypt(crypted);
-            Log.d("CryptedPass", crypted + " | " + decrypted);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
         //ad
         llParentAd = findViewById(R.id.ll_parent_ad);
-        adView = findViewById(R.id.ad_banner);
-        AdHandler.initialize(ContainerActivity.this, adView, llParentAd);
+//        adView = findViewById(R.id.ad_banner);
+//        AdHandler.initialize(ContainerActivity.this, adView, llParentAd);
 
         //views
         layoutNetwork = findViewById(R.id.layout_network);
         layoutLoading = findViewById(R.id.layout_loading);
-        layoutLoading.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
+        layoutLoading.setOnClickListener(view -> {
         });
 
         //firestore storage
@@ -133,43 +131,52 @@ public class ContainerActivity extends AppCompatActivity {
 //        scheduleInFuture();
 
         //network
-        layoutNetwork.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-            }
+        layoutNetwork.setOnClickListener(view -> {
         });
-        checkNetwork(new IRefreshListener() {
-            @Override
-            public void doRefresh(boolean doRefresh) {
-                showLayoutNetwork(true);
-                if (!doRefresh) {
-                    if (isFinishing()) {
-                        return;
-                    }
-
-                    AlertDialog.Builder builder = new AlertDialog.Builder(ContainerActivity.this);
-                    builder.setMessage("Network connection was established. Do you want to reload you session?")
-                            .setCancelable(false)
-                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-
-                                    if (isFinishing()) {
-                                        System.exit(0);
-                                    } else {
-                                        Intent mStartActivity = new Intent(ContainerActivity.this, MainActivity.class);
-                                        int mPendingIntentId = 123456;
-                                        PendingIntent mPendingIntent = PendingIntent.getActivity(ContainerActivity.this, mPendingIntentId, mStartActivity, PendingIntent.FLAG_CANCEL_CURRENT);
-                                        AlarmManager mgr = (AlarmManager) ContainerActivity.this.getSystemService(Context.ALARM_SERVICE);
-                                        mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 100, mPendingIntent);
-                                        System.exit(2);
-                                    }
-                                }
-                            })
-                            .show();
+        checkNetwork(doRefresh -> {
+            showLayoutNetwork(true);
+            if (!doRefresh) {
+                if (isFinishing()) {
+                    return;
                 }
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(ContainerActivity.this);
+                builder.setMessage("Network connection was established. Do you want to reload you session?")
+                        .setCancelable(false)
+                        .setPositiveButton("Yes", (dialogInterface, i) -> {
+                            if (isFinishing()) {
+                                System.exit(0);
+                            } else {
+                                Intent mStartActivity = new Intent(ContainerActivity.this, MainActivity.class);
+                                int mPendingIntentId = 123456;
+                                PendingIntent mPendingIntent = PendingIntent.getActivity(ContainerActivity.this, mPendingIntentId, mStartActivity, PendingIntent.FLAG_IMMUTABLE);
+                                AlarmManager mgr = (AlarmManager) ContainerActivity.this.getSystemService(Context.ALARM_SERVICE);
+                                mgr.set(AlarmManager.RTC, System.currentTimeMillis() + 100, mPendingIntent);
+                                System.exit(2);
+                            }
+                        })
+                        .show();
             }
         });
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            /**
+             * onBackPressed logic goes here - For instance:
+             * Prevents closing the app to go home screen when in the
+             * middle of entering data to a form
+             * or from accidentally leaving a fragment with a WebView in it
+             *
+             * Unregistering the callback to stop intercepting the back gesture:
+             * When the user transitions to the topmost screen (activity, fragment)
+             * in the BackStack, unregister the callback by using
+             * OnBackInvokeDispatcher.unregisterOnBackInvokedCallback
+             * (https://developer.android.com/reference/kotlin/android/view/OnBackInvokedDispatcher#unregisteronbackinvokedcallback)
+             */
+            getOnBackInvokedDispatcher().registerOnBackInvokedCallback(
+                    OnBackInvokedDispatcher.PRIORITY_DEFAULT,
+                    this::handleBackPressed
+            );
+        }
     }
 
     @Override
@@ -187,38 +194,35 @@ public class ContainerActivity extends AppCompatActivity {
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-
-        boolean cameraAccepted = true;
         for (int i = 0; i < permissions.length; i++) {
-            switch (permissions[i]) {
-                case Manifest.permission.CAMERA: {
-                    if (grantResults[i] != PackageManager.PERMISSION_GRANTED) {
-                        cameraAccepted = false;
+
+            String permission = permissions[i];
+            boolean result = grantResults[i] == PackageManager.PERMISSION_GRANTED;
+
+            Log.d(TAG, "onRequestPermissionsResult: " + requestCode + ", " + permission + ", " + result + ", " + listenerRefresh);
+
+            if (Objects.equals(permission, Manifest.permission.CAMERA)) {
+                // Camera accepted, go to main menu
+                if (result && requestCode == Constants.MY_PERMISSIONS_REQUEST_CAMERA) {
+                    if (listenerRefresh != null) {
+                        listenerRefresh.doRefresh(true);
                     }
-                    break;
                 }
-                case Manifest.permission.WRITE_EXTERNAL_STORAGE: {
-                    if (grantResults[i] != PackageManager.PERMISSION_GRANTED) {
-                        cameraAccepted = false;
+            } else if (Objects.equals(permission, Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                // Gallery accepted for SDK <33, go to main menu
+                if (result && requestCode == Constants.MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE) {
+                    if (listenerRefresh != null) {
+                        listenerRefresh.doRefresh(true);
                     }
-                    break;
                 }
-                case Manifest.permission.READ_EXTERNAL_STORAGE: {
-                    //gallery accepted, go to main menu
-                    if (grantResults[i] == PackageManager.PERMISSION_GRANTED && requestCode == Constants.MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE) {
-                        if (listenerRefresh != null) {
-                            listenerRefresh.doRefresh(true);
-                        }
+            } else if (Objects.equals(permission, Manifest.permission.READ_MEDIA_IMAGES)) {
+                // Gallery accepted for SDK >=33, go to main menu
+                if (result && requestCode == Constants.MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE) {
+                    if (listenerRefresh != null) {
+                        listenerRefresh.doRefresh(true);
                     }
-                    break;
                 }
             }
-        }
-
-
-        //camera accepted, go to main menu
-        if (requestCode == Constants.MY_PERMISSIONS_REQUEST_CAMERA && cameraAccepted && listenerRefresh != null) {
-            listenerRefresh.doRefresh(true);
         }
     }
 
@@ -236,37 +240,22 @@ public class ContainerActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        Log.d(TAG, "onBackPressed");
+        handleBackPressed();
+    }
 
+    private void handleBackPressed() {
+        Log.d(TAG, "handleBackPressed");
         FragmentManager manager = getFragmentManager();
         Fragment fragment = manager.findFragmentById(R.id.container);
         if (fragment instanceof LoginFragment || fragment instanceof MainMenuFragment) {
-
-            if (doubleBackToExitPressedOnce) {
-                //super.onBackPressed();
-//                finish();
-//                System.exit(0);
-
                 Intent intent = new Intent(this, MainActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 intent.putExtra("Exit me", true);
                 startActivity(intent);
                 finish();
-
-                return;
-            }
-
-            this.doubleBackToExitPressedOnce = true;
-            Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
-
-            new Handler().postDelayed(new Runnable() {
-
-                @Override
-                public void run() {
-                    doubleBackToExitPressedOnce = false;
-                }
-            }, 2000);
         } else {
-            super.onBackPressed();
+            manager.popBackStack();
         }
     }
 
@@ -282,71 +271,78 @@ public class ContainerActivity extends AppCompatActivity {
             LoginManager.getInstance().logOut();
         }
 
-        LoginManager.getInstance().registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
+        try {
+            LoginManager.getInstance().registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
+                @Override
+                public void onSuccess(LoginResult loginResult) {
 
-                //check permission
-                Log.d("facebook111", loginResult.getRecentlyGrantedPermissions() + "");
-                GraphRequest graphRequest = GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
-                    @Override
-                    public void onCompleted(JSONObject object, GraphResponse response) {
-                        String userDetail = response.getRawResponse();
-                        try {
-                            JSONObject json = new JSONObject(userDetail);
+                    //check permission
+                    Log.d(TAG, "processFacebookLogin " + loginResult.getRecentlyGrantedPermissions());
+                    GraphRequest graphRequest = GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
+                        @Override
+                        public void onCompleted(JSONObject object, GraphResponse response) {
+                            String userDetail = response.getRawResponse();
+                            try {
+                                JSONObject json = new JSONObject(userDetail);
 
-                            String id = "", email = "", name = "";
+                                String id = "", email = "", name = "";
 
-                            if (json.has("id")) {
-                                id = json.getString("id");
+                                if (json.has("id")) {
+                                    id = json.getString("id");
+                                }
+                                if (json.has("email")) {
+                                    email = json.getString("email");
+                                }
+                                if (json.has("name")) {
+                                    name = json.getString("name");
+                                }
+
+
+                                email = "facebook_" + id;
+
+                                facebookId = id;
+                                if (listener != null) {
+                                    listener.getFacebookData(id, name, email);
+                                }
+
+                                Log.e(TAG, "processFacebookLogin " + id + " "
+                                        + email + " "
+                                        + name + " ");
+                            } catch (JSONException e) {
+                                Log.e(TAG, "processFacebookLogin: Error " + e);
                             }
-                            if (json.has("email")) {
-                                email = json.getString("email");
-                            }
-                            if (json.has("name")) {
-                                name = json.getString("name");
-                            }
-
-
-                            email = "facebook_" + id;
-
-                            facebookId = id;
-                            if (listener != null) {
-                                listener.getFacebookData(id, name, email);
-                            }
-
-                            Log.e("facebook111", id + " "
-                                    + email + " "
-                                    + name + " ");
-                        } catch (JSONException e) {
-                            e.printStackTrace();
                         }
+                    });
+                    Bundle parameters = new Bundle();
+                    parameters.putString("field", "id, first_name, last_name, name, email, picture");
+                    graphRequest.setParameters(parameters);
+                    graphRequest.executeAsync();
+                }
+
+                @Override
+                public void onCancel() {
+                    if (listener != null) {
+                        listener.getFacebookData(null, null, null);
                     }
-                });
-                Bundle parameters = new Bundle();
-                parameters.putString("field", "id, first_name, last_name, name, email, picture");
-                graphRequest.setParameters(parameters);
-                graphRequest.executeAsync();
-            }
-
-            @Override
-            public void onCancel() {
-                if (listener != null) {
-                    listener.getFacebookData(null, null, null);
+                    Log.e(TAG, "processFacebookLogin - onCancel");
                 }
-                Log.e("facebook111", "onCancel");
-            }
 
-            @Override
-            public void onError(FacebookException error) {
-                if (listener != null) {
-                    listener.getFacebookData(null, null, null);
+                @Override
+                public void onError(FacebookException error) {
+                    if (listener != null) {
+                        listener.getFacebookData(null, null, null);
+                    }
+                    Log.e(TAG, "processFacebookLogin - onError: " + error);
                 }
-                Log.e("facebook111", "onError " + error);
+            });
+            LoginManager.getInstance().logInWithReadPermissions(ContainerActivity.this,
+                    Arrays.asList("public_profile", "email"));
+        } catch (Exception e) {
+            Log.e(TAG, "processFacebookLogin: Error " + e);
+            if (listener != null) {
+                listener.getFacebookData(null, null, null);
             }
-        });
-        LoginManager.getInstance().logInWithReadPermissions(ContainerActivity.this,
-                Arrays.asList("public_profile", "email"));
+        }
     }
 
     public void getInfoFromFirestore() {
@@ -476,19 +472,17 @@ public class ContainerActivity extends AppCompatActivity {
             for (Signature signature : info.signatures) {
                 MessageDigest md = MessageDigest.getInstance("SHA");
                 md.update(signature.toByteArray());
-                Log.e("KeyHash", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+                Log.e(TAG, "keyHash" + Base64.encodeToString(md.digest(), Base64.DEFAULT));
                 Toast.makeText(ContainerActivity.this, Base64.encodeToString(md.digest(), Base64.DEFAULT), Toast.LENGTH_LONG).show();
             }
         } catch (PackageManager.NameNotFoundException | NoSuchAlgorithmException e) {
-            e.printStackTrace();
+            Log.e(TAG, "keyHash: Error " + e);
         }
     }
 
     boolean accountVerification() {
-        return !gs.getString(Constants.TOKEN_KEY).equals("");
+        return !gs.getString(Constants.TOKEN_KEY).isEmpty();
     }
-
-    boolean doubleBackToExitPressedOnce = false;
 
     void showLayoutNetwork(boolean toShow) {
         if (toShow) {
@@ -544,7 +538,7 @@ public class ContainerActivity extends AppCompatActivity {
         long ct = System.currentTimeMillis();
         AlarmManager mgr = (AlarmManager) getApplicationContext().getSystemService(Context.ALARM_SERVICE);
         Intent i = new Intent(getApplicationContext(), ServiceChecker.class);
-        PendingIntent pi = PendingIntent.getService(getApplicationContext(), 0, i, 0);
+        PendingIntent pi = PendingIntent.getService(getApplicationContext(), 0, i, PendingIntent.FLAG_IMMUTABLE);
 
         if (mgr != null) {
             //mgr.set(AlarmManager.RTC_WAKEUP, ct + 10 * 60 * 1000/*10 minute*/, pi);

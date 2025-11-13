@@ -43,37 +43,30 @@
                     android:layout_weight="50"
                     android:gravity="center_vertical|end">
 
-                    <me.itangqi.waveloadingview.WaveLoadingView
-                        android:id="@+id/menuprofile_learn_wave"
+                    <RelativeLayout
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:layout_marginLeft="10dp"
                         android:layout_marginStart="10dp"
-                        app:wlv_borderColor="@color/colorPrimary"
-                        app:wlv_borderWidth="3dp"
-                        app:wlv_round_rectangle="true"
-                        app:wlv_shapeType="circle"
-                        app:wlv_titleBottomColor="#fff"
+                        android:gravity="center">
 
-                        app:wlv_titleBottomSize="15sp"
-                        app:wlv_titleBottomStrokeColor="@color/colorGray"
-                        app:wlv_titleBottomStrokeWidth="3dp"
-                        app:wlv_titleCenterColor="#fff"
+                        <com.google.android.material.progressindicator.CircularProgressIndicator
+                            android:id="@+id/menuprofile_learn_wave"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:max="100"
+                            app:indicatorColor="@color/colorPrimary"
+                            app:indicatorSize="30dp"
+                            app:trackColor="@color/colorDarkGray"
+                            app:trackThickness="8dp" />
 
-                        app:wlv_titleCenterSize="15sp"
-                        app:wlv_titleCenterStrokeColor="@color/colorPrimary"
-                        app:wlv_titleCenterStrokeWidth="3dp"
-                        app:wlv_titleTopColor="@color/colorPrimaryDark"
-
-                        app:wlv_titleTopSize="15sp"
-                        app:wlv_titleTopStrokeColor="@color/colorGray"
-                        app:wlv_titleTopStrokeWidth="3dp"
-                        app:wlv_triangle_direction="north"
-
-                        app:wlv_waveAmplitude="70"
-                        app:wlv_waveColor="@color/colorGray"
-
-                        />
+                        <TextView
+                            android:id="@+id/menuprofile_learn_wave_text"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:textAlignment="center"
+                            android:textColor="@color/colorWhite" />
+                    </RelativeLayout>
                 </LinearLayout>
 
 
@@ -83,13 +76,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginRight="40dp"
                 android:gravity="center_vertical"
                 android:weightSum="100">
 
                 <TextView
-
                     android:layout_width="0dp"
                     android:layout_height="30dp"
                     android:layout_weight="50"
@@ -105,35 +97,61 @@
                     android:layout_weight="50"
                     android:gravity="center_vertical|end">
 
-                    <me.itangqi.waveloadingview.WaveLoadingView
-                        android:id="@+id/menuprofile_test_wave"
+                    <RelativeLayout
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginStart="10dp"
-                        app:wlv_borderColor="@color/colorPrimary"
-                        app:wlv_borderWidth="3dp"
-                        app:wlv_round_rectangle="true"
-                        app:wlv_shapeType="circle"
-                        app:wlv_titleBottomColor="#fff"
+                        android:layout_marginStart="10dp">
 
-                        app:wlv_titleBottomSize="15sp"
-                        app:wlv_titleBottomStrokeColor="@color/colorGray"
-                        app:wlv_titleBottomStrokeWidth="3dp"
-                        app:wlv_titleCenterColor="#fff"
 
-                        app:wlv_titleCenterSize="15sp"
-                        app:wlv_titleCenterStrokeColor="@color/colorPrimary"
-                        app:wlv_titleCenterStrokeWidth="3dp"
-                        app:wlv_titleTopColor="@color/colorPrimaryDark"
+                        <com.google.android.material.progressindicator.CircularProgressIndicator
+                            android:id="@+id/menuprofile_test_wave"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:max="100"
+                            app:indicatorColor="@color/colorPrimary"
+                            app:indicatorSize="30dp"
+                            app:trackColor="@color/colorDarkGray"
+                            app:trackThickness="8dp" />
 
-                        app:wlv_titleTopSize="15sp"
-                        app:wlv_titleTopStrokeColor="@color/colorGray"
-                        app:wlv_titleTopStrokeWidth="3dp"
-                        app:wlv_triangle_direction="north"
 
-                        app:wlv_waveAmplitude="70"
-                        app:wlv_waveColor="@color/colorGray" />
+                        <TextView
+                            android:id="@+id/menuprofile_test_wave_text"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:textAlignment="center"
+                            android:textColor="@color/colorWhite" />
+                    </RelativeLayout>
+
+                    <!--                    <androidx.core.widget.ContentLoadingProgressBar-->
+                    <!--                        android:id="@+id/menuprofile_test_wave"-->
+                    <!--                        android:layout_width="40dp"-->
+                    <!--                        android:layout_height="40dp"-->
+                    <!--                        android:layout_marginStart="10dp"-->
+                    <!--                        android:layout_marginLeft="10dp" />-->
+                    <!--                        app:wlv_borderColor="@color/colorPrimary"-->
+                    <!--                        app:wlv_borderWidth="3dp"-->
+                    <!--                        app:wlv_round_rectangle="true"-->
+                    <!--                        app:wlv_shapeType="circle"-->
+                    <!--                        app:wlv_titleBottomColor="#fff"-->
+
+                    <!--                        app:wlv_titleBottomSize="15sp"-->
+                    <!--                        app:wlv_titleBottomStrokeColor="@color/colorGray"-->
+                    <!--                        app:wlv_titleBottomStrokeWidth="3dp"-->
+                    <!--                        app:wlv_titleCenterColor="#fff"-->
+
+                    <!--                        app:wlv_titleCenterSize="15sp"-->
+                    <!--                        app:wlv_titleCenterStrokeColor="@color/colorPrimary"-->
+                    <!--                        app:wlv_titleCenterStrokeWidth="3dp"-->
+                    <!--                        app:wlv_titleTopColor="@color/colorPrimaryDark"-->
+
+                    <!--                        app:wlv_titleTopSize="15sp"-->
+                    <!--                        app:wlv_titleTopStrokeColor="@color/colorGray"-->
+                    <!--                        app:wlv_titleTopStrokeWidth="3dp"-->
+                    <!--                        app:wlv_triangle_direction="north"-->
+
+                    <!--                        app:wlv_waveAmplitude="70"-->
+                    <!--                        app:wlv_waveColor="@color/colorGray" />-->
 
                 </LinearLayout>
 
@@ -144,8 +162,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginRight="40dp"
                 android:gravity="center_vertical"
                 android:weightSum="100">
 
@@ -182,8 +200,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginRight="40dp"
                 android:gravity="center_vertical"
                 android:weightSum="100">
 
@@ -220,8 +238,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginRight="40dp"
                 android:gravity="center_vertical"
                 android:weightSum="100">
 
@@ -256,8 +274,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginRight="40dp"
                 android:gravity="center_vertical"
                 android:weightSum="100">
 
@@ -266,7 +284,7 @@
                     android:layout_height="30dp"
                     android:layout_weight="50"
                     android:fontFamily="@font/lato_regular"
-                    android:text="Top 3 users:"
+                    android:text="@string/menu_profile_top_3_users"
                     android:textColor="@color/colorGray"
                     android:textSize="17sp" />
 
@@ -315,18 +333,30 @@
                         app:civ_border_width="2dp" />
                 </LinearLayout>
 
-
             </LinearLayout>
+
+            <!-- privacy policy -->
+            <TextView
+                android:id="@+id/menu_profile_privacy_policy_txt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="40dp"
+                android:fontFamily="@font/lato_regular"
+                android:text="@string/menu_profile_privacy_policy"
+                android:textColor="@color/colorGray"
+                android:textSize="17sp" />
 
             <Button
                 android:id="@+id/menuprofile_logout_btn"
                 android:layout_width="190dp"
                 android:layout_height="35dp"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="10dp"
-                android:layout_marginEnd="10dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="30dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
                 android:background="@drawable/rounded_transparent"
                 android:fontFamily="@font/lato_regular"
                 android:gravity="center"

@@ -6,23 +6,24 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Html;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.Switch;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.CompoundButton;
-import android.widget.ImageView;
-import android.widget.Switch;
-import android.widget.TextView;
-
+import com.google.android.material.progressindicator.CircularProgressIndicator;
 import com.learning.java.app.Constants;
 import com.learning.java.app.R;
 import com.learning.java.app.database.FirestoreDatabase;
@@ -37,16 +38,15 @@ import com.learning.java.app.services.AuthHandler;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import me.itangqi.waveloadingview.WaveLoadingView;
-
-
 public class MenuProfileFragment extends BaseFragment {
 
     //views
-    WaveLoadingView lWLearn, lWTest;
+    CircularProgressIndicator progressBarLearn, progressBarTest;
+    TextView txtProgressBarLearn, txtProgressBarTest;
     Switch switchNotifications;
     Button btnLogout, btnDeleteAccount, btnDeleteAccountsList;
     ImageView[] imgTopUsers = new ImageView[3];
+    TextView txtPrivacyPolicy;
 
     //variables from previous fragment
     public User user;
@@ -83,12 +83,15 @@ public class MenuProfileFragment extends BaseFragment {
     }
 
     private void initialize() {
-        lWLearn = baseView.findViewById(R.id.menuprofile_learn_wave);
-        lWTest = baseView.findViewById(R.id.menuprofile_test_wave);
+        progressBarLearn = baseView.findViewById(R.id.menuprofile_learn_wave);
+        progressBarTest = baseView.findViewById(R.id.menuprofile_test_wave);
+        txtProgressBarLearn = baseView.findViewById(R.id.menuprofile_learn_wave_text);
+        txtProgressBarTest = baseView.findViewById(R.id.menuprofile_test_wave_text);
         switchNotifications = baseView.findViewById(R.id.menuprofile_swich);
         imgTopUsers[0] = baseView.findViewById(R.id.menuprofile_user1_img);
         imgTopUsers[1] = baseView.findViewById(R.id.menuprofile_user2_img);
         imgTopUsers[2] = baseView.findViewById(R.id.menuprofile_user3_img);
+        txtPrivacyPolicy = baseView.findViewById(R.id.menu_profile_privacy_policy_txt);
         btnLogout = baseView.findViewById(R.id.menuprofile_logout_btn);
         btnDeleteAccount = baseView.findViewById(R.id.menuprofile_delete_btn);
         btnDeleteAccountsList = baseView.findViewById(R.id.menuprofile_deleteall_btn);
@@ -97,20 +100,23 @@ public class MenuProfileFragment extends BaseFragment {
         if (user != null) {
             //learn progress
             if (user.getLearnProgress() == 1) {
-                lWLearn.setProgressValue(0);
-                lWLearn.setCenterTitle(String.valueOf(0) + "%");
+                progressBarLearn.setProgress(0);
+                progressBarLearn.incrementProgressBy(0);
+
+                txtProgressBarLearn.setText(String.valueOf(0 + "%"));
             } else {
                 int progress = user.getLearnProgress() * 100 / 30;
                 if (progress > 100) {
                     progress = 100;
                 }
-                lWLearn.setProgressValue(progress);
-                lWLearn.setCenterTitle(progress + "%");
+
+                progressBarLearn.setProgress(progress);
+                txtProgressBarLearn.setText(String.valueOf(progress + "%"));
             }
 
             //test progress
             if (testList != null) {
-                if (user.getTestsFinished() != null && user.getTestsFinished().size() > 0) {
+                if (user.getTestsFinished() != null && !user.getTestsFinished().isEmpty()) {
                     HashMap<String, String> finishedTests = new HashMap<>(user.getTestsFinished());
 
                     boolean hadChanges = false;
@@ -146,15 +152,16 @@ public class MenuProfileFragment extends BaseFragment {
 
 
             if (user.getTestProgress() == 0) {
-                lWTest.setProgressValue(0);
-                lWTest.setCenterTitle(String.valueOf(0) + "%");
+                progressBarTest.setProgress(0);
+                txtProgressBarTest.setText(String.valueOf(0 + "%"));
             } else {
                 int progress = nrOfTestsLiveAndChecked * 100 / (nrOfTests);
                 if (progress > 100) {
                     progress = 100;
                 }
-                lWTest.setProgressValue(progress);
-                lWTest.setCenterTitle(progress + "%");
+                progressBarTest.setProgress(progress);
+                txtProgressBarTest.setText(String.valueOf(progress + "%"));
+//                lWTest.setCenterTitle(progress + "%");
             }
 
             //days & points
@@ -173,6 +180,8 @@ public class MenuProfileFragment extends BaseFragment {
         }
 
         getTop3Users();
+
+        txtPrivacyPolicy.setText(Html.fromHtml(getString(R.string.menu_profile_privacy_policy)));
     }
 
     private boolean testStillExist(String testName) {
@@ -209,7 +218,7 @@ public class MenuProfileFragment extends BaseFragment {
         intent.setAction("android.settings.APP_NOTIFICATION_SETTINGS");
 
         //for Android 5-7
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && Build.VERSION.SDK_INT <= Build.VERSION_CODES.N) {
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.N) {
             intent.putExtra("app_package", getActivity().getPackageName());
             intent.putExtra("app_uid", getActivity().getApplicationInfo().uid);
         }
@@ -246,197 +255,191 @@ public class MenuProfileFragment extends BaseFragment {
     }
 
     private void onClickViews() {
-        switchNotifications.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        switchNotifications.setOnCheckedChangeListener((buttonView, isChecked) -> {
 
-                if (getActivity() == null || getActivity().isFinishing()) {
-                    return;
-                }
+            if (getActivity() == null || getActivity().isFinishing()) {
+                return;
+            }
 
-//                if (fromRefresh) {
-//                    fromRefresh = false;
-//                    return;
-//                }
-
-                if (isChecked) {
-                    switchNotifications.getTrackDrawable().setColorFilter(ContextCompat.getColor(getActivity(), R.color.colorPrimary), PorterDuff.Mode.SRC_IN);
-                    if (user != null) {
-                        user.setNotifications(1);
-                        FirestoreDatabase.updateUser(user);
-                    } else {
-                        FirestoreDatabase.getUserBy(Constants.TOKEN_KEY, gs.getString(Constants.TOKEN_KEY), new IUserListener() {
-                            @Override
-                            public void getUser(User receivedUser) {
-                                user = receivedUser;
-                                user.setNotifications(1);
-                                FirestoreDatabase.updateUser(user);
-                            }
-
-                            @Override
-                            public void getAllUsers(ArrayList<User> userList) {
-
-                            }
-
-                            @Override
-                            public void getUserToken(String token) {
-
-                            }
-                        });
-                    }
-                    handleNotifications();
+            if (isChecked) {
+                switchNotifications.getTrackDrawable().setColorFilter(ContextCompat.getColor(getActivity(), R.color.colorPrimary), PorterDuff.Mode.SRC_IN);
+                if (user != null) {
+                    user.setNotifications(1);
+                    FirestoreDatabase.updateUser(user);
                 } else {
-                    switchNotifications.getTrackDrawable().setColorFilter(ContextCompat.getColor(getActivity(), R.color.colorGray), PorterDuff.Mode.SRC_IN);
-                    if (user != null) {
-                        user.setNotifications(0);
-                        FirestoreDatabase.updateUser(user);
-                    } else {
-                        FirestoreDatabase.getUserBy(Constants.TOKEN_KEY, gs.getString(Constants.TOKEN_KEY), new IUserListener() {
-                            @Override
-                            public void getUser(User receivedUser) {
-                                user = receivedUser;
-                                user.setNotifications(0);
-                                FirestoreDatabase.updateUser(user);
-                            }
+                    FirestoreDatabase.getUserBy(Constants.TOKEN_KEY, gs.getString(Constants.TOKEN_KEY), new IUserListener() {
+                        @Override
+                        public void getUser(User receivedUser) {
+                            user = receivedUser;
+                            user.setNotifications(1);
+                            FirestoreDatabase.updateUser(user);
+                        }
 
-                            @Override
-                            public void getAllUsers(ArrayList<User> userList) {
+                        @Override
+                        public void getAllUsers(ArrayList<User> userList) {
 
-                            }
+                        }
 
-                            @Override
-                            public void getUserToken(String token) {
+                        @Override
+                        public void getUserToken(String token) {
 
-                            }
-                        });
-                    }
-                    handleNotifications();
+                        }
+                    });
                 }
+                handleNotifications();
+            } else {
+                switchNotifications.getTrackDrawable().setColorFilter(ContextCompat.getColor(getActivity(), R.color.colorGray), PorterDuff.Mode.SRC_IN);
+                if (user != null) {
+                    user.setNotifications(0);
+                    FirestoreDatabase.updateUser(user);
+                } else {
+                    FirestoreDatabase.getUserBy(Constants.TOKEN_KEY, gs.getString(Constants.TOKEN_KEY), new IUserListener() {
+                        @Override
+                        public void getUser(User receivedUser) {
+                            user = receivedUser;
+                            user.setNotifications(0);
+                            FirestoreDatabase.updateUser(user);
+                        }
+
+                        @Override
+                        public void getAllUsers(ArrayList<User> userList) {
+
+                        }
+
+                        @Override
+                        public void getUserToken(String token) {
+
+                        }
+                    });
+                }
+                handleNotifications();
             }
         });
 
-        btnLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                gs.cleanSharedPreferences();
-                AuthHandler.singOut();
+        txtPrivacyPolicy.setOnClickListener(v -> {
+            String url = getString(R.string.privacy_policy_url);
 
-                Intent i = getActivity().getBaseContext().getPackageManager().getLaunchIntentForPackage(getActivity().getBaseContext().getPackageName());
-                if (i != null) {
-                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                    startActivity(i);
-                }
-
-            }
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            i.setData(Uri.parse(url));
+            startActivity(i);
         });
 
-        btnDeleteAccount.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        btnLogout.setOnClickListener(v -> {
+            gs.cleanSharedPreferences();
+            AuthHandler.singOut();
 
-                AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
-                dialog.setMessage("Do you really want to remove this test?")
-                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                //show loading bar
-                                showLoadingBar();
+            Intent i = getActivity().getBaseContext().getPackageManager().getLaunchIntentForPackage(getActivity().getBaseContext().getPackageName());
+            if (i != null) {
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(i);
+            }
 
-                                //delete Auth account + sing out
-                                AuthHandler.deleteAccount(new ObjectListener() {
-                                    @Override
-                                    public void getObject(Object obj) {
-                                        try {
-                                            boolean isSuccess = (boolean) obj;
-                                            if (isSuccess) {
-                                                AuthHandler.singOut();
+        });
 
-                                                //clean shared preferences
-                                                gs.cleanSharedPreferences();
+        btnDeleteAccount.setOnClickListener(v -> {
 
-                                                //remove item from database
-                                                FirestoreDatabase.deleteUser(user);
+            AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
+            dialog.setMessage("Do you really want to remove this test?")
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            //show loading bar
+                            showLoadingBar();
 
-                                                //remove photo from database
-                                                FirestoreDatabase.deletePhoto(user);
+                            //delete Auth account + sing out
+                            AuthHandler.deleteAccount(new ObjectListener() {
+                                @Override
+                                public void getObject(Object obj) {
+                                    try {
+                                        boolean isSuccess = (boolean) obj;
+                                        if (isSuccess) {
+                                            AuthHandler.singOut();
 
-                                                //remove item from list
-                                                userList.remove(user.getId());
+                                            //clean shared preferences
+                                            gs.cleanSharedPreferences();
 
-                                                //check updatedUserList
-                                                if (updatedUserList == null) {
-                                                    updatedUserList = new ArrayList<>();
+                                            //remove item from database
+                                            FirestoreDatabase.deleteUser(user);
+
+                                            //remove photo from database
+                                            FirestoreDatabase.deletePhoto(user);
+
+                                            //remove item from list
+                                            userList.remove(user.getId());
+
+                                            //check updatedUserList
+                                            if (updatedUserList == null) {
+                                                updatedUserList = new ArrayList<>();
+                                            }
+                                            updatedUserList.clear();
+                                            nrOfUserUpdatesAfterDelete = 0;
+
+                                            //change rest of the user ids
+                                            if (user.getId() < userList.size()) {
+                                                for (int i = user.getId(); i < userList.size(); i++) {
+                                                    User userUpdated = userList.get(i);
+                                                    userUpdated.setId(i);
+                                                    updatedUserList.add(userUpdated);
                                                 }
-                                                updatedUserList.clear();
-                                                nrOfUserUpdatesAfterDelete = 0;
+                                            }
 
-                                                //change rest of the user ids
-                                                if (user.getId() < userList.size()) {
-                                                    for (int i = user.getId(); i < userList.size(); i++) {
-                                                        User userUpdated = userList.get(i);
-                                                        userUpdated.setId(i);
-                                                        updatedUserList.add(userUpdated);
-                                                    }
-                                                }
-
-                                                //modify in Firestore
-                                                if (updatedUserList.size() == 0) {
-                                                    hideLoadingBar();
-                                                    Intent i = getActivity().getBaseContext().getPackageManager().getLaunchIntentForPackage(getActivity().getBaseContext().getPackageName());
-                                                    if (i != null) {
-                                                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                                        startActivity(i);
-                                                    }
-                                                } else {
-                                                    for (final User updatedUser : updatedUserList) {
-                                                        new Handler().postDelayed(new Runnable() {
-                                                            @Override
-                                                            public void run() {
-                                                                FirestoreDatabase.updateUserWithCallback(updatedUser, new IRefreshListener() {
-                                                                    @Override
-                                                                    public void doRefresh(boolean doRefresh) {
-                                                                        //refresh main activity after last update
-                                                                        if (++nrOfUserUpdatesAfterDelete == updatedUserList.size()) {
-                                                                            hideLoadingBar();
-                                                                            Intent i = getActivity().getBaseContext().getPackageManager().getLaunchIntentForPackage(getActivity().getBaseContext().getPackageName());
-                                                                            if (i != null) {
-                                                                                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                                                                startActivity(i);
-                                                                            }
-                                                                        }
-                                                                    }
-                                                                });
-                                                            }
-                                                        }, 0);
-                                                    }
+                                            //modify in Firestore
+                                            if (updatedUserList.isEmpty()) {
+                                                hideLoadingBar();
+                                                Intent i = getActivity().getBaseContext().getPackageManager().getLaunchIntentForPackage(getActivity().getBaseContext().getPackageName());
+                                                if (i != null) {
+                                                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                                    startActivity(i);
                                                 }
                                             } else {
-                                                hideLoadingBar();
-                                                showSimpleAlert("Something went wrong. Please try again later!");
+                                                for (final User updatedUser : updatedUserList) {
+                                                    new Handler().postDelayed(new Runnable() {
+                                                        @Override
+                                                        public void run() {
+                                                            FirestoreDatabase.updateUserWithCallback(updatedUser, new IRefreshListener() {
+                                                                @Override
+                                                                public void doRefresh(boolean doRefresh) {
+                                                                    //refresh main activity after last update
+                                                                    if (++nrOfUserUpdatesAfterDelete == updatedUserList.size()) {
+                                                                        hideLoadingBar();
+                                                                        Intent i = getActivity().getBaseContext().getPackageManager().getLaunchIntentForPackage(getActivity().getBaseContext().getPackageName());
+                                                                        if (i != null) {
+                                                                            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                                                            startActivity(i);
+                                                                        }
+                                                                    }
+                                                                }
+                                                            });
+                                                        }
+                                                    }, 0);
+                                                }
                                             }
-                                        } catch (Exception e) {
-                                            e.printStackTrace();
+                                        } else {
                                             hideLoadingBar();
                                             showSimpleAlert("Something went wrong. Please try again later!");
                                         }
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                        hideLoadingBar();
+                                        showSimpleAlert("Something went wrong. Please try again later!");
                                     }
-                                });
+                                }
+                            });
 
 
-                            }
-                        })
-                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.cancel();
-                            }
-                        })
-                        .setCancelable(true);
+                        }
+                    })
+                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    })
+                    .setCancelable(true);
 
-                dialog.show();
+            dialog.show();
 
 
-            }
         });
 
         btnDeleteAccountsList.setOnClickListener(new View.OnClickListener() {

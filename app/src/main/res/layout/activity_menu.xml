@@ -1,26 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:ads="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:background="@color/colorPrimaryDark"
     tools:context="com.learning.java.app.activities.ContainerActivity">
 
     <LinearLayout
         android:id="@+id/ll_parent_ad"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:gravity="center"
         android:background="@color/colorBlack"
+        android:gravity="center"
         android:orientation="vertical"
         android:visibility="gone">
 
-        <com.google.android.gms.ads.AdView
-            android:id="@+id/ad_banner"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            ads:adSize="BANNER"
-            ads:adUnitId="ca-app-pub-6252100624852887/3250490505" />
+        <!--        <com.google.android.gms.ads.AdView-->
+        <!--            android:id="@+id/ad_banner"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="match_parent"-->
+        <!--            ads:adSize="BANNER"-->
+        <!--            ads:adUnitId="ca-app-pub-6252100624852887/3250490505" />-->
         <!--ads:adUnitId="ca-app-pub-6252100624852887/3250490505" />-->
     </LinearLayout>
 
@@ -29,7 +30,8 @@
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/ll_parent_ad" />
+        android:layout_below="@id/ll_parent_ad"
+        android:fitsSystemWindows="true" />
 
     <!--network connection-->
     <RelativeLayout

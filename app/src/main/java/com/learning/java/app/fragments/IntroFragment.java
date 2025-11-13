@@ -6,9 +6,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Point;
-import android.os.Build;
 import android.os.Bundle;
-import androidx.annotation.Nullable;
 import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -20,9 +18,11 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.learning.java.app.utilities.OnSwipeTouchListener;
+import androidx.annotation.Nullable;
+
 import com.learning.java.app.R;
 import com.learning.java.app.activities.ContainerActivity;
+import com.learning.java.app.utilities.OnSwipeTouchListener;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -79,9 +79,7 @@ public class IntroFragment extends BaseFragment {
             viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
                 @Override
                 public void onGlobalLayout() {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                        llIntroText.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                    }
+                    llIntroText.getViewTreeObserver().removeOnGlobalLayoutListener(this);
                     widthView = llIntroText.getWidth();
                     heightView = llIntroText.getHeight();
 

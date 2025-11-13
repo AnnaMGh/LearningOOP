@@ -1,7 +1,6 @@
 package com.learning.java.app.services;
 
 import android.app.Activity;
-import android.content.Context;
 import android.net.Uri;
 import android.util.Log;
 

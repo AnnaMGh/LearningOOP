@@ -70,9 +70,9 @@ public class MenuTestFragment extends BaseFragment {
         setList();
 
         //load ad
-        if (getActivity() != null) {
-            AdHandler.addInterstitialAd(getActivity(), Constants.adInterstitialUnitId);
-        }
+//        if (getActivity() != null) {
+//            AdHandler.addInterstitialAd(getActivity(), Constants.adInterstitialUnitId);
+//        }
     }
 
     void checkIfAdmin(User user) {
@@ -355,14 +355,14 @@ public class MenuTestFragment extends BaseFragment {
             final String backStackNameFinal = backStackName;
             //load ad
             Log.d("adHandler", GlobalSingleton.getInstance().lastShowedAd + " | " + (System.currentTimeMillis() - (2 * 60 * 1000)));
-            if (GlobalSingleton.getInstance().lastShowedAd < (System.currentTimeMillis() - (4 * 60 * 1000))) {
-                GlobalSingleton.getInstance().lastShowedAd = System.currentTimeMillis();
-                AdHandler.showInterstitialAd(getActivity(), obj -> {
-                    replaceFragment(nextTestFinal, backStackNameFinal);
-                });
-            } else {
+//            if (GlobalSingleton.getInstance().lastShowedAd < (System.currentTimeMillis() - (4 * 60 * 1000))) {
+//                GlobalSingleton.getInstance().lastShowedAd = System.currentTimeMillis();
+//                AdHandler.showInterstitialAd(getActivity(), obj -> {
+//                    replaceFragment(nextTestFinal, backStackNameFinal);
+//                });
+//            } else {
                 replaceFragment(nextTestFinal, backStackNameFinal);
-            }
+//            }
 
         }
 

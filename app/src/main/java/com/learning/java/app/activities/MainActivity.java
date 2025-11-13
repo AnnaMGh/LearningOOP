@@ -4,27 +4,23 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.res.Resources;
-import android.os.Build;
-import android.os.Handler;
-
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.KeyCharacterMap;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.learning.java.app.Constants;
 import com.learning.java.app.R;
 import com.learning.java.app.fragments.IntroFragment;
 import com.learning.java.app.services.AnalyticsHandler;
-import com.learning.java.app.utilities.GlobalSingleton;
+import com.learning.java.app.utilities.StatusBarUtil;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -52,8 +48,7 @@ public class MainActivity extends AppCompatActivity {
             navigationBarLayout.setLayoutParams(params);
             navigationBarLayout.setVisibility(View.VISIBLE);
         }
-        makeStatusBarTransparent();
-
+        StatusBarUtil.makeStatusBarTransparent(getWindow());
         addFragment(new IntroFragment(), "IntroFragment");
 
         //send event
@@ -102,13 +97,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         return 0;
-    }
-
-    private void makeStatusBarTransparent() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            Window w = getWindow(); // in Activity's onCreate() for instance
-            w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
-        }
     }
 
     private void addFragment(Fragment fragment, String backStackFragmentName) {

@@ -1,15 +1,15 @@
 package com.learning.java.app.fragments;
 
+import static android.app.Activity.RESULT_OK;
+
 import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -21,15 +21,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.legacy.app.FragmentPagerAdapter;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.viewpager.widget.PagerTabStrip;
-import androidx.viewpager.widget.ViewPager;
-
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -38,6 +29,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.legacy.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.PagerTabStrip;
+import androidx.viewpager.widget.ViewPager;
 
 import com.learning.java.app.Constants;
 import com.learning.java.app.R;
@@ -52,12 +51,10 @@ import com.learning.java.app.model.User;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
-
-import static android.app.Activity.RESULT_OK;
 
 public class MainMenuFragment extends BaseFragment {
 
+    private static final String TAG = "MAIN_MENU_F";
     //views
     TextView usernameTxtV;
     ImageView circularImgV;
@@ -111,7 +108,7 @@ public class MainMenuFragment extends BaseFragment {
                 String picturePath = getRealPathFromURI(imageUri);
                 ExifInterface exif = new ExifInterface(picturePath);
                 int orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, 1);
-                Log.d("EXIF", "Exif: " + orientation);
+                Log.d(TAG, "onActivityResult: Exif: " + orientation);
                 Matrix matrix = new Matrix();
                 if (orientation == 6) {
                     matrix.postRotate(90);
@@ -126,23 +123,17 @@ public class MainMenuFragment extends BaseFragment {
                 int width = bitmap.getWidth();
                 int height = bitmap.getHeight();
                 if (width > 800 || height > 800) {
-                    width = gs.convertFromOneRangeToAnother(width, 0, width > height ? width : height, 0, 800);
-                    height = gs.convertFromOneRangeToAnother(height, 0, width > height ? width : height, 0, 800);
+                    width = gs.convertFromOneRangeToAnother(width, 0, Math.max(width, height), 0, 800);
+                    height = gs.convertFromOneRangeToAnother(height, 0, Math.max(width, height), 0, 800);
                 }
                 bitmap = Bitmap.createScaledBitmap(bitmap, width, height, false);
 
                 circularImgV.setImageBitmap(bitmap);
-                FirestoreDatabase.addPhotoWithCallback(user, bitmap, new IRefreshListener() {
-                    @Override
-                    public void doRefresh(boolean doRefresh) {
-                        getInfoFromFirestore();
-                    }
-                });
+                FirestoreDatabase.addPhotoWithCallback(user, bitmap, doRefresh -> getInfoFromFirestore());
 
             } catch (Exception e) {
                 isFromPhotoIntent = false;
-                Log.e("ON ACTIVITY RESULT", "ERROR | MainMenuFragment | onActivityResult | INTENT_REQUEST_CAMERA | " + e.getMessage());
-                e.printStackTrace();
+                Log.e(TAG, "onActivityResult: ERROR | INTENT_REQUEST_CAMERA | " + e);
             }
         } else if (requestCode == Constants.INTENT_REQUEST_GALLERY && resultCode == RESULT_OK) {
             try {
@@ -166,7 +157,7 @@ public class MainMenuFragment extends BaseFragment {
                 try {
                     ExifInterface exif = new ExifInterface(picturePath);
                     int orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, 1);
-                    Log.d("EXIF", "Exif: " + orientation);
+                    Log.d(TAG, "onActivityResult: Exif: " + orientation);
                     Matrix matrix = new Matrix();
                     if (orientation == 6) {
                         matrix.postRotate(90);
@@ -182,31 +173,25 @@ public class MainMenuFragment extends BaseFragment {
                     int height = bitmap.getHeight();
                     if (width > 800 || height > 800) {
                         int oldWidth = width; //i put this here because after above width change it's size, the height will be modified
-                        width = gs.convertFromOneRangeToAnother(width, 0, width > height ? width : height, 0, 800);
-                        height = gs.convertFromOneRangeToAnother(height, 0, oldWidth > height ? oldWidth : height, 0, 800);
+                        width = gs.convertFromOneRangeToAnother(width, 0, Math.max(width, height), 0, 800);
+                        height = gs.convertFromOneRangeToAnother(height, 0, Math.max(oldWidth, height), 0, 800);
                     }
                     bitmap = Bitmap.createScaledBitmap(bitmap, width, height, false);
 
                     circularImgV.setImageBitmap(bitmap);
-                    FirestoreDatabase.addPhotoWithCallback(user, bitmap, new IRefreshListener() {
-                        @Override
-                        public void doRefresh(boolean doRefresh) {
-                            if (!doRefresh) {
-                                showSimpleAlert("It's been an error while update ");
-                            }
-                            getInfoFromFirestore();
+                    FirestoreDatabase.addPhotoWithCallback(user, bitmap, doRefresh -> {
+                        if (!doRefresh) {
+                            showSimpleAlert("It's been an error while update ");
                         }
+                        getInfoFromFirestore();
                     });
-
                 } catch (Exception e) {
                     isFromPhotoIntent = false;
-                    Log.e("ON ACTIVITY RESULT", "ERROR | MainMenuFragment | onActivityResult | INTENT_REQUEST_GALLERY | " + e.getMessage());
-                    e.printStackTrace();
+                    Log.e(TAG, "onActivityResult ERROR | INTENT_REQUEST_GALLERY | " + e);
                 }
             } catch (Exception e) {
                 isFromPhotoIntent = false;
-                Log.e("ON ACTIVITY RESULT", "ERROR | MainMenuFragment | onActivityResult | INTENT_REQUEST_GALLERY | " + e.getMessage());
-                e.printStackTrace();
+                Log.e(TAG, "onActivityResult ERROR  | INTENT_REQUEST_GALLERY | " + e);
             }
 
         }
@@ -253,7 +238,7 @@ public class MainMenuFragment extends BaseFragment {
     }
 
     private void getInfoFromFirestore() {
-
+        Log.d(TAG, "getInfoFromFirestore");
         showLoadingBar();
 
         //get all users
@@ -467,6 +452,7 @@ public class MainMenuFragment extends BaseFragment {
     }
 
     private void startCameraIntent() {
+        Log.d(TAG, "startCameraIntent");
         ContentValues values = new ContentValues();
         values.put(MediaStore.Images.Media.TITLE, "New Picture");
         values.put(MediaStore.Images.Media.DESCRIPTION, "From your Camera");
@@ -486,49 +472,25 @@ public class MainMenuFragment extends BaseFragment {
         return cursor.getString(column_index);
     }
 
-    private boolean isIntentAvailable(Context context, String action) {
-        final PackageManager packageManager = context.getPackageManager();
-        final Intent intent = new Intent(action);
-        List<ResolveInfo> list = packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
-        return list.size() > 0;
-    }
-
     private void showCamera() {
-        if (getActivity().getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
-            if (Build.VERSION.SDK_INT >= 23) {
-                // Here, thisActivity is the current activity
-                if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED
-                        || ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                    if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), Manifest.permission.CAMERA)) {
-                        ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, Constants.MY_PERMISSIONS_REQUEST_CAMERA);
-                    } else {
-                        ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, Constants.MY_PERMISSIONS_REQUEST_CAMERA);
-                    }
+        if (getActivity().getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY)) {
+            if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CAMERA}, Constants.MY_PERMISSIONS_REQUEST_CAMERA);
 
-                    Activity currentActivity = getActivity();
-                    if (currentActivity instanceof ContainerActivity) {
-                        ((ContainerActivity) currentActivity).listenerRefresh = new IRefreshListener() {
-                            @Override
-                            public void doRefresh(boolean doRefresh) {
-                                isFromPhotoIntent = true;
-                                startCameraIntent();
-                            }
-                        };
-                    }
-                } else {
-                    if (isIntentAvailable(getActivity(), MediaStore.ACTION_IMAGE_CAPTURE)) {
+                Activity currentActivity = getActivity();
+                if (currentActivity instanceof ContainerActivity) {
+                    Log.d(TAG, "showCamera: before doRefresh");
+                    ((ContainerActivity) currentActivity).listenerRefresh = doRefresh -> {
+                        Log.d(TAG, "showCamera: after doRefresh");
                         isFromPhotoIntent = true;
                         startCameraIntent();
-                    } else {
-                        showSimpleAlert("No camera application available");
-                    }
+                    };
                 }
             } else {
-                if (isIntentAvailable(getActivity(), MediaStore.ACTION_IMAGE_CAPTURE)) {
-                    isFromPhotoIntent = true;
+                try {
                     startCameraIntent();
-                } else {
-                    showSimpleAlert("No camera application available");
+                } catch (Exception e) {
+                    showSimpleAlert("Error accessing camera");
                 }
             }
         } else {
@@ -538,45 +500,40 @@ public class MainMenuFragment extends BaseFragment {
 
     private void showGallery() {
 
-        if (Build.VERSION.SDK_INT >= 23) {
-            // Here, thisActivity is the current activity
-            if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+        Activity currentActivity = getActivity();
 
-                // Should we show an explanation?
-                if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),
-                        Manifest.permission.READ_EXTERNAL_STORAGE)) {
-                    ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, Constants.MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
-                } else {
-                    ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, Constants.MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
-                }
+        // Here, thisActivity is the current activity
+        String permission = Manifest.permission.READ_EXTERNAL_STORAGE;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            permission = Manifest.permission.READ_MEDIA_IMAGES;
+        }
+        if (ContextCompat.checkSelfPermission(currentActivity, permission) != PackageManager.PERMISSION_GRANTED) {
+            Log.e(TAG, "showGallery: Requesting " + permission + " permission.");
+            ActivityCompat.requestPermissions(currentActivity, new String[]{permission}, Constants.MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
 
-                Activity currentActivity = getActivity();
-                if (currentActivity instanceof ContainerActivity) {
-                    ((ContainerActivity) currentActivity).listenerRefresh = new IRefreshListener() {
-                        @Override
-                        public void doRefresh(boolean doRefresh) {
-                            if (doRefresh) {
-                                isFromPhotoIntent = true;
 
-                                Intent i = new Intent(Intent.ACTION_PICK,
-                                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                                startActivityForResult(i, Constants.INTENT_REQUEST_GALLERY);
-                            }
-                        }
-                    };
-                } else {
-                    isFromPhotoIntent = true;
-                    Intent i = new Intent(Intent.ACTION_PICK,
-                            android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                    startActivityForResult(i, Constants.INTENT_REQUEST_GALLERY);
-                }
+            if (currentActivity instanceof ContainerActivity) {
+                Log.d(TAG, "showGallery: before doRefresh");
+                ((ContainerActivity) currentActivity).listenerRefresh = doRefresh -> {
+                    Log.d(TAG, "showGallery: after doRefresh");
+                    if (doRefresh) {
+                        isFromPhotoIntent = true;
+                        Intent i = new Intent(Intent.ACTION_PICK,
+                                MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                        startActivityForResult(i, Constants.INTENT_REQUEST_GALLERY);
+                    }
+                };
             } else {
-
                 isFromPhotoIntent = true;
-                Intent i = new Intent(Intent.ACTION_PICK,
-                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                Intent i = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(i, Constants.INTENT_REQUEST_GALLERY);
             }
+        } else {
+            Log.e(TAG, "showGallery: Permission READ_EXTERNAL_STORAGE already accepted.");
+            isFromPhotoIntent = true;
+            Intent i = new Intent(Intent.ACTION_PICK,
+                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            startActivityForResult(i, Constants.INTENT_REQUEST_GALLERY);
         }
     }
 

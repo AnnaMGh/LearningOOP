@@ -1593,20 +1593,20 @@
     <string name="test1011">Java Development Kit</string>
     <string name="test1012">Java Development Key</string>
     <string name="test1013">Java Developer Kit</string>
-    <string name="test102">2. What is the output of the fallowing code?</string>
+    <string name="test102">2. What is the output of the following code?</string>
     <string name="test1021"><Data><![CDATA[ System<font color="#000099">.</font>out<font color="#000099">.</font>println
     <font color="#000099">(</font><font color=#ff8000>\"Learning Java\"</font><font color="#000099">);</font>]]></Data></string>
     <string name="test1020">Learning Java</string>
-    <string name="test103">3. Complete the fallowing sentence.</string>
+    <string name="test103">3. Complete the following sentence.</string>
     <string name="test1031">Java is a </string>
     <string name="test1032">-oriented programing language.</string>
     <string name="test1030">object</string>
-    <string name="test104">4. Choose the correct answer: Which of the fallowing operators is an \'arithmetic operator\'?</string>
+    <string name="test104">4. Choose the correct answer: Which of the following operators is an \'arithmetic operator\'?</string>
     <string name="test1040">%</string>
     <string name="test1041">+=</string>
     <string name="test1042">||</string>
     <string name="test1043">%</string>
-    <string name="test105">5. Complete the fallowing method in order to display \'21\'.</string>
+    <string name="test105">5. Complete the following method in order to display \'21\'.</string>
     <string name="test1051"><Data><![CDATA[ number1 <font color="#000099">=</font><font color=#ff8000>10"</font> ]]></Data></string>
     <string name="test1052"><Data><![CDATA[ <font color="#990099">int</font> number2 <font color="#000099">=</font><font color=#ff8000>11"</font> ]]></Data></string>
     <string name="test1053"><Data><![CDATA[ System<font color="#000099">.</font> ]]></Data></string>
@@ -1617,7 +1617,7 @@
 
 
     <!--test2-->
-    <string name="test201">1. Complete the fallowing method in order to display \'a > b\'.</string>
+    <string name="test201">1. Complete the following method in order to display \'a > b\'.</string>
     <string name="test2010">if(</string>
     <string name="test2011"><Data><![CDATA[
     <font color="#990099">int </font> a<font color="#000099">=</font><font color=#ff8000>10</font><font color="#000099">;</font>
@@ -1636,7 +1636,7 @@
     <string name="test2021">the instruction will be executed</string>
     <string name="test2022">the instruction will not be executed</string>
     <string name="test2023">the instruction will be partially executed</string>
-    <string name="test203">3. What is the output of the fallowing code?</string>
+    <string name="test203">3. What is the output of the following code?</string>
     <string name="test2030">case 2</string>
     <string name="test2031"><Data><![CDATA[
         <font color="#990099">int</font> number<font color="#000099">=</font><font color=#ff8000>2</font><font color="#000099">;</font>
@@ -1652,7 +1652,7 @@
         <br/>}</font>
 
 ]]></Data></string>
-    <string name="test204">4. Complete the fallowing method in order to get the user input.</string>
+    <string name="test204">4. Complete the following method in order to get the user input.</string>
     <string name="test2040">Scanner</string>
     <string name="test2041"><Data><![CDATA[
    <font color=#000099>import</font> java<font color=#000099>.</font>util<font color=#000099>.</font>Scanner<font color=#000099>;</font>
@@ -1678,7 +1678,7 @@
     <string name="test3011">one time</string>
     <string name="test3012">infinite number of time</string>
     <string name="test3013">never</string>
-    <string name="test302">2. What is the output of the fallowing code?</string>
+    <string name="test302">2. What is the output of the following code?</string>
     <string name="test3021"><Data><![CDATA[
 
     <font color="#990099">int</font> a <font color="#000099">=</font><font color=#ff8000> 0</font><font color="#000099">;</font>
@@ -1689,7 +1689,7 @@
     <br/> a<font color="#000099">++;
     <br/>}</font>]]></Data></string>
     <string name="test3020">01</string>
-    <string name="test303">3. Complete the fallowing sentence.</string>
+    <string name="test303">3. Complete the following sentence.</string>
     <string name="test3031">In \'do while\', the block of code will</string>
     <string name="test3032">at least once.</string>
     <string name="test3030">run</string>
@@ -1698,7 +1698,7 @@
     <string name="test3041">int[] number = new numbers[2];</string>
     <string name="test3042">int[2] number = new int[];</string>
     <string name="test3043">int[] number = new int[2];</string>
-    <string name="test305">5. What is the output of the fallowing sentance?</string>
+    <string name="test305">5. What is the output of the following sentance?</string>
     <string name="test3051"><Data><![CDATA[ <font color=#990099>int </font>array<font color=#000099>={</font><font color=#ff8000>0</font><font color=#000099>,</font><font color=#ff8000>1</font><font color=#000099>,</font><font color=#ff8000>2</font><font color=#000099>};</font>
 <br/> <font color=#000099>for(</font><font color=#990099>int </font>i<font color=#000099>=</font><font color=#ff8000>0</font><font color=#990099>;</font>i<font color=#000099>&lt</font><font color=#ff8000>3</font><font color=#000099>;</font> i<font color=#000099>++){</font>
 <br/> System<font color=#000099>.</font>out<font color=#000099>.</font>println<font color=#000099>(</font>array<font color=#000099>[</font><font color=#ff8000>i</font><font color=#000099>]<font color=#000099>);<br/>}</font>
@@ -1712,7 +1712,7 @@
     <string name="test4011">An attribute of the class</string>
     <string name="test4012">An action of the class</string>
     <string name="test4013">An object</string>
-    <string name="test402">2. What is the output of the fallowing code?</string>
+    <string name="test402">2. What is the output of the following code?</string>
     <string name="test4021"><Data><![CDATA[
 
     <font color=#990099>class</font> Apple<font color=#000099>{</font>
@@ -1723,7 +1723,7 @@
     <br/><font color=#000099>}</font>
      </font>]]></Data></string>
     <string name="test4020">10</string>
-    <string name="test403">3. Complete the fallowing sentence.</string>
+    <string name="test403">3. Complete the following sentence.</string>
     <string name="test4031">A constructor is a</string>
     <string name="test4032">method of a class.</string>
     <string name="test4030">special</string>
@@ -1732,7 +1732,7 @@
     <string name="test4041">an instance of the class</string>
     <string name="test4042">a set of attributes and methods</string>
     <string name="test4043">a set of classes</string>
-    <string name="test405">5.Complete the fallowing sentence.</string>
+    <string name="test405">5.Complete the following sentence.</string>
     <string name="test4051"><Data><![CDATA[ An attribute represents a]]></Data></string>
     <string name="test4052"><Data><![CDATA[ of the class. ]]></Data></string>
     <string name="test4050">feature</string>
@@ -1743,13 +1743,13 @@
     <string name="test5011">to access the information only from the subclass</string>
     <string name="test5012">to access the information from any class</string>
     <string name="test5013">to access the information only from the class</string>
-    <string name="test502">2. What will create the fallowing code?</string>
+    <string name="test502">2. What will create the following code?</string>
     <string name="test5021"><Data><![CDATA[
     <font color=#990099>interface</font> Apple<font color=#000099>{</font>
     <br/><br/> &emsp <font color=#990099>void</font> display<font color=#000099>();<br/>}</font>
      </font>]]></Data></string>
     <string name="test5020">interface</string>
-    <string name="test503">3. Complete the fallowing sentence.</string>
+    <string name="test503">3. Complete the following sentence.</string>
     <string name="test5031">class require its abstract methods to</string>
     <string name="test5032"> be implemented.</string>
     <string name="test5030">Abstract</string>
@@ -1758,7 +1758,7 @@
     <string name="test5041">to make the attribute constant</string>
     <string name="test5042">to make the attribute static</string>
     <string name="test5043">to make the attribute private</string>
-    <string name="test505">5. Complete the fallowing sentence in order to create a final attribute.</string>
+    <string name="test505">5. Complete the following sentence in order to create a final attribute.</string>
     <string name="test5051"><Data><![CDATA[ <font color=#990099>String</font> <font color=#000099>color = </font><font color=#ff8000>\"red\"</font><font color=#000099>;</font>]]></Data></string>
     <string name="test5050">final</string>
 

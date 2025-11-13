@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     android:background="@drawable/bar">
 
 
@@ -92,7 +93,7 @@
             android:fontFamily="@font/lato_regular"
             android:gravity="center"
             android:padding="5dp"
-            android:text="Add lesson"
+            android:text="@string/menu_learn_add_lesson"
             android:textAllCaps="false"
             android:textColor="#fff"
             android:textSize="17sp"
@@ -114,7 +115,7 @@
             android:fontFamily="@font/lato_regular"
             android:gravity="center"
             android:padding="5dp"
-            android:text="Remove lesson"
+            android:text="@string/menu_learn_remove_lesson"
             android:textAllCaps="false"
             android:textColor="#fff"
             android:textSize="17sp"
