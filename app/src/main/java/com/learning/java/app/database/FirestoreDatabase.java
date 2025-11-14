@@ -3,21 +3,10 @@ package com.learning.java.app.database;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import android.util.Log;
-
-import com.learning.java.app.Constants;
-import com.learning.java.app.R;
-import com.learning.java.app.model.IBitmapListener;
-import com.learning.java.app.model.IRefreshListener;
-import com.learning.java.app.model.ITestListener;
-import com.learning.java.app.model.IUserListener;
-import com.learning.java.app.model.Question;
-import com.learning.java.app.model.Test;
-import com.learning.java.app.model.User;
-import com.learning.java.app.utilities.GlobalSingleton;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -29,6 +18,16 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.WriteBatch;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.learning.java.app.Constants;
+import com.learning.java.app.R;
+import com.learning.java.app.model.IBitmapListener;
+import com.learning.java.app.model.IRefreshListener;
+import com.learning.java.app.model.ITestListener;
+import com.learning.java.app.model.IUserListener;
+import com.learning.java.app.model.Question;
+import com.learning.java.app.model.Test;
+import com.learning.java.app.model.User;
+import com.learning.java.app.utilities.GlobalSingleton;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
@@ -108,22 +107,14 @@ public class FirestoreDatabase {
         batch.update(update, updateMap);
 
         batch.commit()
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Log.i("FIRESTORE RESPONSE: ", "SUCCESS | updateUser ");
-
-                        if (listenerRefresh != null) {
-                            listenerRefresh.doRefresh(true);
-                        }
+                .addOnSuccessListener(aVoid -> {
+                    Log.i(TAG, "updateUserWithCallback | addOnSuccessListener ");
+                    if (listenerRefresh != null) {
+                        listenerRefresh.doRefresh(true);
                     }
                 })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.e("FIRESTORE RESPONSE: ", "ERROR | updateUser | " + e.getMessage());
-                        e.printStackTrace();
-                    }
+                .addOnFailureListener(e -> {
+                    Log.e(TAG, "updateUserWithCallback | addOnFailureListener | " + e);
                 });
     }
 
@@ -464,19 +455,12 @@ public class FirestoreDatabase {
 
         StorageReference photoReference = mStorageRef.child("Images/" + user.getToken() + ".png");
         photoReference.putBytes(data)
-                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        user.setPhoto(String.valueOf(taskSnapshot.getUploadSessionUri()));
-                        updateUserWithCallback(user, listenerRefresh);
-                    }
+                .addOnSuccessListener(taskSnapshot -> {
+                    user.setPhoto(String.valueOf(taskSnapshot.getUploadSessionUri()));
+                    updateUserWithCallback(user, listenerRefresh);
                 })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.e("FIRESTORE RESPONSE: ", "FirestoreDatabase | addPhoto | " + e.getMessage());
-                        e.printStackTrace();
-                    }
+                .addOnFailureListener(e -> {
+                    Log.e(TAG, "addPhotoWithCallback | addOnFailureListener | " + e);
                 });
     }
 

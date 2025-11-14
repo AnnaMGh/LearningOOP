@@ -386,22 +386,17 @@ public class MenuProfileFragment extends BaseFragment {
                                         }
                                     } else {
                                         for (final User updatedUser : updatedUserList) {
-                                            new Handler().postDelayed(new Runnable() {
-                                                @Override
-                                                public void run() {
-                                                    FirestoreDatabase.updateUserWithCallback(updatedUser, doRefresh -> {
-                                                        //refresh main activity after last update
-                                                        if (++nrOfUserUpdatesAfterDelete == updatedUserList.size()) {
-                                                            hideLoadingBar();
-                                                            Intent i = getActivity().getBaseContext().getPackageManager().getLaunchIntentForPackage(getActivity().getBaseContext().getPackageName());
-                                                            if (i != null) {
-                                                                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                                                startActivity(i);
-                                                            }
-                                                        }
-                                                    });
+                                            new Handler().postDelayed(() -> FirestoreDatabase.updateUserWithCallback(updatedUser, doRefresh -> {
+                                                //refresh main activity after last update
+                                                if (++nrOfUserUpdatesAfterDelete == updatedUserList.size()) {
+                                                    hideLoadingBar();
+                                                    Intent i = getActivity().getBaseContext().getPackageManager().getLaunchIntentForPackage(getActivity().getBaseContext().getPackageName());
+                                                    if (i != null) {
+                                                        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                                        startActivity(i);
+                                                    }
                                                 }
-                                            }, 0);
+                                            }), 0);
                                         }
                                     }
                                 } else {

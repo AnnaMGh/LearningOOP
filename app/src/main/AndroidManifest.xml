@@ -15,13 +15,6 @@
         android:name="android.hardware.camera"
         android:required="false" />
 
-    <!-- For photos -->
-    <uses-permission
-        android:name="android.permission.READ_EXTERNAL_STORAGE"
-        android:maxSdkVersion="32" />
-
-    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
-
     <application
         android:name=".MainApplication"
         android:allowBackup="false"

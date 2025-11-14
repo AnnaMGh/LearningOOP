@@ -25,6 +25,9 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 import android.window.OnBackInvokedDispatcher;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.PickVisualMediaRequest;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -45,6 +48,7 @@ import com.learning.java.app.fragments.MainMenuFragment;
 import com.learning.java.app.model.IRefreshListener;
 import com.learning.java.app.model.ITestListener;
 import com.learning.java.app.model.IUserListener;
+import com.learning.java.app.model.ObjectListener;
 import com.learning.java.app.model.Test;
 import com.learning.java.app.model.User;
 import com.learning.java.app.services.AnalyticsHandler;
@@ -88,6 +92,26 @@ public class ContainerActivity extends AppCompatActivity {
 
     long lastTimeNetworkOn = 0;
     boolean isAppInForeground = false;
+
+    private ObjectListener imagePickedCallback = null;
+    private final ActivityResultLauncher<PickVisualMediaRequest> pickMedia = registerForActivityResult(
+            new ActivityResultContracts.PickVisualMedia(),
+            uri -> {
+                if (uri != null) {
+                    Log.d(TAG, "PickVisualMediaRequest: Media selected " + uri);
+                    if (imagePickedCallback != null) {
+                        imagePickedCallback.getObject(uri);
+                    }
+                } else {
+                    Log.d(TAG, "PickVisualMediaRequest: No media selected");
+                    if (imagePickedCallback != null) {
+                        imagePickedCallback.getObject(null);
+                    }
+                }
+                imagePickedCallback = null;
+            }
+    );
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -224,20 +248,6 @@ public class ContainerActivity extends AppCompatActivity {
                         listenerRefresh.doRefresh(true);
                     }
                 }
-            } else if (Objects.equals(permission, Manifest.permission.READ_EXTERNAL_STORAGE)) {
-                // Gallery accepted for SDK <33, go to main menu
-                if (result && requestCode == Constants.MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE) {
-                    if (listenerRefresh != null) {
-                        listenerRefresh.doRefresh(true);
-                    }
-                }
-            } else if (Objects.equals(permission, Manifest.permission.READ_MEDIA_IMAGES)) {
-                // Gallery accepted for SDK >=33, go to main menu
-                if (result && requestCode == Constants.MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE) {
-                    if (listenerRefresh != null) {
-                        listenerRefresh.doRefresh(true);
-                    }
-                }
             }
         }
     }
@@ -248,9 +258,7 @@ public class ContainerActivity extends AppCompatActivity {
 
 
         if (mCallbackManager != null) {
-            if (mCallbackManager.onActivityResult(requestCode, resultCode, data)) {
-                return;
-            }
+            mCallbackManager.onActivityResult(requestCode, resultCode, data);
         }
     }
 
@@ -258,6 +266,15 @@ public class ContainerActivity extends AppCompatActivity {
     public void onBackPressed() {
         Log.d(TAG, "onBackPressed");
         handleBackPressed();
+    }
+
+    public void openPhotoPicker(ObjectListener callback) {
+        PickVisualMediaRequest request = new PickVisualMediaRequest.Builder()
+                .setMediaType(ActivityResultContracts.PickVisualMedia.ImageOnly.INSTANCE)
+                .build();
+
+        imagePickedCallback = callback;
+        pickMedia.launch(request);
     }
 
     private void handleBackPressed() {
@@ -520,7 +537,7 @@ public class ContainerActivity extends AppCompatActivity {
             @Override
             public void run() {
                 if (isAppInForeground) {
-                    boolean isNetworkAvailable = GlobalSingleton.getInstance().hasInternet(ContainerActivity.this.getApplicationContext());
+                    boolean isNetworkAvailable = gs.hasInternet(ContainerActivity.this.getApplicationContext());
                     runOnUiThread(() -> {
                         // Stuff that updates the UI
                         if (!isNetworkAvailable && !isNetworkBarShow) {
