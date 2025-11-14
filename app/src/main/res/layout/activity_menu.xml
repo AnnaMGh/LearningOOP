@@ -46,7 +46,7 @@
             android:layout_height="50dp"
             android:background="@drawable/black_rounded_transparent"
             android:gravity="center"
-            android:text="You are not connected to the network!"
+            android:text="@string/network_not_connected"
             android:textColor="@color/colorWhite"
             android:textSize="16sp" />
 

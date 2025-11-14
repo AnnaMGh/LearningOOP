@@ -8,17 +8,21 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Point;
 import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
+import android.net.Network;
+import android.net.NetworkCapabilities;
 import android.util.Base64;
+import android.util.Log;
 import android.view.Display;
 import android.view.WindowManager;
 
-import com.google.firebase.auth.FirebaseAuth;
-
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 public class GlobalSingleton {
 
+    private static final String TAG = "GLOBAL_SINGLETON";
     private static GlobalSingleton mInstance;
 
     public Context mContext;
@@ -150,12 +154,57 @@ public class GlobalSingleton {
 
     public boolean hasInternet(Context context) {
         if (context == null) {
+            Log.d(TAG, "hasInternet: Missing context.");
             return false;
         }
-        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetworkInfo = (connectivityManager != null ? connectivityManager.getActiveNetworkInfo() : null);
-        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+
+        if (!hasInternetConnection(context)) return false;
+        return canReachInternet();
     }
+
+    /**
+     * This return false if the phone is on camera on newer devices
+     * */
+    private boolean hasInternetConnection(Context context) {
+        ConnectivityManager cm =
+                (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        if (cm == null) return false;
+
+        Network network = cm.getActiveNetwork();
+        if (network == null) return false;
+
+        NetworkCapabilities nc = cm.getNetworkCapabilities(network);
+        if (nc == null) return false;
+
+        // Are transport (WiFi / Cellular / Ethernet)?
+        boolean hasTransport =
+                nc.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
+                        nc.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) ||
+                        nc.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET);
+
+        // Are internet functional?
+        boolean hasInternetCapability =
+                nc.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) &&
+                        nc.hasCapability(NetworkCapabilities.NET_CAPABILITY_VALIDATED);
+
+        return hasTransport && hasInternetCapability;
+    }
+
+    private static boolean canReachInternet() {
+        try {
+            HttpURLConnection urlc =
+                    (HttpURLConnection) new URL("https://clients3.google.com/generate_204")
+                            .openConnection();
+            urlc.setRequestProperty("User-Agent", "Android");
+            urlc.setConnectTimeout(1500);
+            urlc.connect();
+            return (urlc.getResponseCode() == 204);
+        } catch (IOException e) {
+            return false;
+        }
+    }
+
 
     public boolean isValidEmailAddress(String email) {
         String ePattern = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";

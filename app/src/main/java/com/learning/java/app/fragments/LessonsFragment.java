@@ -26,6 +26,7 @@ import java.util.ArrayList;
 
 public class LessonsFragment extends BaseFragment {
 
+    private static final String TAG = "LESSONS_F";
     //views
     Button[] buttons;
     Button nextButton, previousButton;
@@ -113,7 +114,7 @@ public class LessonsFragment extends BaseFragment {
     }
 
     void formatLayout(int nr, String s) {
-        Log.e("learn2", "learn" + learn + nr);
+        Log.e(TAG, "formatLayout: " + learn + nr);
 
         int resource = getResources().getIdentifier("learn" + learn + nr, "string", getActivity().getPackageName());
 
@@ -154,108 +155,94 @@ public class LessonsFragment extends BaseFragment {
     void onClickViews() {
 
         //base view click blocked
-        baseView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        baseView.setOnClickListener(view -> {
 
-            }
         });
 
         //back
-        baseView.findViewById(R.id.txt_back).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getActivity().getFragmentManager().popBackStack("LearnFragment", 0);
-            }
-        });
+        baseView.findViewById(R.id.txt_back).setOnClickListener(view -> getActivity().getFragmentManager().popBackStack("LearnFragment", 0));
 
 
         formatLayout(1, "next");
 
         //next
-        nextButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (numberOfFinishedButtons < (numberOfVisibleButtons - 1)) {
-                    numberOfFinishedButtons++;
-                    formatLayout(numberOfFinishedButtons, "next");
-                    //Toast.makeText(Learn2Activity.this, (numberOfFinishedButtons-1)+ "<" + numberOfVisibleButtons + "-1", Toast.LENGTH_LONG).show();
-                } else if (numberOfFinishedButtons == (numberOfVisibleButtons - 1)) {
+        nextButton.setOnClickListener(v -> {
+            if (numberOfFinishedButtons < (numberOfVisibleButtons - 1)) {
+                numberOfFinishedButtons++;
+                formatLayout(numberOfFinishedButtons, "next");
+                //Toast.makeText(Learn2Activity.this, (numberOfFinishedButtons-1)+ "<" + numberOfVisibleButtons + "-1", Toast.LENGTH_LONG).show();
+            } else if (numberOfFinishedButtons == (numberOfVisibleButtons - 1)) {
 
-                    numberOfFinishedButtons++;
-                    formatLayout(4, "next");
-                    mRadioGroup.setVisibility(View.VISIBLE);
-                    for (int i = 0; i < 3; i++) {
-                        mRadioButtons[i].setText(getResources().getString(getResources().getIdentifier("learn" + learn + 4 + (i + 1), "string", getActivity().getPackageName())));
-                    }
-                    //Toast.makeText(Learn2Activity.this, (numberOfFinishedButtons-1) + "==" + numberOfVisibleButtons + "-1", Toast.LENGTH_LONG).show();
-                } else if (numberOfFinishedButtons == numberOfVisibleButtons) {
-                    mRadioBtnAnsw = baseView.findViewById(mRadioGroup.getCheckedRadioButtonId());
-
-                    try {
-                        //if answer is correct
-                        if (mRadioBtnAnsw.getText().equals(getResources().getString(getResources().getIdentifier("learn" + learn + 4 + 0, "string", getActivity().getPackageName())))) {
-                            Toast.makeText(getActivity(), "Correct answer!", Toast.LENGTH_SHORT).show();
-
-                            //if is the first time when this test it is done update user
-                            if (level2 == user.getLearnProgress() - 6 * (level1 - 1)) {
-                                user.setLearnProgress(user.getLearnProgress() + 1);
-                                user.setTotalPoints(user.getTotalPoints() + 1);
-
-                                FirestoreDatabase.updateUserWithCallback(user, new IRefreshListener() {
-                                    @Override
-                                    public void doRefresh(boolean doRefresh) {
-                                        if (level2 == 6) {
-                                            getActivity().getFragmentManager().popBackStack("MainMenuFragment", 0);
-                                        } else {
-                                            getActivity().getFragmentManager().popBackStack("LearnFragment", 0);
-                                        }
-                                    }
-                                });
-                            }
-                            //else just go back to menu or previous fragment
-                            else {
-                                if (level2 == 6) {
-                                    getActivity().getFragmentManager().popBackStack("MainMenuFragment", 0);
-                                } else {
-                                    getActivity().getFragmentManager().popBackStack("LearnFragment", 0);
-                                }
-
-
-                            }
-                        } else {
-                            Toast.makeText(getActivity(), "Not the correct answer!", Toast.LENGTH_SHORT).show();
-                            numberOfFinishedButtons -= 1;
-                            formatLayout(numberOfFinishedButtons, "last");
-                            mRadioGroup.clearCheck();
-                            mRadioGroup.setVisibility(View.GONE);
-                        }
-                    } catch (Exception ex) {
-                        Toast.makeText(getActivity(), "Please choose an answer!", Toast.LENGTH_SHORT).show();
-                    }
-
-
-                    //si marim progresul ca sa se deblocheze urmatorul nivel
-                    //Toast.makeText(Learn2Activity.this, numberOfFinishedButtons+ "==" + numberOfVisibleButtons, Toast.LENGTH_LONG).show();
-
-                } else {
-                    Toast.makeText(getActivity(), "I don't know yet", Toast.LENGTH_SHORT).show();
+                numberOfFinishedButtons++;
+                formatLayout(4, "next");
+                mRadioGroup.setVisibility(View.VISIBLE);
+                for (int i = 0; i < 3; i++) {
+                    mRadioButtons[i].setText(getResources().getString(getResources().getIdentifier("learn" + learn + 4 + (i + 1), "string", getActivity().getPackageName())));
                 }
+                //Toast.makeText(Learn2Activity.this, (numberOfFinishedButtons-1) + "==" + numberOfVisibleButtons + "-1", Toast.LENGTH_LONG).show();
+            } else if (numberOfFinishedButtons == numberOfVisibleButtons) {
+                mRadioBtnAnsw = baseView.findViewById(mRadioGroup.getCheckedRadioButtonId());
+
+                try {
+                    //if answer is correct
+                    if (mRadioBtnAnsw.getText().equals(getResources().getString(getResources().getIdentifier("learn" + learn + 4 + 0, "string", getActivity().getPackageName())))) {
+                        Toast.makeText(getActivity(), "Correct answer!", Toast.LENGTH_SHORT).show();
+
+                        //if is the first time when this test it is done update user
+                        if (level2 == user.getLearnProgress() - 6 * (level1 - 1)) {
+                            user.setLearnProgress(user.getLearnProgress() + 1);
+                            user.setTotalPoints(user.getTotalPoints() + 1);
+
+                            FirestoreDatabase.updateUserWithCallback(user, new IRefreshListener() {
+                                @Override
+                                public void doRefresh(boolean doRefresh) {
+                                    if (level2 == 6) {
+                                        getActivity().getFragmentManager().popBackStack("MainMenuFragment", 0);
+                                    } else {
+                                        getActivity().getFragmentManager().popBackStack("LearnFragment", 0);
+                                    }
+                                }
+                            });
+                        }
+                        //else just go back to menu or previous fragment
+                        else {
+                            if (level2 == 6) {
+                                getActivity().getFragmentManager().popBackStack("MainMenuFragment", 0);
+                            } else {
+                                getActivity().getFragmentManager().popBackStack("LearnFragment", 0);
+                            }
+
+
+                        }
+                    } else {
+                        Toast.makeText(getActivity(), "Not the correct answer!", Toast.LENGTH_SHORT).show();
+                        numberOfFinishedButtons -= 1;
+                        formatLayout(numberOfFinishedButtons, "last");
+                        mRadioGroup.clearCheck();
+                        mRadioGroup.setVisibility(View.GONE);
+                    }
+                } catch (Exception ex) {
+                    Toast.makeText(getActivity(), "Please choose an answer!", Toast.LENGTH_SHORT).show();
+                }
+
+
+                //si marim progresul ca sa se deblocheze urmatorul nivel
+                //Toast.makeText(Learn2Activity.this, numberOfFinishedButtons+ "==" + numberOfVisibleButtons, Toast.LENGTH_LONG).show();
+
+            } else {
+                Toast.makeText(getActivity(), "I don't know yet", Toast.LENGTH_SHORT).show();
             }
         });
 
         //previous
-        previousButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mRadioGroup.setVisibility(View.GONE);
-                if (numberOfFinishedButtons > 1) {
-                    numberOfFinishedButtons--;
-                    if (numberOfFinishedButtons + 1 == numberOfVisibleButtons) {
-                        formatLayout(numberOfFinishedButtons, "last");
-                    } else {
-                        formatLayout(numberOfFinishedButtons, "previous");
-                    }
+        previousButton.setOnClickListener(v -> {
+            mRadioGroup.setVisibility(View.GONE);
+            if (numberOfFinishedButtons > 1) {
+                numberOfFinishedButtons--;
+                if (numberOfFinishedButtons + 1 == numberOfVisibleButtons) {
+                    formatLayout(numberOfFinishedButtons, "last");
+                } else {
+                    formatLayout(numberOfFinishedButtons, "previous");
                 }
             }
         });

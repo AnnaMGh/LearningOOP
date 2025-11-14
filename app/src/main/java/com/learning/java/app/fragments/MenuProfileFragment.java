@@ -1,7 +1,6 @@
 package com.learning.java.app.fragments;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.PorterDuff;
@@ -28,9 +27,7 @@ import com.learning.java.app.Constants;
 import com.learning.java.app.R;
 import com.learning.java.app.database.FirestoreDatabase;
 import com.learning.java.app.model.IBitmapListener;
-import com.learning.java.app.model.IRefreshListener;
 import com.learning.java.app.model.IUserListener;
-import com.learning.java.app.model.ObjectListener;
 import com.learning.java.app.model.Test;
 import com.learning.java.app.model.User;
 import com.learning.java.app.services.AuthHandler;
@@ -339,102 +336,92 @@ public class MenuProfileFragment extends BaseFragment {
         btnDeleteAccount.setOnClickListener(v -> {
 
             AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
-            dialog.setMessage("Do you really want to remove this test?")
-                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            //show loading bar
-                            showLoadingBar();
+            dialog.setMessage("Do you really want to remove this account?")
+                    .setPositiveButton("Yes", (dialog1, which) -> {
+                        //show loading bar
+                        showLoadingBar();
 
-                            //delete Auth account + sing out
-                            AuthHandler.deleteAccount(new ObjectListener() {
-                                @Override
-                                public void getObject(Object obj) {
-                                    try {
-                                        boolean isSuccess = (boolean) obj;
-                                        if (isSuccess) {
-                                            AuthHandler.singOut();
+                        //delete Auth account + sing out
+                        AuthHandler.deleteAccount(obj -> {
+                            try {
+                                boolean isSuccess = (boolean) obj;
+                                if (isSuccess) {
+                                    AuthHandler.singOut();
 
-                                            //clean shared preferences
-                                            gs.cleanSharedPreferences();
+                                    //clean shared preferences
+                                    gs.cleanSharedPreferences();
 
-                                            //remove item from database
-                                            FirestoreDatabase.deleteUser(user);
+                                    //remove item from database
+                                    FirestoreDatabase.deleteUser(user);
 
-                                            //remove photo from database
-                                            FirestoreDatabase.deletePhoto(user);
+                                    //remove photo from database
+                                    FirestoreDatabase.deletePhoto(user);
 
-                                            //remove item from list
-                                            userList.remove(user.getId());
+                                    //remove item from list
+                                    userList.remove(user.getId());
 
-                                            //check updatedUserList
-                                            if (updatedUserList == null) {
-                                                updatedUserList = new ArrayList<>();
-                                            }
-                                            updatedUserList.clear();
-                                            nrOfUserUpdatesAfterDelete = 0;
-
-                                            //change rest of the user ids
-                                            if (user.getId() < userList.size()) {
-                                                for (int i = user.getId(); i < userList.size(); i++) {
-                                                    User userUpdated = userList.get(i);
-                                                    userUpdated.setId(i);
-                                                    updatedUserList.add(userUpdated);
-                                                }
-                                            }
-
-                                            //modify in Firestore
-                                            if (updatedUserList.isEmpty()) {
-                                                hideLoadingBar();
-                                                Intent i = getActivity().getBaseContext().getPackageManager().getLaunchIntentForPackage(getActivity().getBaseContext().getPackageName());
-                                                if (i != null) {
-                                                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                                    startActivity(i);
-                                                }
-                                            } else {
-                                                for (final User updatedUser : updatedUserList) {
-                                                    new Handler().postDelayed(new Runnable() {
-                                                        @Override
-                                                        public void run() {
-                                                            FirestoreDatabase.updateUserWithCallback(updatedUser, new IRefreshListener() {
-                                                                @Override
-                                                                public void doRefresh(boolean doRefresh) {
-                                                                    //refresh main activity after last update
-                                                                    if (++nrOfUserUpdatesAfterDelete == updatedUserList.size()) {
-                                                                        hideLoadingBar();
-                                                                        Intent i = getActivity().getBaseContext().getPackageManager().getLaunchIntentForPackage(getActivity().getBaseContext().getPackageName());
-                                                                        if (i != null) {
-                                                                            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                                                            startActivity(i);
-                                                                        }
-                                                                    }
-                                                                }
-                                                            });
-                                                        }
-                                                    }, 0);
-                                                }
-                                            }
-                                        } else {
-                                            hideLoadingBar();
-                                            showSimpleAlert("Something went wrong. Please try again later!");
-                                        }
-                                    } catch (Exception e) {
-                                        e.printStackTrace();
-                                        hideLoadingBar();
-                                        showSimpleAlert("Something went wrong. Please try again later!");
+                                    //check updatedUserList
+                                    if (updatedUserList == null) {
+                                        updatedUserList = new ArrayList<>();
                                     }
+                                    updatedUserList.clear();
+                                    nrOfUserUpdatesAfterDelete = 0;
+
+                                    //change rest of the user ids
+                                    if (user.getId() < userList.size()) {
+                                        for (int i = user.getId(); i < userList.size(); i++) {
+                                            User userUpdated = userList.get(i);
+                                            userUpdated.setId(i);
+                                            updatedUserList.add(userUpdated);
+                                        }
+                                    }
+
+                                    //modify in Firestore
+                                    if (updatedUserList.isEmpty()) {
+                                        hideLoadingBar();
+                                        Intent i = getActivity().getBaseContext().getPackageManager().getLaunchIntentForPackage(getActivity().getBaseContext().getPackageName());
+                                        if (i != null) {
+                                            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                            startActivity(i);
+                                        }
+                                    } else {
+                                        for (final User updatedUser : updatedUserList) {
+                                            new Handler().postDelayed(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    FirestoreDatabase.updateUserWithCallback(updatedUser, doRefresh -> {
+                                                        //refresh main activity after last update
+                                                        if (++nrOfUserUpdatesAfterDelete == updatedUserList.size()) {
+                                                            hideLoadingBar();
+                                                            Intent i = getActivity().getBaseContext().getPackageManager().getLaunchIntentForPackage(getActivity().getBaseContext().getPackageName());
+                                                            if (i != null) {
+                                                                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                                                startActivity(i);
+                                                            }
+                                                        }
+                                                    });
+                                                }
+                                            }, 0);
+                                        }
+                                    }
+                                } else {
+                                    hideLoadingBar();
+                                    showSimpleAlert("Something went wrong. Please try again later!");
                                 }
-                            });
+                            } catch (Exception e) {
+                                hideLoadingBar();
 
+                                try {
+                                    String errorMessage = (String) obj;
+                                    showSimpleAlert("Could not delete the account. " + errorMessage);
+                                } catch (Exception ex) {
+                                    showSimpleAlert("Something went wrong. Please try again later!");
+                                }
+                            }
+                        });
 
-                        }
                     })
-                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.cancel();
-                        }
-                    })
+                    .setNegativeButton("No", (dialog2, which) -> dialog2.cancel())
                     .setCancelable(true);
 
             dialog.show();
@@ -442,23 +429,17 @@ public class MenuProfileFragment extends BaseFragment {
 
         });
 
-        btnDeleteAccountsList.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AdminAccountsFragment fragmentAccounts = new AdminAccountsFragment();
-                fragmentAccounts.userList = userList;
-                replaceFragment(fragmentAccounts, "AdminAccountsFragment");
-            }
+        btnDeleteAccountsList.setOnClickListener(v -> {
+            AdminAccountsFragment fragmentAccounts = new AdminAccountsFragment();
+            fragmentAccounts.userList = userList;
+            replaceFragment(fragmentAccounts, "AdminAccountsFragment");
         });
 
-        View.OnClickListener listenerImageAction = new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                UserProfileFragment fragmentUserProfile = new UserProfileFragment();
-                fragmentUserProfile.user = userList.get(Integer.parseInt(view.getTag().toString()));
-                fragmentUserProfile.bitmap = ((BitmapDrawable) ((ImageView) view).getDrawable()).getBitmap();
-                addFragment(fragmentUserProfile, "UserProfileFragment");
-            }
+        View.OnClickListener listenerImageAction = view -> {
+            UserProfileFragment fragmentUserProfile = new UserProfileFragment();
+            fragmentUserProfile.user = userList.get(Integer.parseInt(view.getTag().toString()));
+            fragmentUserProfile.bitmap = ((BitmapDrawable) ((ImageView) view).getDrawable()).getBitmap();
+            addFragment(fragmentUserProfile, "UserProfileFragment");
         };
 
         imgTopUsers[0].setOnClickListener(listenerImageAction);

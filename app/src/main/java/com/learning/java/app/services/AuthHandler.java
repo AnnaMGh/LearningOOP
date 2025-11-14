@@ -106,9 +106,12 @@ public class AuthHandler {
     }
 
     public static void deleteAccount(ObjectListener listener) {
+        Log.d(TAG, "deleteAccount: currentUser " + currentUser);
         if (currentUser == null) {
             currentUser = mAuth.getCurrentUser();
+            Log.d(TAG, "deleteAccount: currentUser " + currentUser);
             if (currentUser == null) {
+                Log.d(TAG, "deleteAccount: currentUser couldn't be found");
                 if (listener != null) {
                     listener.getObject(false);
                 }
@@ -117,15 +120,16 @@ public class AuthHandler {
         }
 
         currentUser.delete()
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            Log.d(TAG, "User account deleted.");
-                        }
-                        if (listener != null) {
-                            listener.getObject(task.isSuccessful());
-                        }
+                .addOnFailureListener(e -> {
+                    Log.d(TAG, "deleteAccount: User account cound not be deleted." + e);
+                    if (listener != null) {
+                        listener.getObject(e.getMessage());
+                    }
+                })
+                .addOnSuccessListener(task -> {
+                    Log.d(TAG, "deleteAccount: User account deleted successfully.");
+                    if (listener != null) {
+                        listener.getObject(true);
                     }
                 });
     }

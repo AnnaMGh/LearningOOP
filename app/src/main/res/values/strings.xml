@@ -1782,5 +1782,6 @@
     <string name="login_privacy_policy"><Data><![CDATA[Check the <u><font color=#00a0ee>privacy policy</font></u>.]]></Data></string>
 
     <string name="privacy_policy_url">https://www.vamvisions.com/projects/learning-oop-en</string>
+    <string name="network_not_connected">You are not connected to the network!</string>
 
 </resources>

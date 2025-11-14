@@ -86,6 +86,9 @@ public class ContainerActivity extends AppCompatActivity {
 
     boolean isAllInfoDownload = false;
 
+    long lastTimeNetworkOn = 0;
+    boolean isAppInForeground = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -140,6 +143,12 @@ public class ContainerActivity extends AppCompatActivity {
                     return;
                 }
 
+                if (lastTimeNetworkOn + 5000 > System.currentTimeMillis()) {
+                    Log.d(TAG, "checkNetwork: Short internet break.");
+                    showLayoutNetwork(false);
+                    return;
+                }
+
                 AlertDialog.Builder builder = new AlertDialog.Builder(ContainerActivity.this);
                 builder.setMessage("Network connection was established. Do you want to reload you session?")
                         .setCancelable(false)
@@ -183,6 +192,13 @@ public class ContainerActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         AuthHandler.startAuth(ContainerActivity.this);
+        isAppInForeground = true;
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        isAppInForeground = false;
     }
 
     @Override
@@ -249,11 +265,11 @@ public class ContainerActivity extends AppCompatActivity {
         FragmentManager manager = getFragmentManager();
         Fragment fragment = manager.findFragmentById(R.id.container);
         if (fragment instanceof LoginFragment || fragment instanceof MainMenuFragment) {
-                Intent intent = new Intent(this, MainActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                intent.putExtra("Exit me", true);
-                startActivity(intent);
-                finish();
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intent.putExtra("Exit me", true);
+            startActivity(intent);
+            finish();
         } else {
             manager.popBackStack();
         }
@@ -500,38 +516,27 @@ public class ContainerActivity extends AppCompatActivity {
 
     void checkNetwork(final IRefreshListener refreshListener) {
         Timer timer = new Timer();
-        timer.scheduleAtFixedRate(new TimerTask() {
+        timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
+                if (isAppInForeground) {
+                    boolean isNetworkAvailable = GlobalSingleton.getInstance().hasInternet(ContainerActivity.this.getApplicationContext());
+                    runOnUiThread(() -> {
                         // Stuff that updates the UI
-                        if (!isNetworkAvailable() && !isNetworkBarShow) {
+                        if (!isNetworkAvailable && !isNetworkBarShow) {
+                            Log.d(TAG, "checkNetwork: Disconnected!");
                             refreshListener.doRefresh(true);
                             isNetworkBarShow = true;
-                        } else if (isNetworkAvailable() && isNetworkBarShow) {
+                            lastTimeNetworkOn = System.currentTimeMillis();
+                        } else if (isNetworkAvailable && isNetworkBarShow) {
+                            Log.d(TAG, "checkNetwork: Reconnected!");
                             refreshListener.doRefresh(false);
                             isNetworkBarShow = false;
                         }
-                    }
-                });
+                    });
+                }
             }
         }, 0, 1000);
-    }
-
-    boolean isNetworkAvailable() {
-        return GlobalSingleton.getInstance().hasInternet(ContainerActivity.this);
-//        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-//        if (connectivityManager != null
-//                && connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE) != null
-//                && connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI) != null
-//        ) {
-//            //we are connected to a network
-//            return connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
-//                    connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED;
-//        }
-//        return false;
     }
 
     public void scheduleInFuture() {
